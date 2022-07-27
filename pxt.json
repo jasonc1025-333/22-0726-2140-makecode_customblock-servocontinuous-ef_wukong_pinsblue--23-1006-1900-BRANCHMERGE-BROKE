@@ -1,5 +1,6 @@
 {
     "name": "22-0726-2140-makecode-customblock_servocontinuous-fitech",
+    "version": "0.0.1",
     "description": "",
     "dependencies": {
         "core": "*",
