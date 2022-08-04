@@ -10,7 +10,6 @@ input.onButtonPressed(Button.A, function () {
             . . # . .
             `)
         roboQuest.continueCurrentState_CountdownTimer_Set(3, Time_Units_Enum.Seconds)
-        basic.pause(3000)
     }
 })
 input.onButtonPressed(Button.AB, function () {
