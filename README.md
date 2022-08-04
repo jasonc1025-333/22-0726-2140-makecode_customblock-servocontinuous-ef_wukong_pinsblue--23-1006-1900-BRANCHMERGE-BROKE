@@ -1,5 +1,5 @@
 
-> Open this page at [https://eande-jasonc1025.github.io/22-0726-2140-makecode_customblock-servocontinuous_fitech/](https://eande-jasonc1025.github.io/22-0726-2140-makecode_customblock-servocontinuous_fitech/)
+> Open this page at [https://eande-jasonc1025.github.io/22-0726-2140-makecode_customblock-servocontinuous-ef_wukong_pinsblue/](https://eande-jasonc1025.github.io/22-0726-2140-makecode_customblock-servocontinuous-ef_wukong_pinsblue/)
 
 ## Use as Extension
 
@@ -8,22 +8,22 @@ This repository can be added as an **extension** in MakeCode.
 * open [https://makecode.microbit.org/](https://makecode.microbit.org/)
 * click on **New Project**
 * click on **Extensions** under the gearwheel menu
-* search for **https://github.com/eande-jasonc1025/22-0726-2140-makecode_customblock-servocontinuous_fitech** and import
+* search for **https://github.com/eande-jasonc1025/22-0726-2140-makecode_customblock-servocontinuous-ef_wukong_pinsblue** and import
 
-## Edit this project ![Build status badge](https://github.com/eande-jasonc1025/22-0726-2140-makecode_customblock-servocontinuous_fitech/workflows/MakeCode/badge.svg)
+## Edit this project ![Build status badge](https://github.com/eande-jasonc1025/22-0726-2140-makecode_customblock-servocontinuous-ef_wukong_pinsblue/workflows/MakeCode/badge.svg)
 
 To edit this repository in MakeCode.
 
 * open [https://makecode.microbit.org/](https://makecode.microbit.org/)
 * click on **Import** then click on **Import URL**
-* paste **https://github.com/eande-jasonc1025/22-0726-2140-makecode_customblock-servocontinuous_fitech** and click import
+* paste **https://github.com/eande-jasonc1025/22-0726-2140-makecode_customblock-servocontinuous-ef_wukong_pinsblue** and click import
 
 ## Blocks preview
 
 This image shows the blocks code from the last commit in master.
 This image may take a few minutes to refresh.
 
-![A rendered view of the blocks](https://github.com/eande-jasonc1025/22-0726-2140-makecode_customblock-servocontinuous_fitech/raw/master/.github/makecode/blocks.png)
+![A rendered view of the blocks](https://github.com/eande-jasonc1025/22-0726-2140-makecode_customblock-servocontinuous-ef_wukong_pinsblue/raw/master/.github/makecode/blocks.png)
 
 #### Metadata (used for search, rendering)
 
