@@ -82,6 +82,16 @@ input.onButtonPressed(Button.B, function () {
         roboQuest.continueCurrentState_CountdownTimer_Set(3, Time_Units_Enum.Seconds)
     }
 })
+input.onGesture(Gesture.TiltRight, function () {
+    roboQuest.rq_PrintString_Oled_Serial_Fn(
+    "test",
+    0,
+    0,
+    0,
+    false,
+    false
+    )
+})
 basic.showIcon(IconNames.SmallHeart)
 roboQuest.continueCurrentState_CountdownTimer_Set(3, Time_Units_Enum.Seconds)
 basic.showIcon(IconNames.Heart)

@@ -31,6 +31,10 @@ enum Time_Units_Enum {
  */
 //% weight=100 color=#0fbc11 icon=""
 namespace roboQuest {
+    
+    // OLED12864_I2C: Initialize Address: 60
+    OLED12864_I2C.init(60)
+        
     /**
      * TODO: describe your function here
      * @param n1 describe parameter here, eg: 5
@@ -95,8 +99,8 @@ namespace roboQuest {
     }
 
     /**
-     * continueCurrentState_Timer_Set
-     * @param durationInSeconds number
+     * continueCurrentState_CountdownTimer_Set
+     * @param countdownTimer number
      * @param timeUnits Time_Units_Enum
      */
     //% block="continue current state for: $countdownTimer $timeUnits"
@@ -122,4 +126,34 @@ namespace roboQuest {
     // export reverse
     // export stop
 
+    /**
+     * rq_PrintString_Oled_Serial_Fn
+     * @param textStrIn string
+     * @param xColBase0In number
+     * @param yRowBase0In number
+     * @param colorIntIn number
+     * @param borderTopBoolIn boolean
+     * @param borderBottomBoolIn boolean
+     */
+    //% block="print OLED & Serial  textStrIn: $textStrIn xColBase0In: $xColBase0In yRowBase0In: $yRowBase0In colorIntIn: $colorIntIn borderTopBoolIn: $borderTopBoolIn borderBottomBoolIn: $borderBottomBoolIn"
+    //% xColBase0In.min=0 xColBase0In.max=4
+    //% yRowBase0In.min=0 yRowBase0In.max=4
+    //% colorIntIn=1
+    export function rq_PrintString_Oled_Serial_Fn (textStrIn: string, xColBase0In: number, yRowBase0In: number, colorIntIn: number, borderTopBoolIn: boolean, borderBottomBoolIn: boolean) {
+        OLED12864_I2C.showString(
+        xColBase0In,
+        yRowBase0In,
+        textStrIn,
+        colorIntIn
+        )
+        if (borderTopBoolIn) {
+            serial.writeLine("")
+        }
+        serial.writeString(textStrIn)
+        serial.writeString(",")
+        if (borderBottomBoolIn) {
+            serial.writeLine("")
+        }
+    }
+    
 }
