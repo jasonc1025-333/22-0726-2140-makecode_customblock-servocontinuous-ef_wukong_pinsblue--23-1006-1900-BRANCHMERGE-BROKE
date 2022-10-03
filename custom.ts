@@ -135,15 +135,15 @@ namespace roboQuest {
      * @param textStrIn string
      * @param xColBase0In number
      * @param yRowBase0In number
-     * @param colorIntIn number
+     * @param colorIntIn number; eg: 1
      * @param borderTopBoolIn boolean
      * @param borderBottomBoolIn boolean
+     * ; eg: 150, 100, 200, -100
      */
     //% block="print OLED & Serial  textStrIn: $textStrIn xColBase0In: $xColBase0In yRowBase0In: $yRowBase0In colorIntIn: $colorIntIn borderTopBoolIn: $borderTopBoolIn borderBottomBoolIn: $borderBottomBoolIn"
     //% xColBase0In.min=0 xColBase0In.max=4
     //% yRowBase0In.min=0 yRowBase0In.max=4
-    //% colorIntIn=1
-    export function rq_PrintString_Oled_Serial_Fn (textStrIn: string, xColBase0In: number, yRowBase0In: number, colorIntIn: number, borderTopBoolIn: boolean, borderBottomBoolIn: boolean) {
+     export function rq_PrintString_Oled_Serial_Fn (textStrIn: string, xColBase0In: number, yRowBase0In: number, colorIntIn: number = 1, borderTopBoolIn: boolean, borderBottomBoolIn: boolean) {
         OLED12864_I2C.showString(
         xColBase0In,
         yRowBase0In,
