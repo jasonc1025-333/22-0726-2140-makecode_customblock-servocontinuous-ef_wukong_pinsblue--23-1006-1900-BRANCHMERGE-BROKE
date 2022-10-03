@@ -32,9 +32,13 @@ enum Time_Units_Enum {
 //% weight=100 color=#0fbc11 icon=""
 namespace roboQuest {
     
-    // OLED12864_I2C: Initialize Address: 60
+    // OLED12864_I2C: Setup
+    //
     OLED12864_I2C.init(60)
-        
+    OLED12864_I2C.on()
+    OLED12864_I2C.zoom(false)
+    OLED12864_I2C.clear()
+
     /**
      * TODO: describe your function here
      * @param n1 describe parameter here, eg: 5
