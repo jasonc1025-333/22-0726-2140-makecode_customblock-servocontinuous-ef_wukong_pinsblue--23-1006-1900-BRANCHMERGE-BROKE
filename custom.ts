@@ -4,6 +4,11 @@
 * Read more at https://makecode.microbit.org/blocks/custom
 */
 
+// *** IMPORTANT NEWS ***
+//
+// * Functions Listed First_In (Here BackEnd): Listed Last_Out (There FrontEnd)
+//
+
 // enum MyEnum {
 //    //% block="one"
 //    One,
@@ -25,6 +30,18 @@ enum rq_Time_Units_Enum {
     Milliseconds,
 }
 
+enum rq_Motion_Direction_Enum {
+    //% block="Forward"
+    Forward,
+    //% block="Backward"
+    Backward,
+    //% block="SpinLeft"
+    SpinLeft,
+    //% block="SpinRight"
+    SpinRight,
+    //% block="Stop"
+    Stop,
+}
 
 /**
  * RoboQuest blocks
@@ -104,31 +121,31 @@ namespace roboQuest {
     }
 
     /**
-     * rq_ContinueCurrentState_CountdownTimer_Set
+     * rq_ContinueCurrentState_CountdownTimer_Set_Fn
      * @param countdownTimer number
      * @param timeUnits rq_Time_Units_Enum
      */
     //% block="continue current state for: $countdownTimer $timeUnits"
     //// y countdownTimer.min=0 countdownTimer.max=5000
-    export function rq_ContinueCurrentState_CountdownTimer_Set(countdownTimer: number, timeUnits: rq_Time_Units_Enum): void {
+    export function rq_ContinueCurrentState_CountdownTimer_Set_Fn(countdownTimer: number, timeUnits: rq_Time_Units_Enum): void {
         let countdownTimerNew = 0
         // Minimum border check
         if (countdownTimer < 0) { countdownTimer = 0 }
         if (timeUnits == rq_Time_Units_Enum.Seconds) {
             countdownTimerNew = countdownTimer * 1000
             basic.pause(countdownTimerNew)
-            serial.writeLine("* rq_continueCurrentState_CountdownTimer_Set: " + countdownTimer + " " + countdownTimerNew)
+            serial.writeLine("* rq_continueCurrentState_CountdownTimer_Set_Fn: " + countdownTimer + " " + countdownTimerNew)
         } else if (timeUnits == rq_Time_Units_Enum.Milliseconds) {
             countdownTimerNew = countdownTimer
             basic.pause(countdownTimerNew)
-            serial.writeLine("* rq_ContinueCurrentState_CountdownTimer_Set: " + countdownTimer + " " + countdownTimerNew)
+            serial.writeLine("* rq_ContinueCurrentState_CountdownTimer_Set_Fn: " + countdownTimer + " " + countdownTimerNew)
         } else {
-            serial.writeLine("* ERROR:rq_continueCurrentState_CountdownTimer_Set: " + countdownTimer + " " + countdownTimerNew)
+            serial.writeLine("* ERROR:rq_continueCurrentState_CountdownTimer_Set_Fn: " + countdownTimer + " " + countdownTimerNew)
         }
     }
 
     /**
-     * rq_PowerMotorsViaBlueRedBlackPins
+     * rq_PowerMotorsViaBlueRedBlackPins_Fn
      * @param portIdsIn rq_PortGroup_BlueRedBlack__PortIds__Enum
      * @param powerLeftIn number
      * @param powerRightIn number
@@ -136,7 +153,7 @@ namespace roboQuest {
     //% block="power motors @ $portIdsIn for left motor power: $powerLeftIn right motor power: $powerRightIn"
     //% powerLeftIn.min=-100 powerLeftIn.max=100
     //% powerRightIn.min=-100 powerRightIn.max=100
-    export function rq_PowerMotorsViaBlueRedBlackPins(portIdsIn: rq_PortGroup_BlueRedBlack__PortIds__Enum, powerLeftIn: number, powerRightIn: number): void {
+    export function rq_PowerMotorsViaBlueRedBlackPins_Fn(portIdsIn: rq_PortGroup_BlueRedBlack__PortIds__Enum, powerLeftIn: number, powerRightIn: number): void {
         // Motor-Left Conversion: Same Rotational Direction
         let powerLeftNew = Math.map(powerLeftIn, -100, 100, 0, 360)
         // Motor-Right Conversion: Opposite Rotational Direction
@@ -146,17 +163,48 @@ namespace roboQuest {
             case rq_PortGroup_BlueRedBlack__PortIds__Enum.S1_MotorLeft__S0_MotorRight:
                 wuKong.setServoAngle(wuKong.ServoTypeList._360, wuKong.ServoList.S1, powerLeftNew)
                 wuKong.setServoAngle(wuKong.ServoTypeList._360, wuKong.ServoList.S0, powerRightNew)
-                serial.writeLine("* rq_PowerMotorsViaBlueRedBlackPins: " + powerLeftIn + " " + powerRightIn + " >> " + powerLeftNew + " " + powerRightNew)
+                serial.writeLine("* rq_PowerMotorsViaBlueRedBlackPins_Fn: " + powerLeftIn + " " + powerRightIn + " >> " + powerLeftNew + " " + powerRightNew)
                 break
             case rq_PortGroup_BlueRedBlack__PortIds__Enum.S3_MotorLeft__S2_MotorRight:
                 wuKong.setServoAngle(wuKong.ServoTypeList._360, wuKong.ServoList.S3, powerLeftNew)
                 wuKong.setServoAngle(wuKong.ServoTypeList._360, wuKong.ServoList.S2, powerRightNew)
-                serial.writeLine("* rq_PowerMotorsViaBlueRedBlackPins: " + powerLeftIn + " " + powerRightIn + " >> " + powerLeftNew + " " + powerRightNew)
-                break
+                serial.writeLine("* rq_PowerMotorsViaBlueRedBlackPins_Fn: " + powerLeftIn + " " + powerRightIn + " >> " + powerLeftNew + " " + powerRightNew)
             default:
-                serial.writeLine("* ERROR: powerMotorsViaBlueRedBlackPins: " + powerLeftIn + " " + powerRightIn + " >> " + powerLeftNew + " " + powerRightNew)
+                serial.writeLine("* ERROR: rq_PowerMotorsViaBlueRedBlackPins_Fn: " + powerLeftIn + " " + powerRightIn + " >> " + powerLeftNew + " " + powerRightNew)
                 break
         }
     }
-    
+
+    /**
+     * rq_show_MotionDirection_Fn
+     * @param motionDirectionIn rq_Motion_Direction_Enum
+     * @param powerLeftIn number
+     * @param powerRightIn number
+     */
+    //% block="power motors @ $portIdsIn for left motor power: $powerLeftIn right motor power: $powerRightIn"
+    //% powerLeftIn.min=-100 powerLeftIn.max=100
+    //% powerRightIn.min=-100 powerRightIn.max=100
+    export function rq_show_MotionDirection_Fn(portIdsIn: rq_PortGroup_BlueRedBlack__PortIds__Enum, powerLeftIn: number, powerRightIn: number): void {
+        // Motor-Left Conversion: Same Rotational Direction
+        let powerLeftNew = Math.map(powerLeftIn, -100, 100, 0, 360)
+        // Motor-Right Conversion: Opposite Rotational Direction
+        let powerRightNew = Math.map(powerRightIn, -100, 100, 360, 0)
+
+        switch (portIdsIn) {
+            case rq_PortGroup_BlueRedBlack__PortIds__Enum.S1_MotorLeft__S0_MotorRight:
+                wuKong.setServoAngle(wuKong.ServoTypeList._360, wuKong.ServoList.S1, powerLeftNew)
+                wuKong.setServoAngle(wuKong.ServoTypeList._360, wuKong.ServoList.S0, powerRightNew)
+                serial.writeLine("* rq_show_MotionDirection_Fn: " + powerLeftIn + " " + powerRightIn + " >> " + powerLeftNew + " " + powerRightNew)
+                break
+            case rq_PortGroup_BlueRedBlack__PortIds__Enum.S3_MotorLeft__S2_MotorRight:
+                wuKong.setServoAngle(wuKong.ServoTypeList._360, wuKong.ServoList.S3, powerLeftNew)
+                wuKong.setServoAngle(wuKong.ServoTypeList._360, wuKong.ServoList.S2, powerRightNew)
+                serial.writeLine("* rq_show_MotionDirection_Fn: " + powerLeftIn + " " + powerRightIn + " >> " + powerLeftNew + " " + powerRightNew)
+                break
+            default:
+                serial.writeLine("* ERROR: rq_show_MotionDirection_Fn: " + powerLeftIn + " " + powerRightIn + " >> " + powerLeftNew + " " + powerRightNew)
+                break
+        }
+    }
+
 }
