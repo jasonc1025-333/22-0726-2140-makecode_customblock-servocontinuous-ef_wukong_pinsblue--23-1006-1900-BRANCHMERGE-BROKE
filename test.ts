@@ -4,11 +4,10 @@
 ////basic.showIcon(IconNames.Meh)
 
 
-
 // * Keep in mind that the micro:bit is 'updside-down' when using the LED 5x5 Matrix.
 input.onButtonPressed(Button.A, function () {
     if (true) {
-        roboQuest.powerMotorsViaBlueRedBlackPins(PortGroup_BlueRedBlack__PortIds__Enum.S1_MotorLeft__S0_MotorRight, 100, 100)
+        roboQuest.rq_PowerMotorsViaBlueRedBlackPins(PortGroup_BlueRedBlack__PortIds__Enum.S1_MotorLeft__S0_MotorRight, 100, 100)
         basic.showLeds(`
             . . . . .
             . . . . .
@@ -16,12 +15,12 @@ input.onButtonPressed(Button.A, function () {
             . . . . .
             . . # . .
             `)
-        roboQuest.continueCurrentState_CountdownTimer_Set(3, Time_Units_Enum.Seconds)
+        roboQuest.rq_ContinueCurrentState_CountdownTimer_Set(3, Time_Units_Enum.Seconds)
     }
 })
 input.onButtonPressed(Button.AB, function () {
     if (true) {
-        roboQuest.powerMotorsViaBlueRedBlackPins(PortGroup_BlueRedBlack__PortIds__Enum.S1_MotorLeft__S0_MotorRight, 100, 100)
+        roboQuest.rq_PowerMotorsViaBlueRedBlackPins(PortGroup_BlueRedBlack__PortIds__Enum.S1_MotorLeft__S0_MotorRight, 100, 100)
         basic.showLeds(`
             . . . . .
             . . . . .
@@ -29,10 +28,10 @@ input.onButtonPressed(Button.AB, function () {
             . . . . .
             . . # . .
             `)
-        roboQuest.continueCurrentState_CountdownTimer_Set(3, Time_Units_Enum.Seconds)
+        roboQuest.rq_ContinueCurrentState_CountdownTimer_Set(3, Time_Units_Enum.Seconds)
     }
     if (true) {
-        roboQuest.powerMotorsViaBlueRedBlackPins(PortGroup_BlueRedBlack__PortIds__Enum.S1_MotorLeft__S0_MotorRight, -100, -100)
+        roboQuest.rq_PowerMotorsViaBlueRedBlackPins(PortGroup_BlueRedBlack__PortIds__Enum.S1_MotorLeft__S0_MotorRight, -100, -100)
         basic.showLeds(`
             . . # . .
             . . . . .
@@ -40,10 +39,10 @@ input.onButtonPressed(Button.AB, function () {
             . . . . .
             . . . . .
             `)
-        roboQuest.continueCurrentState_CountdownTimer_Set(3000, Time_Units_Enum.Milliseconds)
+        roboQuest.rq_ContinueCurrentState_CountdownTimer_Set(3000, Time_Units_Enum.Milliseconds)
     }
     if (true) {
-        roboQuest.powerMotorsViaBlueRedBlackPins(PortGroup_BlueRedBlack__PortIds__Enum.S1_MotorLeft__S0_MotorRight, 100, -100)
+        roboQuest.rq_PowerMotorsViaBlueRedBlackPins(PortGroup_BlueRedBlack__PortIds__Enum.S1_MotorLeft__S0_MotorRight, 100, -100)
         basic.showLeds(`
             . . . . .
             . . . . .
@@ -51,10 +50,10 @@ input.onButtonPressed(Button.AB, function () {
             . . . . .
             . . . . .
             `)
-        roboQuest.continueCurrentState_CountdownTimer_Set(3, Time_Units_Enum.Seconds)
+        roboQuest.rq_ContinueCurrentState_CountdownTimer_Set(3, Time_Units_Enum.Seconds)
     }
     if (true) {
-        roboQuest.powerMotorsViaBlueRedBlackPins(PortGroup_BlueRedBlack__PortIds__Enum.S1_MotorLeft__S0_MotorRight, -100, 100)
+        roboQuest.rq_PowerMotorsViaBlueRedBlackPins(PortGroup_BlueRedBlack__PortIds__Enum.S1_MotorLeft__S0_MotorRight, -100, 100)
         basic.showLeds(`
             . . . . .
             . . . . .
@@ -62,10 +61,10 @@ input.onButtonPressed(Button.AB, function () {
             . . . . .
             . . . . .
             `)
-        roboQuest.continueCurrentState_CountdownTimer_Set(3000, Time_Units_Enum.Milliseconds)
+        roboQuest.rq_ContinueCurrentState_CountdownTimer_Set(3000, Time_Units_Enum.Milliseconds)
     }
     if (true) {
-        roboQuest.powerMotorsViaBlueRedBlackPins(PortGroup_BlueRedBlack__PortIds__Enum.S1_MotorLeft__S0_MotorRight, 0, 0)
+        roboQuest.rq_PowerMotorsViaBlueRedBlackPins(PortGroup_BlueRedBlack__PortIds__Enum.S1_MotorLeft__S0_MotorRight, 0, 0)
         basic.showLeds(`
             . . . . .
             . . . . .
@@ -73,12 +72,12 @@ input.onButtonPressed(Button.AB, function () {
             . . . . .
             . . . . .
             `)
-        roboQuest.continueCurrentState_CountdownTimer_Set(3, Time_Units_Enum.Seconds)
+        roboQuest.rq_ContinueCurrentState_CountdownTimer_Set(3, Time_Units_Enum.Seconds)
     }
 })
 input.onButtonPressed(Button.B, function () {
     if (true) {
-        roboQuest.powerMotorsViaBlueRedBlackPins(PortGroup_BlueRedBlack__PortIds__Enum.S1_MotorLeft__S0_MotorRight, 0, 0)
+        roboQuest.rq_PowerMotorsViaBlueRedBlackPins(PortGroup_BlueRedBlack__PortIds__Enum.S1_MotorLeft__S0_MotorRight, 0, 0)
         basic.showLeds(`
             . . . . .
             . . . . .
@@ -86,7 +85,7 @@ input.onButtonPressed(Button.B, function () {
             . . . . .
             . . . . .
             `)
-        roboQuest.continueCurrentState_CountdownTimer_Set(3, Time_Units_Enum.Seconds)
+        roboQuest.rq_ContinueCurrentState_CountdownTimer_Set(3, Time_Units_Enum.Seconds)
     }
 })
 input.onGesture(Gesture.TiltRight, function () {
@@ -100,8 +99,8 @@ input.onGesture(Gesture.TiltRight, function () {
     )
 })
 basic.showIcon(IconNames.SmallHeart)
-roboQuest.continueCurrentState_CountdownTimer_Set(3, Time_Units_Enum.Seconds)
+roboQuest.rq_ContinueCurrentState_CountdownTimer_Set(3, Time_Units_Enum.Seconds)
 basic.showIcon(IconNames.Heart)
-roboQuest.continueCurrentState_CountdownTimer_Set(3000, Time_Units_Enum.Milliseconds)
+roboQuest.rq_ContinueCurrentState_CountdownTimer_Set(3000, Time_Units_Enum.Milliseconds)
 basic.showIcon(IconNames.Happy)
 roboQuest.rq_PrintString_Oled_Serial_Fn("", 0, 0, 0, false, false)
