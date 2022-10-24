@@ -159,7 +159,7 @@ namespace roboQuest {
      * rq_show_MotionDirection_Fn
      * @param motionDirectionIn rq_Motion_Direction_Enum
      */
-    //% block="show motion_direction on bot @ $motionDirectionIn"
+    //% block="show motion_direction: $motionDirectionIn"
     export function rq_show_MotionDirection_Fn(motionDirectionIn: rq_Motion_Direction_Enum): void {
 
         switch (motionDirectionIn) {
@@ -274,9 +274,9 @@ namespace roboQuest {
             case rq_Motion_Direction_Enum.Stop:
                 basic.showLeds(`
                         . . . . .
-                        . # # # .
-                        . # # # .
-                        . # # # .
+                        . . . . .
+                        . . # . .
+                        . . . . .
                         . . . . .
                         `)
                 OLED12864_I2C.showString(
