@@ -155,40 +155,6 @@ namespace roboQuest {
         }
     }
 
-
-    /**
-     * rq_PowerMotorsViaBlueRedBlackPins_Fn2
-     * @param portIdsIn rq_PortGroup_BlueRedBlack_PortIds_Enum
-     * @param powerLeftIn number
-     * @param powerRightIn number
-     */
-    //% block="power motors2 @ $portIdsIn for left motor power: $powerLeftIn right motor power: $powerRightIn"
-    //% powerLeftIn.min=-100 powerLeftIn.max=100
-    //% powerRightIn.min=-100 powerRightIn.max=100
-    export function rq_PowerMotorsViaBlueRedBlackPins_Fn2(portIdsIn: rq_PortGroup_BlueRedBlack_PortIds_Enum, powerLeftIn: number, powerRightIn: number): void {
-        // Motor-Left Conversion: Same Rotational Direction
-        let powerLeftNew = Math.map(powerLeftIn, -100, 100, 0, 360)
-        // Motor-Right Conversion: Opposite Rotational Direction
-        let powerRightNew = Math.map(powerRightIn, -100, 100, 360, 0)
-
-        switch (portIdsIn) {
-            case rq_PortGroup_BlueRedBlack_PortIds_Enum.S1_MotorLeft__S0_MotorRight:
-                wuKong.setServoAngle(wuKong.ServoTypeList._360, wuKong.ServoList.S1, powerLeftNew)
-                wuKong.setServoAngle(wuKong.ServoTypeList._360, wuKong.ServoList.S0, powerRightNew)
-                serial.writeLine("* rq_PowerMotorsViaBlueRedBlackPins_Fn: " + powerLeftIn + " " + powerRightIn + " >> " + powerLeftNew + " " + powerRightNew)
-                break
-            case rq_PortGroup_BlueRedBlack_PortIds_Enum.S3_MotorLeft__S2_MotorRight:
-                wuKong.setServoAngle(wuKong.ServoTypeList._360, wuKong.ServoList.S3, powerLeftNew)
-                wuKong.setServoAngle(wuKong.ServoTypeList._360, wuKong.ServoList.S2, powerRightNew)
-                serial.writeLine("* rq_PowerMotorsViaBlueRedBlackPins_Fn: " + powerLeftIn + " " + powerRightIn + " >> " + powerLeftNew + " " + powerRightNew)
-            default:
-                serial.writeLine("* ERROR: rq_PowerMotorsViaBlueRedBlackPins_Fn: " + powerLeftIn + " " + powerRightIn + " >> " + powerLeftNew + " " + powerRightNew)
-                break
-        }
-    }
-
-
-
     /**
      * rq_show_MotionDirection_Fn
      * @param motionDirectionIn rq_Motion_Direction_Enum
