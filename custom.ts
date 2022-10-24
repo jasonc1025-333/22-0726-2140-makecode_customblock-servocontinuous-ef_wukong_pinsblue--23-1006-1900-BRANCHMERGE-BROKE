@@ -69,39 +69,6 @@ namespace roboQuest {
     OLED12864_I2C.clear()
 
 
-//    /**
-//     * TODO: describe your function here
-//     * @param n1 describe parameter here, eg: 5
-//     * @param s describe parameter here, eg: "Hello"
-//     * @param e describe parameter here
-//     */
-//    //% block
-//    export function foo(n1: number, s: string, e: MyEnum): void {
-//        // Add code here
-//    }
-//
-//    /**
-//        * TODO: describe your function here
-//        * @param n2 describe parameter here, eg: 5
-//        * @param s2 describe parameter here, eg: "Hello"
-//        * @param e2 describe parameter here
-//        */
-//    //% block
-//   export function foo2(n2: number, s2: string, e2: MyEnum): void {
-//        // Add code here
-//    }
-//    /**
-//     * TODO: describe your function here
-//     * @param value describe value here, eg: 5
-//     */
-//    //% block
-//    export function fib(value: number): number {
-//        return value <= 1 ? value : fib(value - 1) + fib(value - 2);
-//    }
-
-    // export  forward
-    // export reverse
-    // export stop
 
     /**
      * rq_PrintString_Oled_Serial_Fn
