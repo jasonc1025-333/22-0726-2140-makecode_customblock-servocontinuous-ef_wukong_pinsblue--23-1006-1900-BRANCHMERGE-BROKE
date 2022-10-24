@@ -186,6 +186,7 @@ namespace roboQuest {
             //
             case rq_Motion_Direction_Enum.Forward:  
                 if (deviceType_Bot_Bool) {
+                    led.plot(2, 4)
                     /*basic.showLeds(`
                             . . # . .
                             . . # . .
@@ -194,7 +195,6 @@ namespace roboQuest {
                             . . # . .
                             `)
                     */
-                    led.plot(2, 4)
                 }
                 else if (deviceType_Controller_Bool) {
                     led.plot(2, 0)                 
