@@ -16,7 +16,7 @@
 //    Two
 // }
 
-enum rq_PortGroup_BlueRedBlack__PortIds__Enum {
+enum rq_PortGroup_BlueRedBlack_PortIds_Enum {
     //% block="S1_MotorLeft__S0_MotorRight"
     S1_MotorLeft__S0_MotorRight,
     //% block="S3_MotorLeft__S2_MotorRight"
@@ -35,26 +35,39 @@ enum rq_Motion_Direction_Enum {
     Forward,
     //% block="Backward"
     Backward,
-    //% block="SpinLeft"
-    SpinLeft,
-    //% block="SpinRight"
-    SpinRight,
+    //% block="Left"
+    Left,
+    //% block="Right"
+    Right,
     //% block="Stop"
     Stop,
 }
+
+// * Though it seems that can define global vars here, but not advised 
+// ** since memory storage would be safer within 'namespace'
+//
+///y let deviceType_Bot_Bool = false
+///y let deviceType_Controller_Bool = true
 
 /**
  * RoboQuest blocks
  */
 //% weight=100 color=#0fbc11 icon=""
 namespace roboQuest {
-    
+
+
+    // * Default to Bot and not to Controller for most basic total 1 'micro:bit' setup (No Controller)
+    //
+    let deviceType_Bot_Bool = true
+    let deviceType_Controller_Bool = false
+
     // OLED12864_I2C: Setup
     //
     OLED12864_I2C.init(60)
     OLED12864_I2C.on()
     OLED12864_I2C.zoom(false)
     OLED12864_I2C.clear()
+
 
 //    /**
 //     * TODO: describe your function here
@@ -146,26 +159,26 @@ namespace roboQuest {
 
     /**
      * rq_PowerMotorsViaBlueRedBlackPins_Fn
-     * @param portIdsIn rq_PortGroup_BlueRedBlack__PortIds__Enum
+     * @param portIdsIn rq_PortGroup_BlueRedBlack_PortIds_Enum
      * @param powerLeftIn number
      * @param powerRightIn number
      */
     //% block="power motors @ $portIdsIn for left motor power: $powerLeftIn right motor power: $powerRightIn"
     //% powerLeftIn.min=-100 powerLeftIn.max=100
     //% powerRightIn.min=-100 powerRightIn.max=100
-    export function rq_PowerMotorsViaBlueRedBlackPins_Fn(portIdsIn: rq_PortGroup_BlueRedBlack__PortIds__Enum, powerLeftIn: number, powerRightIn: number): void {
+    export function rq_PowerMotorsViaBlueRedBlackPins_Fn(portIdsIn: rq_PortGroup_BlueRedBlack_PortIds_Enum, powerLeftIn: number, powerRightIn: number): void {
         // Motor-Left Conversion: Same Rotational Direction
         let powerLeftNew = Math.map(powerLeftIn, -100, 100, 0, 360)
         // Motor-Right Conversion: Opposite Rotational Direction
         let powerRightNew = Math.map(powerRightIn, -100, 100, 360, 0)
 
         switch (portIdsIn) {
-            case rq_PortGroup_BlueRedBlack__PortIds__Enum.S1_MotorLeft__S0_MotorRight:
+            case rq_PortGroup_BlueRedBlack_PortIds_Enum.S1_MotorLeft__S0_MotorRight:
                 wuKong.setServoAngle(wuKong.ServoTypeList._360, wuKong.ServoList.S1, powerLeftNew)
                 wuKong.setServoAngle(wuKong.ServoTypeList._360, wuKong.ServoList.S0, powerRightNew)
                 serial.writeLine("* rq_PowerMotorsViaBlueRedBlackPins_Fn: " + powerLeftIn + " " + powerRightIn + " >> " + powerLeftNew + " " + powerRightNew)
                 break
-            case rq_PortGroup_BlueRedBlack__PortIds__Enum.S3_MotorLeft__S2_MotorRight:
+            case rq_PortGroup_BlueRedBlack_PortIds_Enum.S3_MotorLeft__S2_MotorRight:
                 wuKong.setServoAngle(wuKong.ServoTypeList._360, wuKong.ServoList.S3, powerLeftNew)
                 wuKong.setServoAngle(wuKong.ServoTypeList._360, wuKong.ServoList.S2, powerRightNew)
                 serial.writeLine("* rq_PowerMotorsViaBlueRedBlackPins_Fn: " + powerLeftIn + " " + powerRightIn + " >> " + powerLeftNew + " " + powerRightNew)
@@ -175,36 +188,208 @@ namespace roboQuest {
         }
     }
 
+
     /**
-     * rq_show_MotionDirection_Fn
-     * @param motionDirectionIn rq_Motion_Direction_Enum
+     * rq_PowerMotorsViaBlueRedBlackPins_Fn2
+     * @param portIdsIn rq_PortGroup_BlueRedBlack_PortIds_Enum
      * @param powerLeftIn number
      * @param powerRightIn number
      */
-    //% block="power motors @ $portIdsIn for left motor power: $powerLeftIn right motor power: $powerRightIn"
+    //% block="power motors2 @ $portIdsIn for left motor power: $powerLeftIn right motor power: $powerRightIn"
     //% powerLeftIn.min=-100 powerLeftIn.max=100
     //% powerRightIn.min=-100 powerRightIn.max=100
-    export function rq_show_MotionDirection_Fn(portIdsIn: rq_PortGroup_BlueRedBlack__PortIds__Enum, powerLeftIn: number, powerRightIn: number): void {
+    export function rq_PowerMotorsViaBlueRedBlackPins_Fn2(portIdsIn: rq_PortGroup_BlueRedBlack_PortIds_Enum, powerLeftIn: number, powerRightIn: number): void {
         // Motor-Left Conversion: Same Rotational Direction
         let powerLeftNew = Math.map(powerLeftIn, -100, 100, 0, 360)
         // Motor-Right Conversion: Opposite Rotational Direction
         let powerRightNew = Math.map(powerRightIn, -100, 100, 360, 0)
 
         switch (portIdsIn) {
-            case rq_PortGroup_BlueRedBlack__PortIds__Enum.S1_MotorLeft__S0_MotorRight:
+            case rq_PortGroup_BlueRedBlack_PortIds_Enum.S1_MotorLeft__S0_MotorRight:
                 wuKong.setServoAngle(wuKong.ServoTypeList._360, wuKong.ServoList.S1, powerLeftNew)
                 wuKong.setServoAngle(wuKong.ServoTypeList._360, wuKong.ServoList.S0, powerRightNew)
-                serial.writeLine("* rq_show_MotionDirection_Fn: " + powerLeftIn + " " + powerRightIn + " >> " + powerLeftNew + " " + powerRightNew)
+                serial.writeLine("* rq_PowerMotorsViaBlueRedBlackPins_Fn: " + powerLeftIn + " " + powerRightIn + " >> " + powerLeftNew + " " + powerRightNew)
                 break
-            case rq_PortGroup_BlueRedBlack__PortIds__Enum.S3_MotorLeft__S2_MotorRight:
+            case rq_PortGroup_BlueRedBlack_PortIds_Enum.S3_MotorLeft__S2_MotorRight:
                 wuKong.setServoAngle(wuKong.ServoTypeList._360, wuKong.ServoList.S3, powerLeftNew)
                 wuKong.setServoAngle(wuKong.ServoTypeList._360, wuKong.ServoList.S2, powerRightNew)
-                serial.writeLine("* rq_show_MotionDirection_Fn: " + powerLeftIn + " " + powerRightIn + " >> " + powerLeftNew + " " + powerRightNew)
-                break
+                serial.writeLine("* rq_PowerMotorsViaBlueRedBlackPins_Fn: " + powerLeftIn + " " + powerRightIn + " >> " + powerLeftNew + " " + powerRightNew)
             default:
-                serial.writeLine("* ERROR: rq_show_MotionDirection_Fn: " + powerLeftIn + " " + powerRightIn + " >> " + powerLeftNew + " " + powerRightNew)
+                serial.writeLine("* ERROR: rq_PowerMotorsViaBlueRedBlackPins_Fn: " + powerLeftIn + " " + powerRightIn + " >> " + powerLeftNew + " " + powerRightNew)
                 break
         }
     }
+
+
+
+    /**
+     * rq_show_MotionDirection_Fn
+     * @param motionDirectionIn rq_Motion_Direction_Enum
+     */
+    //% block="show motion_direction on bot @ $motionDirectionIn"
+    export function rq_show_MotionDirection_Fn(motionDirectionIn: rq_Motion_Direction_Enum): void {
+
+        switch (motionDirectionIn) {
+            // * if on 'bot', then 5x5LED is upside-down - so Yes_Flip graphics
+            // * if on 'controller', then 5x5 is rightside-up - so No_Flip graphics
+            //
+            case rq_Motion_Direction_Enum.Forward:  
+                if (deviceType_Bot_Bool) {
+                    basic.showLeds(`
+                            . . # . .
+                            . . # . .
+                            # # # # #
+                            . # # # .
+                            . . # . .
+                            `)
+                }
+                else if (deviceType_Controller_Bool) {
+                    basic.showLeds(`
+                            . . # . .
+                            . # # # .
+                            # # # # #
+                            . . # . .
+                            . . # . .
+                            `)
+                   
+                }
+                OLED12864_I2C.showString(
+                    0,
+                    0,
+                    "^",
+                    1
+                )
+                break
+            case rq_Motion_Direction_Enum.Backward:
+                if (deviceType_Bot_Bool) {
+                    basic.showLeds(`
+                            . . # . .
+                            . # # # .
+                            # # # # #
+                            . . # . .
+                            . . # . .
+                            `)
+                }
+                else if (deviceType_Controller_Bool) {
+                    basic.showLeds(`
+                            . . # . .
+                            . . # . .
+                            # # # # #
+                            . # # # .
+                            . . # . .
+                            `)
+                }
+                OLED12864_I2C.showString(
+                    0,
+                    0,
+                    "v",
+                    1
+                )
+                break
+            case rq_Motion_Direction_Enum.Left:
+                if (deviceType_Bot_Bool) {
+                    basic.showLeds(`
+                            . . # . .
+                            . . # # .
+                            # # # # #
+                            . . # # .
+                            . . # . .
+                            `)
+                }
+                else if (deviceType_Controller_Bool) {
+                    basic.showLeds(`
+                            . . # . .
+                            . # # . .
+                            # # # # #
+                            . # # . .
+                            . . # . .
+                            `)
+                }
+                OLED12864_I2C.showString(
+                    0,
+                    0,
+                    "<",
+                    1
+                )
+                break
+            case rq_Motion_Direction_Enum.Right:
+                if (deviceType_Bot_Bool) {
+                    basic.showLeds(`
+                            . . # . .
+                            . # # . .
+                            # # # # #
+                            . # # . .
+                            . . # . .
+                            `)
+                }
+                else if (deviceType_Controller_Bool) {
+                    basic.showLeds(`
+                            . . # . .
+                            . . # # .
+                            # # # # #
+                            . . # # .
+                            . . # . .
+                            `)
+                }
+                OLED12864_I2C.showString(
+                    0,
+                    0,
+                    ">",
+                    1
+                )
+                break
+            case rq_Motion_Direction_Enum.Stop:
+                basic.showLeds(`
+                        . . . . .
+                        . # # # .
+                        . # # # .
+                        . # # # .
+                        . . . . .
+                        `)
+                OLED12864_I2C.showString(
+                    0,
+                    0,
+                    ".",
+                    1
+                )
+                break
+            default:
+                basic.showLeds(`
+                . . . . .
+                . # . # .
+                . . . . .
+                . # # # .
+                # . . . #
+                `)
+                OLED12864_I2C.showString(
+                    0,
+                    0,
+                    "?",
+                    1
+                )
+                break
+        }
+    }
+
+    /**
+     * rq_Setup_Fn
+     * @param deviceTypeBotBoolIn boolean
+     * @param deviceTypeControllerBoolIn boolean
+     */
+    //% block="rq setup: 'deviceType_Bot_Bool': $deviceTypeBotBoolIn, 'deviceType_Controller_Bool': $deviceTypeControllerBoolIn"
+    export function rq_Setup_Fn(deviceTypeBotBoolIn: boolean, deviceTypeControllerBoolIn: boolean): void {
+
+        deviceType_Bot_Bool = deviceTypeBotBoolIn
+        deviceType_Controller_Bool = deviceTypeControllerBoolIn
+
+        OLED12864_I2C.showString(
+            0,
+            1,
+            "B:" + convertToText(deviceType_Bot_Bool) + ", C:" + convertToText(deviceType_Controller_Bool),
+            1
+        )
+
+    }
+
 
 }
