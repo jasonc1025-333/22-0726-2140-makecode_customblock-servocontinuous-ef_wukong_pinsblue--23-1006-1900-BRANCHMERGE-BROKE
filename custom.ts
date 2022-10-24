@@ -168,23 +168,26 @@ namespace roboQuest {
             //
             case rq_Motion_Direction_Enum.Forward:  
                 if (deviceType_Bot_Bool) {
-                    basic.showLeds(`
+                    /*basic.showLeds(`
                             . . # . .
                             . . # . .
                             # # # # #
                             . # # # .
                             . . # . .
                             `)
+                    */
+                    led.plot(2, 4)
                 }
                 else if (deviceType_Controller_Bool) {
-                    basic.showLeds(`
+                    led.plot(2, 0)                 
+                    /*basic.showLeds(`
                             . . # . .
                             . # # # .
                             # # # # #
                             . . # . .
                             . . # . .
                             `)
-                   
+                    */
                 }
                 OLED12864_I2C.showString(
                     0,
@@ -195,22 +198,26 @@ namespace roboQuest {
                 break
             case rq_Motion_Direction_Enum.Backward:
                 if (deviceType_Bot_Bool) {
-                    basic.showLeds(`
+                    led.plot(2, 0)
+                    /*basic.showLeds(`
                             . . # . .
                             . # # # .
                             # # # # #
                             . . # . .
                             . . # . .
                             `)
+                    */
                 }
                 else if (deviceType_Controller_Bool) {
-                    basic.showLeds(`
+                    led.plot(2, 4)
+                    /*basic.showLeds(`
                             . . # . .
                             . . # . .
                             # # # # #
                             . # # # .
                             . . # . .
                             `)
+                    */
                 }
                 OLED12864_I2C.showString(
                     0,
@@ -221,22 +228,26 @@ namespace roboQuest {
                 break
             case rq_Motion_Direction_Enum.Left:
                 if (deviceType_Bot_Bool) {
-                    basic.showLeds(`
+                    led.plot(4, 2)
+                    /*basic.showLeds(`
                             . . # . .
                             . . # # .
                             # # # # #
                             . . # # .
                             . . # . .
                             `)
+                    */
                 }
                 else if (deviceType_Controller_Bool) {
-                    basic.showLeds(`
+                    led.plot(0, 2)
+                    /*basic.showLeds(`
                             . . # . .
                             . # # . .
                             # # # # #
                             . # # . .
                             . . # . .
                             `)
+                    */
                 }
                 OLED12864_I2C.showString(
                     0,
@@ -247,22 +258,26 @@ namespace roboQuest {
                 break
             case rq_Motion_Direction_Enum.Right:
                 if (deviceType_Bot_Bool) {
-                    basic.showLeds(`
+                    led.plot(0, 2)
+                    /*basic.showLeds(`
                             . . # . .
                             . # # . .
                             # # # # #
                             . # # . .
                             . . # . .
                             `)
+                    */
                 }
                 else if (deviceType_Controller_Bool) {
-                    basic.showLeds(`
+                    led.plot(4, 2)
+                    /*basic.showLeds(`
                             . . # . .
                             . . # # .
                             # # # # #
                             . . # # .
                             . . # . .
                             `)
+                    */
                 }
                 OLED12864_I2C.showString(
                     0,
@@ -272,13 +287,15 @@ namespace roboQuest {
                 )
                 break
             case rq_Motion_Direction_Enum.Stop:
-                basic.showLeds(`
+                led.plot(2, 2)
+                /*basic.showLeds(`
                         . . . . .
                         . . . . .
                         . . # . .
                         . . . . .
                         . . . . .
                         `)
+                */
                 OLED12864_I2C.showString(
                     0,
                     0,
