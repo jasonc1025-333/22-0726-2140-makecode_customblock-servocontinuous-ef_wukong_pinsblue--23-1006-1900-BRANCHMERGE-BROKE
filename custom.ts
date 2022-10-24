@@ -56,10 +56,15 @@ enum rq_Motion_Direction_Enum {
 namespace roboQuest {
 
 
+    //
+    // * Global Variables & Constants
+    //
     // * Default to Bot and not to Controller for most basic total 1 'micro:bit' setup (No Controller)
     //
     let deviceType_Bot_Bool = true
     let deviceType_Controller_Bool = false
+    //
+    let _debug_Serial_Print_Bool = false
 
     // OLED12864_I2C: Setup
     //
@@ -67,8 +72,6 @@ namespace roboQuest {
     OLED12864_I2C.on()
     OLED12864_I2C.zoom(false)
     OLED12864_I2C.clear()
-
-
 
     /**
      * rq_PrintString_Oled_Serial_Fn
@@ -90,13 +93,15 @@ namespace roboQuest {
         textStrIn,
         colorIntIn
         )
-        if (borderTopBoolIn) {
-            serial.writeLine("")
-        }
-        serial.writeString(textStrIn)
-        serial.writeString(",")
-        if (borderBottomBoolIn) {
-            serial.writeLine("")
+        if (_debug_Serial_Print_Bool) {
+            if (borderTopBoolIn) {
+                serial.writeLine("")
+            }
+            serial.writeString(textStrIn)
+            serial.writeString(",")
+            if (borderBottomBoolIn) {
+                serial.writeLine("")
+            }
         }
     }
 
@@ -114,13 +119,19 @@ namespace roboQuest {
         if (timeUnits == rq_Time_Units_Enum.Seconds) {
             countdownTimerNew = countdownTimer * 1000
             basic.pause(countdownTimerNew)
-            serial.writeLine("* rq_continueCurrentState_CountdownTimer_Set_Fn: " + countdownTimer + " " + countdownTimerNew)
+            if (_debug_Serial_Print_Bool) {
+                serial.writeLine("* rq_continueCurrentState_CountdownTimer_Set_Fn: " + countdownTimer + " " + countdownTimerNew)
+            }
         } else if (timeUnits == rq_Time_Units_Enum.Milliseconds) {
             countdownTimerNew = countdownTimer
             basic.pause(countdownTimerNew)
-            serial.writeLine("* rq_ContinueCurrentState_CountdownTimer_Set_Fn: " + countdownTimer + " " + countdownTimerNew)
+            if (_debug_Serial_Print_Bool) {
+                serial.writeLine("* rq_ContinueCurrentState_CountdownTimer_Set_Fn: " + countdownTimer + " " + countdownTimerNew)
+            }
         } else {
-            serial.writeLine("* ERROR:rq_continueCurrentState_CountdownTimer_Set_Fn: " + countdownTimer + " " + countdownTimerNew)
+            if (_debug_Serial_Print_Bool) {
+                serial.writeLine("* ERROR:rq_continueCurrentState_CountdownTimer_Set_Fn: " + countdownTimer + " " + countdownTimerNew)
+            }
         }
     }
 
@@ -143,14 +154,21 @@ namespace roboQuest {
             case rq_PortGroup_BlueRedBlack_PortIds_Enum.S1_MotorLeft__S0_MotorRight:
                 wuKong.setServoAngle(wuKong.ServoTypeList._360, wuKong.ServoList.S1, powerLeftNew)
                 wuKong.setServoAngle(wuKong.ServoTypeList._360, wuKong.ServoList.S0, powerRightNew)
-                serial.writeLine("* rq_PowerMotorsViaBlueRedBlackPins_Fn: " + powerLeftIn + " " + powerRightIn + " >> " + powerLeftNew + " " + powerRightNew)
+                if (_debug_Serial_Print_Bool) {
+                    serial.writeLine("* rq_PowerMotorsViaBlueRedBlackPins_Fn: " + powerLeftIn + " " + powerRightIn + " >> " + powerLeftNew + " " + powerRightNew)
+                }
                 break
             case rq_PortGroup_BlueRedBlack_PortIds_Enum.S3_MotorLeft__S2_MotorRight:
                 wuKong.setServoAngle(wuKong.ServoTypeList._360, wuKong.ServoList.S3, powerLeftNew)
                 wuKong.setServoAngle(wuKong.ServoTypeList._360, wuKong.ServoList.S2, powerRightNew)
-                serial.writeLine("* rq_PowerMotorsViaBlueRedBlackPins_Fn: " + powerLeftIn + " " + powerRightIn + " >> " + powerLeftNew + " " + powerRightNew)
+                if (_debug_Serial_Print_Bool) {
+                    serial.writeLine("* rq_PowerMotorsViaBlueRedBlackPins_Fn: " + powerLeftIn + " " + powerRightIn + " >> " + powerLeftNew + " " + powerRightNew)
+                }
+                break
             default:
-                serial.writeLine("* ERROR: rq_PowerMotorsViaBlueRedBlackPins_Fn: " + powerLeftIn + " " + powerRightIn + " >> " + powerLeftNew + " " + powerRightNew)
+                if (_debug_Serial_Print_Bool) {
+                    serial.writeLine("* ERROR: rq_PowerMotorsViaBlueRedBlackPins_Fn: " + powerLeftIn + " " + powerRightIn + " >> " + powerLeftNew + " " + powerRightNew)
+                }
                 break
         }
     }
