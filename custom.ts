@@ -78,7 +78,6 @@ namespace roboQuest {
      * @param textStrIn string
      * @param xColBase0In number
      * @param yRowBase0In number
-     * NOT NEED: param colorIntIn number; eg: 1
      */
     //% block="show OLED (AutoSetup @I2cAddress=60, 25CharMax: SCL=Pin19, SDA=Pin20) textStrIn: $textStrIn xColBase0In: $xColBase0In yRowBase0In: $yRowBase0In"
     //% xColBase0In.min=0 xColBase0In.max=4
