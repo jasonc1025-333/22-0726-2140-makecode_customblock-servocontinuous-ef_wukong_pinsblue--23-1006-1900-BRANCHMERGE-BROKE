@@ -74,35 +74,35 @@ namespace roboQuest {
     OLED12864_I2C.clear()
 
     /**
-     * rq_PrintString_Oled_Serial_Fn
+     * rq_ShowString_Oled_Fn
      * @param textStrIn string
      * @param xColBase0In number
      * @param yRowBase0In number
-     * @param colorIntIn number; eg: 1
-     * @param borderTopBoolIn boolean
-     * @param borderBottomBoolIn boolean
-     * ; eg: 150, 100, 200, -100
+     * NOT NEED: param colorIntIn number; eg: 1
      */
-    //% block="print OLED & Serial  textStrIn: $textStrIn xColBase0In: $xColBase0In yRowBase0In: $yRowBase0In colorIntIn: $colorIntIn borderTopBoolIn: $borderTopBoolIn borderBottomBoolIn: $borderBottomBoolIn"
+    //% block="show OLED (AutoSetup @I2cAddress=60, 25CharMax: SCL=Pin19, SDA=Pin20) textStrIn: $textStrIn xColBase0In: $xColBase0In yRowBase0In: $yRowBase0In"
     //% xColBase0In.min=0 xColBase0In.max=4
     //% yRowBase0In.min=0 yRowBase0In.max=4
-     export function rq_PrintString_Oled_Serial_Fn (textStrIn: string, xColBase0In: number, yRowBase0In: number, colorIntIn: number = 1, borderTopBoolIn: boolean, borderBottomBoolIn: boolean) {
+     export function rq_ShowString_Oled_Fn (textStrIn: string, xColBase0In: number, yRowBase0In: number) {
+        
+        // Default Values
+        let colorIntIn = 1 // default
+        let textStrInLenMAX = 25  // Char Max with Zoom:Off
+
+        let textStrInLen = textStrIn.length
+
+        // post blank-pad 'textStrIn' to full text width max
+        //
+        while (textStrIn.length < textStrInLenMAX) {
+             textStrIn += " "              
+        }
+        
         OLED12864_I2C.showString(
         xColBase0In,
         yRowBase0In,
         textStrIn,
         colorIntIn
         )
-        if (_debug_Serial_Print_Bool) {
-            if (borderTopBoolIn) {
-                serial.writeLine("")
-            }
-            serial.writeString(textStrIn)
-            serial.writeString(",")
-            if (borderBottomBoolIn) {
-                serial.writeLine("")
-            }
-        }
     }
 
     /**
@@ -358,6 +358,43 @@ namespace roboQuest {
         )
 
     }
+
+    // OBSOLETE BUT ARCHIVE FOR REFERENCE
+    // OBSOLETE BUT ARCHIVE FOR REFERENCE
+    // OBSOLETE BUT ARCHIVE FOR REFERENCE
+
+    /**
+     * rq_PrintString_Oled_Serial_Fn
+     * @param textStrIn string
+     * @param xColBase0In number
+     * @param yRowBase0In number
+     * @param colorIntIn number; eg: 1
+     * @param borderTopBoolIn boolean
+     * @param borderBottomBoolIn boolean
+     * ; eg: 150, 100, 200, -100
+    
+    //% block="print OLED & Serial  textStrIn: $textStrIn xColBase0In: $xColBase0In yRowBase0In: $yRowBase0In colorIntIn: $colorIntIn borderTopBoolIn: $borderTopBoolIn borderBottomBoolIn: $borderBottomBoolIn"
+    //% xColBase0In.min=0 xColBase0In.max=4
+    //% yRowBase0In.min=0 yRowBase0In.max=4
+    export function rq_PrintString_Oled_Serial_Fn(textStrIn: string, xColBase0In: number, yRowBase0In: number, colorIntIn: number = 1, borderTopBoolIn: boolean, borderBottomBoolIn: boolean) {
+        OLED12864_I2C.showString(
+            xColBase0In,
+            yRowBase0In,
+            textStrIn,
+            colorIntIn
+        )
+        if (_debug_Serial_Print_Bool) {
+            if (borderTopBoolIn) {
+                serial.writeLine("")
+            }
+            serial.writeString(textStrIn)
+            serial.writeString(",")
+            if (borderBottomBoolIn) {
+                serial.writeLine("")
+            }
+        }
+    }
+    */
 
 
 }
