@@ -1,6 +1,9 @@
 
 > Open this page at [https://eande-jasonc1025.github.io/22-0726-2140-makecode_customblock-servocontinuous-ef_wukong_pinsblue/](https://eande-jasonc1025.github.io/22-0726-2140-makecode_customblock-servocontinuous-ef_wukong_pinsblue/)
 
+## Important Notes
+* 22-1212-1430 MakeCode Extension: OLED12864_I2C
+
 ## Use as Extension
 
 This repository can be added as an **extension** in MakeCode.
