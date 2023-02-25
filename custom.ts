@@ -13,7 +13,10 @@
 // * Functions Listed First_In (Here BackEnd): Listed Last_Out (There FrontEnd)
 // * Move all test code from 'maint.blocks/.ts' to 'test.ts' for final publish
 // * Quest will use namespace weight of 51 (50 bad) to 69 to below Standard Namespace 'LED' 
-// ** but above any 3rd Party Namespaces to avoid competinbg confusion
+//   ** but above any 3rd Party Namespaces to avoid competinbg confusion
+// * Proactive approach to Commenting:
+//   ** With more upfront transperency w/ 3 note levels: gray, green, blue, 
+//   ** less need for debugging/troubleshooting notes - thus 1 level: yellow
 //
 
 // enum MyEnum {
@@ -66,14 +69,15 @@ enum rq_Motion_Direction_Enum {
 /// 91
 
 
-// color=#808080 = Gray: rgb(128, 128, 128)
+//
 // Teal #008080 rgb(0, 128, 128)
+// Green #008000 rgb(0, 128, 0)
 //
 /**
- * quest_Show blocks
+ * quest_Dashboard blocks
  */
-//% weight=69 color=#008080 icon="Q"
-namespace quest_Show {
+//% weight=69 color=#008000 icon="Q"
+namespace quest_Dashboard {
     //
     // * Global Variables & Constants
     //
@@ -361,12 +365,12 @@ namespace quest_Timer {
 
 //
 // color=#808080 = Gray: rgb(128, 128, 128)
-// Teal #008080 rgb(0, 128, 128)
+// * Gray like a 'black/gray box' which needs more transparency
 //
 /**
  * quest_Algorithm blocks
  */
-//% weight=65 color=#008080 icon="Q"
+//% weight=65 color=#808080 icon="Q"
 namespace quest_Algorithm {
     /**
     * rq_Get_Number_WithColumnPadding_AsStringOut_Fn
@@ -508,10 +512,10 @@ namespace quest_Note_4 {
 
 
 /**
- * quest_Motors blocks
+ * quest_Hardware blocks
  */
 //% weight=51 color=#0000FF icon="Q"
-namespace quest_Motors {
+namespace quest_Hardware {
     //
     // * Global Variables Q Constants
     //

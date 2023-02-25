@@ -25,7 +25,7 @@ basic.forever(function () {
     quest_Note_4.rq_Show_String_For_Note_Small_Fn(
     "44"
     )
-    quest_Show.rq_Show_String_For_Oled_SmallFont_Fn(
+    quest_Dashboard.rq_Show_String_For_Oled_SmallFont_Fn(
     quest_Algorithm.rq_Get_Number_WithColumnPadding_AsStringOut_Fn(
     randint(1000, 2000) / randint(0, 3),
     24,
@@ -34,7 +34,7 @@ basic.forever(function () {
     0,
     0
     )
-    quest_Show.rq_Show_String_For_Oled_SmallFont_Fn(
+    quest_Dashboard.rq_Show_String_For_Oled_SmallFont_Fn(
     quest_Algorithm.rq_Get_Number_WithColumnPadding_AsStringOut_Fn(
     randint(1000, 2000) / randint(0, 3),
     24,
@@ -44,7 +44,7 @@ basic.forever(function () {
     7
     )
     quest_Timer.rq_Set_ContinueCurrentState_CountdownTimer_Fn(2, rq_Time_Units_Enum.Seconds)
-    quest_Show.rq_Show_String_For_Oled_BigFont_Fn(
+    quest_Dashboard.rq_Show_String_For_Oled_BigFont_Fn(
     quest_Algorithm.rq_Get_Number_WithColumnPadding_AsStringOut_Fn(
     randint(1000, 2000) / randint(0, 3),
     12,
@@ -53,7 +53,7 @@ basic.forever(function () {
     0,
     0
     )
-    quest_Show.rq_Show_String_For_Oled_BigFont_Fn(
+    quest_Dashboard.rq_Show_String_For_Oled_BigFont_Fn(
     quest_Algorithm.rq_Get_Number_WithColumnPadding_AsStringOut_Fn(
     randint(1000, 2000) / randint(0, 3),
     12,
