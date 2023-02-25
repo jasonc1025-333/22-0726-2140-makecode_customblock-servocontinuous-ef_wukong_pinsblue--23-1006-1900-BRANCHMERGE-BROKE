@@ -451,12 +451,14 @@ namespace roboQuest_A {
     }
 }
 
-// Gray: rgb(128, 128, 128)
+///n //% weight=99 color=#808080 icon=""
+
+// color=#808080 = Gray: rgb(128, 128, 128)
 //
 /**
  * RoboQuest_B blocks
  */
-//% weight=99 color=#808080 icon=""
+//% weight=99 color=#808080 icon="uf005"
 namespace roboQuest_B {
 
     //
