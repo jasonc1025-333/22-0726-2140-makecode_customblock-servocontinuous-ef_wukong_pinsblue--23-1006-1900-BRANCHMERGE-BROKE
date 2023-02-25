@@ -1,5 +1,3 @@
-basic.showIcon(IconNames.Happy)
-basic.pause(2000)
 basic.forever(function () {
     quest_Basic.rq_Show_String_For_Oled_SmallFont_Fn(
     convertToText(randint(1000, 1999)),
@@ -11,11 +9,15 @@ basic.forever(function () {
     0,
     1
     )
-    quest_Basic.rq_Show_String_For_Comment_Big_Fn(
-    "big"
+    quest_Note.rq_Show_String_For_Note_Big_Fn(
+    "Big"
     )
-    quest_Basic.rq_Show_String_For_Comment_Small_Fn(
-    "adsfasdf"
+    quest_Note.rq_Show_String_For_Note_Small_Fn(
+    "Small"
     )
-    basic.pause(2000)
+    quest_Robo.rq_Set_PowerMotorsViaBlueRedBlackPins_Fn(
+    rq_PortGroup_BlueRedBlack_PortIds_Enum.S1_MotorLeft__S0_MotorRight,
+    0,
+    0
+    )
 })
