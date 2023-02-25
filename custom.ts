@@ -49,11 +49,13 @@ enum rq_Motion_Direction_Enum {
 ///y let deviceType_Bot_Bool = false
 ///y let deviceType_Controller_Bool = true
 
+///y //% weight=100 color=#0fbc11 icon=""
+
 /**
- * RoboQuest blocks
+ * RoboQuest_A blocks
  */
-//% weight=100 color=#0fbc11 icon=""
-namespace roboQuest {
+//% weight=100 color=#0000ff icon=""
+namespace roboQuest_A {
 
 
     //
@@ -70,23 +72,28 @@ namespace roboQuest {
     //
     OLED12864_I2C.init(60)
     OLED12864_I2C.on()
+    // Default: Small Font, Override Manually to Big Font as needed
     OLED12864_I2C.zoom(false)
     OLED12864_I2C.clear()
 
     /**
-     * rq_ShowString_Oled_Fn
+     * rq_Show_String_Oled_Small_Fn
      * @param textStrIn string
      * @param xColBase0In number
      * @param yRowBase0In number
      */
-    //% block="show OLED (AutoSetup @I2cAddress=60, 25CharMax: SCL=Pin19, SDA=Pin20) textStrIn: $textStrIn xColBase0In: $xColBase0In yRowBase0In: $yRowBase0In"
-    //% xColBase0In.min=0 xColBase0In.max=4
-    //% yRowBase0In.min=0 yRowBase0In.max=4
-     export function rq_ShowString_Oled_Fn (textStrIn: string, xColBase0In: number, yRowBase0In: number) {
+    //% block="show OLED small font (AutoSetup I2cAddress=60, 25ColMax, 8RowMax ~ SCL=Pin19, SDA=Pin20)|textStrIn: $textStrIn|xColBase0In: $xColBase0In|yRowBase0In: $yRowBase0In"
+    //% xColBase0In.min=0 xColBase0In.max=24
+    //% yRowBase0In.min=0 yRowBase0In.max=6
+    //% inlineInputMode=external
+     export function rq_Show_String_Oled_Small_Fn (textStrIn: string, xColBase0In: number, yRowBase0In: number) {
         
         // Default Values
         let colorIntIn = 1 // default
         let textStrInLenMAX = 25  // Char Max with Zoom:Off
+
+        // Override Manually
+        OLED12864_I2C.zoom(true)
 
         let textStrInLen = textStrIn.length
 
@@ -102,7 +109,45 @@ namespace roboQuest {
         textStrIn,
         colorIntIn
         )
+
+        // Restore Default
+        OLED12864_I2C.zoom(false)
+
     }
+
+
+    /**
+       * rq_ShowString_Oled_Big_Fn
+       * @param textStrIn string
+       * @param xColBase0In number
+       * @param yRowBase0In number
+       */
+    //% block="show OLED big font (AutoSetup I2cAddress=60, 12ColMax, 4RowMax ~ SCL=Pin19, SDA=Pin20)|textStrIn: $textStrIn|xColBase0In: $xColBase0In|yRowBase0In: $yRowBase0In"
+    //% xColBase0In.min=0 xColBase0In.max=12
+    //% yRowBase0In.min=0 yRowBase0In.max=4
+    //% inlineInputMode=external
+    export function rq_ShowString_Oled_Big_Fn(textStrIn: string, xColBase0In: number, yRowBase0In: number) {
+
+        // Default Values
+        let colorIntIn = 1 // default
+        let textStrInLenMAX = 12  // Char Max with Zoom:Off
+
+        let textStrInLen = textStrIn.length
+
+        // post blank-pad 'textStrIn' to full text width max
+        //
+        while (textStrIn.length < textStrInLenMAX) {
+            textStrIn += " "
+        }
+
+        OLED12864_I2C.showString(
+            xColBase0In,
+            yRowBase0In,
+            textStrIn,
+            colorIntIn
+        )
+    }
+
 
     /**
      * rq_ContinueCurrentState_CountdownTimer_Set_Fn
@@ -140,9 +185,10 @@ namespace roboQuest {
      * @param powerLeftIn number
      * @param powerRightIn number
      */
-    //% block="power motors @ $portIdsIn for left motor power: $powerLeftIn right motor power: $powerRightIn"
+    //% block="set power motors: $portIdsIn | for left motor power: $powerLeftIn | right motor power: $powerRightIn"
     //% powerLeftIn.min=-100 powerLeftIn.max=100
     //% powerRightIn.min=-100 powerRightIn.max=100
+    //% inlineInputMode=external
     export function rq_PowerMotorsViaBlueRedBlackPins_Fn(portIdsIn: rq_PortGroup_BlueRedBlack_PortIds_Enum, powerLeftIn: number, powerRightIn: number): void {
         // Motor-Left Conversion: Same Rotational Direction
         let powerLeftNew = Math.map(powerLeftIn, -100, 100, 0, 360)
@@ -343,7 +389,8 @@ namespace roboQuest {
      * @param deviceTypeBotBoolIn boolean
      * @param deviceTypeControllerBoolIn boolean
      */
-    //% block="rq setup: 'deviceType_Bot_Bool': $deviceTypeBotBoolIn, 'deviceType_Controller_Bool': $deviceTypeControllerBoolIn"
+    //% block="rq setup: 'deviceType_Bot_Bool': $deviceTypeBotBoolIn |'deviceType_Controller_Bool': $deviceTypeControllerBoolIn"
+    //% inlineInputMode=external
     export function rq_Setup_Fn(deviceTypeBotBoolIn: boolean, deviceTypeControllerBoolIn: boolean): void {
 
         deviceType_Bot_Bool = deviceTypeBotBoolIn
@@ -361,7 +408,7 @@ namespace roboQuest {
     // OBSOLETE BUT ARCHIVE FOR REFERENCE
     // OBSOLETE BUT ARCHIVE FOR REFERENCE
     // OBSOLETE BUT ARCHIVE FOR REFERENCE
-
+    //
     /**
      * rq_PrintString_Oled_Serial_Fn
      * @param textStrIn string
@@ -371,10 +418,11 @@ namespace roboQuest {
      * @param borderTopBoolIn boolean
      * @param borderBottomBoolIn boolean
      * ; eg: 150, 100, 200, -100
-    
-    //% block="print OLED & Serial  textStrIn: $textStrIn xColBase0In: $xColBase0In yRowBase0In: $yRowBase0In colorIntIn: $colorIntIn borderTopBoolIn: $borderTopBoolIn borderBottomBoolIn: $borderBottomBoolIn"
+    */
+    //% block="print OLED & Serial |textStrIn: $textStrIn |xColBase0In: $xColBase0In |yRowBase0In: $yRowBase0In |colorIntIn: $colorIntIn |borderTopBoolIn: $borderTopBoolIn |borderBottomBoolIn: $borderBottomBoolIn"
     //% xColBase0In.min=0 xColBase0In.max=4
     //% yRowBase0In.min=0 yRowBase0In.max=4
+    //% inlineInputMode=external
     export function rq_PrintString_Oled_Serial_Fn(textStrIn: string, xColBase0In: number, yRowBase0In: number, colorIntIn: number = 1, borderTopBoolIn: boolean, borderBottomBoolIn: boolean) {
         OLED12864_I2C.showString(
             xColBase0In,
@@ -393,7 +441,72 @@ namespace roboQuest {
             }
         }
     }
-    */
+}
 
+// Gray: rgb(128, 128, 128)
+//
+/**
+ * RoboQuest_B blocks
+ */
+//% weight=99 color=#808080 icon=""
+namespace roboQuest_B {
+
+    //
+    // * Global Variables & Constants
+    //
+    // * Default to Bot and not to Controller for most basic total 1 'micro:bit' setup (No Controller)
+    //
+    let deviceType_Bot_Bool = true
+    let deviceType_Controller_Bool = false
+    //
+    let _debug_Serial_Print_Bool = false
+
+    // OLED12864_I2C: Setup
+    //
+    OLED12864_I2C.init(60)
+    OLED12864_I2C.on()
+    OLED12864_I2C.zoom(false)
+    OLED12864_I2C.clear()
+
+    /**
+     * rq_Show_String_ForOled_Small_02_Fn
+     * @param textStrIn string
+     * @param xColBase0In number
+     * @param yRowBase0In number
+     */
+    //% block="show OLED small font 02 (AutoSetup I2cAddress=60, 25ColMax, 8RowMax ~ SCL=Pin19, SDA=Pin20) textStrIn: $textStrIn xColBase0In: $xColBase0In yRowBase0In: $yRowBase0In"
+    //% xColBase0In.min=0 xColBase0In.max=24
+    //% yRowBase0In.min=0 yRowBase0In.max=6
+    //% inlineInputMode=external
+    export function rq_Show_String_ForOled_Small_02_Fn(textStrIn: string, xColBase0In: number, yRowBase0In: number) {
+
+        // Default Values
+        let colorIntIn = 1 // default
+        let textStrInLenMAX = 25  // Char Max with Zoom:Off
+
+        let textStrInLen = textStrIn.length
+
+        // post blank-pad 'textStrIn' to full text width max
+        //
+        while (textStrIn.length < textStrInLenMAX) {
+            textStrIn += " "
+        }
+
+        OLED12864_I2C.showString(
+            xColBase0In,
+            yRowBase0In,
+            textStrIn,
+            colorIntIn
+        )
+    }
+
+    /**
+     * rq_Show_String_ForComment_Fn
+     * @param textStrIn string
+     */
+    //% block="show string as comment: $textStrIn"
+    export function rq_Show_String_ForComment_Fn(textStrIn: string) {
+
+    }
 
 }
