@@ -51,12 +51,13 @@ enum rq_Motion_Direction_Enum {
 
 ///y //% weight=100 color=#0fbc11 icon=""
 ///y //% weight=100 color=#0000ff icon="\uf5b8"
+///y //% weight=100 color=#0000ff icon="\uf005"
 
 /**
- * RoboQuest_A blocks
+ * Quest: Robo blocks
  */
-//% weight=100 color=#0000ff icon="\uf005"
-namespace roboQuest_A {
+//% weight=90 color=#0000ff icon="\uf005"
+namespace questRobo {
 
 
     //
@@ -452,14 +453,16 @@ namespace roboQuest_A {
 }
 
 ///n //% weight=99 color=#808080 icon=""
+///y //% weight=99 color=#808080 icon="uf005"
+
 
 // color=#808080 = Gray: rgb(128, 128, 128)
 //
 /**
- * RoboQuest_B blocks
+ * Quest: Basic blocks
  */
-//% weight=99 color=#808080 icon="uf005"
-namespace roboQuest_B {
+//% weight=91 color=#808080 icon="uf005"
+namespace questBasic {
 
     //
     // * Global Variables & Constants
