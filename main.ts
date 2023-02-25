@@ -1,5 +1,5 @@
 basic.showIcon(IconNames.Happy)
-quest_Basic.rq_Set_ContinueCurrentState_CountdownTimer_Fn(2, rq_Time_Units_Enum.Seconds)
+quest_Timer.rq_Set_ContinueCurrentState_CountdownTimer_Fn(2, rq_Time_Units_Enum.Seconds)
 basic.forever(function () {
     quest_Note_1.rq_Show_String_For_Note_Big_Fn(
     "1"
@@ -25,8 +25,8 @@ basic.forever(function () {
     quest_Note_4.rq_Show_String_For_Note_Small_Fn(
     "44"
     )
-    quest_Basic.rq_Show_String_For_Oled_SmallFont_Fn(
-    quest_Basic.rq_Get_Number_WithColumnPadding_AsStringOut_Fn(
+    quest_Show.rq_Show_String_For_Oled_SmallFont_Fn(
+    quest_Algorithm.rq_Get_Number_WithColumnPadding_AsStringOut_Fn(
     randint(1000, 2000) / randint(0, 3),
     24,
     randint(0, 3)
@@ -34,8 +34,8 @@ basic.forever(function () {
     0,
     0
     )
-    quest_Basic.rq_Show_String_For_Oled_SmallFont_Fn(
-    quest_Basic.rq_Get_Number_WithColumnPadding_AsStringOut_Fn(
+    quest_Show.rq_Show_String_For_Oled_SmallFont_Fn(
+    quest_Algorithm.rq_Get_Number_WithColumnPadding_AsStringOut_Fn(
     randint(1000, 2000) / randint(0, 3),
     24,
     randint(0, 3)
@@ -43,9 +43,9 @@ basic.forever(function () {
     0,
     7
     )
-    quest_Basic.rq_Set_ContinueCurrentState_CountdownTimer_Fn(2, rq_Time_Units_Enum.Seconds)
-    quest_Basic.rq_ShowString_For_Oled_BigFont_Fn(
-    quest_Basic.rq_Get_Number_WithColumnPadding_AsStringOut_Fn(
+    quest_Timer.rq_Set_ContinueCurrentState_CountdownTimer_Fn(2, rq_Time_Units_Enum.Seconds)
+    quest_Show.rq_Show_String_For_Oled_BigFont_Fn(
+    quest_Algorithm.rq_Get_Number_WithColumnPadding_AsStringOut_Fn(
     randint(1000, 2000) / randint(0, 3),
     12,
     randint(0, 3)
@@ -53,8 +53,8 @@ basic.forever(function () {
     0,
     0
     )
-    quest_Basic.rq_ShowString_For_Oled_BigFont_Fn(
-    quest_Basic.rq_Get_Number_WithColumnPadding_AsStringOut_Fn(
+    quest_Show.rq_Show_String_For_Oled_BigFont_Fn(
+    quest_Algorithm.rq_Get_Number_WithColumnPadding_AsStringOut_Fn(
     randint(1000, 2000) / randint(0, 3),
     12,
     randint(0, 3)
@@ -62,5 +62,5 @@ basic.forever(function () {
     0,
     3
     )
-    quest_Basic.rq_Set_ContinueCurrentState_CountdownTimer_Fn(2, rq_Time_Units_Enum.Seconds)
+    quest_Timer.rq_Set_ContinueCurrentState_CountdownTimer_Fn(2, rq_Time_Units_Enum.Seconds)
 })
