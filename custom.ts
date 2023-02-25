@@ -85,15 +85,13 @@ namespace roboQuest_A {
     //% block="show OLED small font (AutoSetup I2cAddress=60, 25ColMax, 8RowMax ~ SCL=Pin19, SDA=Pin20)|textStrIn: $textStrIn|xColBase0In: $xColBase0In|yRowBase0In: $yRowBase0In"
     //% xColBase0In.min=0 xColBase0In.max=24
     //% yRowBase0In.min=0 yRowBase0In.max=6
+    //% weight=70 blockGap=8
     //% inlineInputMode=external
      export function rq_Show_String_Oled_Small_Fn (textStrIn: string, xColBase0In: number, yRowBase0In: number) {
         
         // Default Values
         let colorIntIn = 1 // default
         let textStrInLenMAX = 25  // Char Max with Zoom:Off
-
-        // Override Manually
-        OLED12864_I2C.zoom(true)
 
         let textStrInLen = textStrIn.length
 
@@ -110,9 +108,6 @@ namespace roboQuest_A {
         colorIntIn
         )
 
-        // Restore Default
-        OLED12864_I2C.zoom(false)
-
     }
 
 
@@ -125,6 +120,7 @@ namespace roboQuest_A {
     //% block="show OLED big font (AutoSetup I2cAddress=60, 12ColMax, 4RowMax ~ SCL=Pin19, SDA=Pin20)|textStrIn: $textStrIn|xColBase0In: $xColBase0In|yRowBase0In: $yRowBase0In"
     //% xColBase0In.min=0 xColBase0In.max=12
     //% yRowBase0In.min=0 yRowBase0In.max=4
+    //% weight=72 blockGap=8
     //% inlineInputMode=external
     export function rq_ShowString_Oled_Big_Fn(textStrIn: string, xColBase0In: number, yRowBase0In: number) {
 
@@ -133,6 +129,9 @@ namespace roboQuest_A {
         let textStrInLenMAX = 12  // Char Max with Zoom:Off
 
         let textStrInLen = textStrIn.length
+
+        // Override Manually
+        OLED12864_I2C.zoom(true)
 
         // post blank-pad 'textStrIn' to full text width max
         //
@@ -146,6 +145,10 @@ namespace roboQuest_A {
             textStrIn,
             colorIntIn
         )
+
+        // Restore Default
+        OLED12864_I2C.zoom(false)
+
     }
 
 
@@ -155,6 +158,7 @@ namespace roboQuest_A {
      * @param timeUnits rq_Time_Units_Enum
      */
     //% block="continue current state for: $countdownTimer $timeUnits"
+    //% weight=90 blockGap=8
     //// y countdownTimer.min=0 countdownTimer.max=5000
     export function rq_ContinueCurrentState_CountdownTimer_Set_Fn(countdownTimer: number, timeUnits: rq_Time_Units_Enum): void {
         let countdownTimerNew = 0
@@ -188,6 +192,7 @@ namespace roboQuest_A {
     //% block="set power motors: $portIdsIn | for left motor power: $powerLeftIn | right motor power: $powerRightIn"
     //% powerLeftIn.min=-100 powerLeftIn.max=100
     //% powerRightIn.min=-100 powerRightIn.max=100
+    //% weight=80 blockGap=8
     //% inlineInputMode=external
     export function rq_PowerMotorsViaBlueRedBlackPins_Fn(portIdsIn: rq_PortGroup_BlueRedBlack_PortIds_Enum, powerLeftIn: number, powerRightIn: number): void {
         // Motor-Left Conversion: Same Rotational Direction
@@ -223,6 +228,7 @@ namespace roboQuest_A {
      * @param motionDirectionIn rq_Motion_Direction_Enum
      */
     //% block="show motion_direction: $motionDirectionIn"
+    //% weight=81 blockGap=8
     export function rq_show_MotionDirection_Fn(motionDirectionIn: rq_Motion_Direction_Enum): void {
 
         switch (motionDirectionIn) {
@@ -390,6 +396,7 @@ namespace roboQuest_A {
      * @param deviceTypeControllerBoolIn boolean
      */
     //% block="rq setup: 'deviceType_Bot_Bool': $deviceTypeBotBoolIn |'deviceType_Controller_Bool': $deviceTypeControllerBoolIn"
+    //% weight=100 blockGap=8
     //% inlineInputMode=external
     export function rq_Setup_Fn(deviceTypeBotBoolIn: boolean, deviceTypeControllerBoolIn: boolean): void {
 
@@ -422,6 +429,7 @@ namespace roboQuest_A {
     //% block="print OLED & Serial |textStrIn: $textStrIn |xColBase0In: $xColBase0In |yRowBase0In: $yRowBase0In |colorIntIn: $colorIntIn |borderTopBoolIn: $borderTopBoolIn |borderBottomBoolIn: $borderBottomBoolIn"
     //% xColBase0In.min=0 xColBase0In.max=4
     //% yRowBase0In.min=0 yRowBase0In.max=4
+    //% weight=40 blockGap=8
     //% inlineInputMode=external
     export function rq_PrintString_Oled_Serial_Fn(textStrIn: string, xColBase0In: number, yRowBase0In: number, colorIntIn: number = 1, borderTopBoolIn: boolean, borderBottomBoolIn: boolean) {
         OLED12864_I2C.showString(
@@ -477,6 +485,7 @@ namespace roboQuest_B {
     //% block="show OLED small font 02 (AutoSetup I2cAddress=60, 25ColMax, 8RowMax ~ SCL=Pin19, SDA=Pin20) textStrIn: $textStrIn xColBase0In: $xColBase0In yRowBase0In: $yRowBase0In"
     //% xColBase0In.min=0 xColBase0In.max=24
     //% yRowBase0In.min=0 yRowBase0In.max=6
+    //% weight=70 blockGap=8
     //% inlineInputMode=external
     export function rq_Show_String_ForOled_Small_02_Fn(textStrIn: string, xColBase0In: number, yRowBase0In: number) {
 
@@ -505,6 +514,7 @@ namespace roboQuest_B {
      * @param textStrIn string
      */
     //% block="show string as comment: $textStrIn"
+    //% weight=80 blockGap=8
     export function rq_Show_String_ForComment_Fn(textStrIn: string) {
 
     }
