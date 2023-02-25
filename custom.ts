@@ -52,12 +52,13 @@ enum rq_Motion_Direction_Enum {
 ///y //% weight=100 color=#0fbc11 icon=""
 ///y //% weight=100 color=#0000ff icon="\uf5b8"
 ///y //% weight=100 color=#0000ff icon="\uf005"
+/// was 90
 
 /**
- * Quest: Robo blocks
+ * Quest_Robo blocks
  */
-//% weight=90 color=#0000ff icon="\uf005"
-namespace questRobo {
+//% weight=80 color=#0000ff icon="Q"
+namespace quest_Robo {
 
 
     //
@@ -78,111 +79,6 @@ namespace questRobo {
     OLED12864_I2C.zoom(false)
     OLED12864_I2C.clear()
 
-    /**
-          * rq_ShowString_For_Oled_Big_Fn
-          * @param textStrIn string
-          * @param xColBase0In number
-          * @param yRowBase0In number
-          */
-    //% block="show oled big font (AutoSetup I2cAddress=60, 12ColMax, 4RowMax ~ SCL=Pin19, SDA=Pin20)|textStrIn: $textStrIn|xColBase0In: $xColBase0In|yRowBase0In: $yRowBase0In"
-    //% xColBase0In.min=0 xColBase0In.max=12
-    //% yRowBase0In.min=0 yRowBase0In.max=4
-    //% weight=72 blockGap=8
-    //% inlineInputMode=external
-    export function rq_ShowString_For_Oled_Big_Fn(textStrIn: string, xColBase0In: number, yRowBase0In: number) {
-
-        // Default Values
-        let colorIntIn = 1 // default
-        let textStrInLenMAX = 12  // Char Max with Zoom:Off
-
-        let textStrInLen = textStrIn.length
-
-        // Override Manually
-        OLED12864_I2C.zoom(true)
-
-        // post blank-pad 'textStrIn' to full text width max
-        //
-        while (textStrIn.length < textStrInLenMAX) {
-            textStrIn += " "
-        }
-
-        OLED12864_I2C.showString(
-            xColBase0In,
-            yRowBase0In,
-            textStrIn,
-            colorIntIn
-        )
-
-        // Restore Default
-        OLED12864_I2C.zoom(false)
-
-    }
-
-    /**
-     * rq_Show_String_For_Oled_Small_Fn
-     * @param textStrIn string
-     * @param xColBase0In number
-     * @param yRowBase0In number
-     */
-    //% block="show oled small font (AutoSetup I2cAddress=60, 25ColMax, 8RowMax ~ SCL=Pin19, SDA=Pin20)|textStrIn: $textStrIn|xColBase0In: $xColBase0In|yRowBase0In: $yRowBase0In"
-    //% xColBase0In.min=0 xColBase0In.max=24
-    //% yRowBase0In.min=0 yRowBase0In.max=6
-    //% weight=70 blockGap=8
-    //% inlineInputMode=external
-     export function rq_Show_String_For_Oled_Small_Fn (textStrIn: string, xColBase0In: number, yRowBase0In: number) {
-        
-        // Default Values
-        let colorIntIn = 1 // default
-        let textStrInLenMAX = 25  // Char Max with Zoom:Off
-
-        let textStrInLen = textStrIn.length
-
-        // post blank-pad 'textStrIn' to full text width max
-        //
-        while (textStrIn.length < textStrInLenMAX) {
-             textStrIn += " "              
-        }
-        
-        OLED12864_I2C.showString(
-        xColBase0In,
-        yRowBase0In,
-        textStrIn,
-        colorIntIn
-        )
-
-    }
-
-
-    /**
-     * rq_Set_ContinueCurrentState_CountdownTimer_Fn
-     * @param countdownTimer number
-     * @param timeUnits rq_Time_Units_Enum
-     */
-    //% block="set continue current state for: $countdownTimer $timeUnits"
-    //% weight=90 blockGap=8
-    //// y countdownTimer.min=0 countdownTimer.max=5000
-    export function rq_Set_ContinueCurrentState_CountdownTimer_Fn(countdownTimer: number, timeUnits: rq_Time_Units_Enum): void {
-        let countdownTimerNew = 0
-        // Minimum border check
-        if (countdownTimer < 0) { countdownTimer = 0 }
-        if (timeUnits == rq_Time_Units_Enum.Seconds) {
-            countdownTimerNew = countdownTimer * 1000
-            basic.pause(countdownTimerNew)
-            if (_debug_Serial_Print_Bool) {
-                serial.writeLine("* rq_continueCurrentState_CountdownTimer_Set_Fn: " + countdownTimer + " " + countdownTimerNew)
-            }
-        } else if (timeUnits == rq_Time_Units_Enum.Milliseconds) {
-            countdownTimerNew = countdownTimer
-            basic.pause(countdownTimerNew)
-            if (_debug_Serial_Print_Bool) {
-                serial.writeLine("* rq_ContinueCurrentState_CountdownTimer_Set_Fn: " + countdownTimer + " " + countdownTimerNew)
-            }
-        } else {
-            if (_debug_Serial_Print_Bool) {
-                serial.writeLine("* ERROR:rq_continueCurrentState_CountdownTimer_Set_Fn: " + countdownTimer + " " + countdownTimerNew)
-            }
-        }
-    }
 
     /**
      * rq_Set_PowerMotorsViaBlueRedBlackPins_Fn
@@ -190,7 +86,7 @@ namespace questRobo {
      * @param powerLeftIn number
      * @param powerRightIn number
      */
-    //% block="set motors power: $portIdsIn | for left motor power: $powerLeftIn | right motor power: $powerRightIn"
+    //% block="set motors power: $portIdsIn|for left motor power: $powerLeftIn|right motor power: $powerRightIn"
     //% powerLeftIn.min=-100 powerLeftIn.max=100
     //% powerRightIn.min=-100 powerRightIn.max=100
     //% weight=80 blockGap=8
@@ -396,7 +292,7 @@ namespace questRobo {
      * @param deviceTypeBotBoolIn boolean
      * @param deviceTypeControllerBoolIn boolean
      */
-    //% block="rq setup: 'deviceType_Bot_Bool': $deviceTypeBotBoolIn |'deviceType_Controller_Bool': $deviceTypeControllerBoolIn"
+    //% block="rq setup: 'deviceType_Bot_Bool': $deviceTypeBotBoolIn|'deviceType_Controller_Bool': $deviceTypeControllerBoolIn"
     //% weight=100 blockGap=8
     //% inlineInputMode=external
     export function rq_Setup_Fn(deviceTypeBotBoolIn: boolean, deviceTypeControllerBoolIn: boolean): void {
@@ -427,7 +323,7 @@ namespace questRobo {
      * @param borderBottomBoolIn boolean
      * ; eg: 150, 100, 200, -100
     */
-    //% block="show oled & serial |textStrIn: $textStrIn |xColBase0In: $xColBase0In |yRowBase0In: $yRowBase0In |colorIntIn: $colorIntIn |borderTopBoolIn: $borderTopBoolIn |borderBottomBoolIn: $borderBottomBoolIn"
+    //% block="show oled & serial|textStrIn: $textStrIn|xColBase0In: $xColBase0In|yRowBase0In: $yRowBase0In|colorIntIn: $colorIntIn|borderTopBoolIn: $borderTopBoolIn|borderBottomBoolIn: $borderBottomBoolIn"
     //% xColBase0In.min=0 xColBase0In.max=4
     //% yRowBase0In.min=0 yRowBase0In.max=4
     //% weight=40 blockGap=8
@@ -454,15 +350,15 @@ namespace questRobo {
 
 ///n //% weight=99 color=#808080 icon=""
 ///y //% weight=99 color=#808080 icon="uf005"
-
+/// 91
 
 // color=#808080 = Gray: rgb(128, 128, 128)
 //
 /**
- * Quest: Basic blocks
+ * Quest_Basic blocks
  */
-//% weight=91 color=#808080 icon="uf005"
-namespace questBasic {
+//% weight=81 color=#808080 icon="Q"
+namespace quest_Basic {
 
     //
     // * Global Variables & Constants
@@ -482,17 +378,113 @@ namespace questBasic {
     OLED12864_I2C.clear()
 
     /**
-     * rq_Show_String_ForOled_Small_02_Fn
+     * rq_Show_String_For_Comment_Small_Fn
+     * @param textStrIn string
+     */
+    //% block="comment small: $textStrIn"
+    //% weight=80 blockGap=8
+    //% inlineInputMode=external
+    export function rq_Show_String_For_Comment_Small_Fn(textStrIn: string) {
+
+    }
+
+    // * Add space in front of '|' such as ' |' creates reliable 1row spacing
+    /**
+     * rq_Show_String_For_Comment_Big_Fn
+     * @param textStrIn string
+     */
+    //% block=" |comment big: $textStrIn |"
+    //% weight=80 blockGap=8
+    //% inlineInputMode=external
+    export function rq_Show_String_For_Comment_Big_Fn(textStrIn: string) {
+
+    }
+
+
+    /**
+     * rq_Set_ContinueCurrentState_CountdownTimer_Fn
+     * @param countdownTimer number
+     * @param timeUnits rq_Time_Units_Enum
+     */
+    //% block="set continue current state for: $countdownTimer $timeUnits"
+    //% weight=70 blockGap=8
+    //// y countdownTimer.min=0 countdownTimer.max=5000
+    export function rq_Set_ContinueCurrentState_CountdownTimer_Fn(countdownTimer: number, timeUnits: rq_Time_Units_Enum): void {
+        let countdownTimerNew = 0
+        // Minimum border check
+        if (countdownTimer < 0) { countdownTimer = 0 }
+        if (timeUnits == rq_Time_Units_Enum.Seconds) {
+            countdownTimerNew = countdownTimer * 1000
+            basic.pause(countdownTimerNew)
+            if (_debug_Serial_Print_Bool) {
+                serial.writeLine("* rq_continueCurrentState_CountdownTimer_Set_Fn: " + countdownTimer + " " + countdownTimerNew)
+            }
+        } else if (timeUnits == rq_Time_Units_Enum.Milliseconds) {
+            countdownTimerNew = countdownTimer
+            basic.pause(countdownTimerNew)
+            if (_debug_Serial_Print_Bool) {
+                serial.writeLine("* rq_ContinueCurrentState_CountdownTimer_Set_Fn: " + countdownTimer + " " + countdownTimerNew)
+            }
+        } else {
+            if (_debug_Serial_Print_Bool) {
+                serial.writeLine("* ERROR:rq_continueCurrentState_CountdownTimer_Set_Fn: " + countdownTimer + " " + countdownTimerNew)
+            }
+        }
+    }
+
+
+    /**
+    * rq_ShowString_For_Oled_BigFont_Fn
+    * @param textStrIn string
+    * @param xColBase0In number
+    * @param yRowBase0In number
+    */
+    //% block="show oled big font (AutoSetup I2cAddress=60, 12ColMax, 4RowMax ~ SCL=Pin19, SDA=Pin20)|textStrIn: $textStrIn|xColBase0In: $xColBase0In|yRowBase0In: $yRowBase0In"
+    //% xColBase0In.min=0 xColBase0In.max=12
+    //% yRowBase0In.min=0 yRowBase0In.max=4
+    //% weight=62 blockGap=8
+    //% inlineInputMode=external
+    export function rq_ShowString_For_Oled_BigFont_Fn(textStrIn: string, xColBase0In: number, yRowBase0In: number) {
+
+        // Default Values
+        let colorIntIn = 1 // default
+        let textStrInLenMAX = 12  // Char Max with Zoom:Off
+
+        let textStrInLen = textStrIn.length
+
+        // Override Manually
+        OLED12864_I2C.zoom(true)
+
+        // post blank-pad 'textStrIn' to full text width max
+        //
+        while (textStrIn.length < textStrInLenMAX) {
+            textStrIn += " "
+        }
+
+        OLED12864_I2C.showString(
+            xColBase0In,
+            yRowBase0In,
+            textStrIn,
+            colorIntIn
+        )
+
+        // Restore Default
+        OLED12864_I2C.zoom(false)
+
+    }
+
+    /**
+     * rq_Show_String_For_Oled_SmallFont_Fn
      * @param textStrIn string
      * @param xColBase0In number
      * @param yRowBase0In number
      */
-    //% block="show OLED small font 02 (AutoSetup I2cAddress=60, 25ColMax, 8RowMax ~ SCL=Pin19, SDA=Pin20) textStrIn: $textStrIn xColBase0In: $xColBase0In yRowBase0In: $yRowBase0In"
+    //% block="show oled small font (AutoSetup I2cAddress=60, 25ColMax, 8RowMax ~ SCL=Pin19, SDA=Pin20)|textStrIn: $textStrIn|xColBase0In: $xColBase0In|yRowBase0In: $yRowBase0In"
     //% xColBase0In.min=0 xColBase0In.max=24
     //% yRowBase0In.min=0 yRowBase0In.max=6
-    //% weight=70 blockGap=8
+    //% weight=60 blockGap=8
     //% inlineInputMode=external
-    export function rq_Show_String_ForOled_Small_02_Fn(textStrIn: string, xColBase0In: number, yRowBase0In: number) {
+    export function rq_Show_String_For_Oled_SmallFont_Fn(textStrIn: string, xColBase0In: number, yRowBase0In: number) {
 
         // Default Values
         let colorIntIn = 1 // default
@@ -512,16 +504,40 @@ namespace questBasic {
             textStrIn,
             colorIntIn
         )
+
     }
 
     /**
-     * rq_Show_String_ForComment_Fn
+     * rq_Show_String_For_Oled_SmallFont_02_Fn
      * @param textStrIn string
+     * @param xColBase0In number
+     * @param yRowBase0In number
      */
-    //% block="show string as comment: $textStrIn"
-    //% weight=80 blockGap=8
-    export function rq_Show_String_ForComment_Fn(textStrIn: string) {
+    //% block="show oled small font 02 (AutoSetup I2cAddress=60, 25ColMax, 8RowMax ~ SCL=Pin19, SDA=Pin20)|textStrIn: $textStrIn|xColBase0In: $xColBase0In|yRowBase0In: $yRowBase0In"
+    //% xColBase0In.min=0 xColBase0In.max=24
+    //% yRowBase0In.min=0 yRowBase0In.max=6
+    //% weight=60 blockGap=8
+    //% inlineInputMode=external
+    export function rq_Show_String_For_Oled_SmallFont_02_Fn(textStrIn: string, xColBase0In: number, yRowBase0In: number) {
 
+        // Default Values
+        let colorIntIn = 1 // default
+        let textStrInLenMAX = 25  // Char Max with Zoom:Off
+
+        let textStrInLen = textStrIn.length
+
+        // post blank-pad 'textStrIn' to full text width max
+        //
+        while (textStrIn.length < textStrInLenMAX) {
+            textStrIn += " "
+        }
+
+        OLED12864_I2C.showString(
+            xColBase0In,
+            yRowBase0In,
+            textStrIn,
+            colorIntIn
+        )
     }
 
 }
