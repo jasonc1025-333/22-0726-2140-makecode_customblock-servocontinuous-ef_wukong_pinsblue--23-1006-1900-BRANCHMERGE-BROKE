@@ -96,6 +96,15 @@ namespace quest_Dashboard {
     OLED12864_I2C.clear()
  
     /**
+    * rq_Show_Oled_Cleared_Fn
+    */
+    //% block="show oled cleared"
+    //% weight=53 blockGap=8
+    //% inlineInputMode=external
+    export function rq_Show_Oled_Cleared_Fn() {
+        OLED12864_I2C.clear()
+    }
+    /**
     * rq_Show_String_For_Oled_BigFont_Fn
     * @param textStrIn string
     * @param xColBase0In number
