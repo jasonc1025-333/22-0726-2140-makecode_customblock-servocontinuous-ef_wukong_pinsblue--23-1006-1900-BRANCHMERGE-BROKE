@@ -49,11 +49,11 @@ enum rq_Motion_Direction_Enum {
 ///y let deviceType_Bot_Bool = false
 ///y let deviceType_Controller_Bool = true
 
+
 ///y //% weight=100 color=#0fbc11 icon=""
 ///y //% weight=100 color=#0000ff icon="\uf5b8"
 ///y //% weight=100 color=#0000ff icon="\uf005"
 /// was 90
-
 
 ///n //% weight=99 color=#808080 icon=""
 ///y //% weight=99 color=#808080 icon="uf005"
@@ -67,7 +67,6 @@ enum rq_Motion_Direction_Enum {
  */
 //% weight=84 color=#008080 icon="Q"
 namespace quest_Basic {
-
     //
     // * Global Variables & Constants
     //
@@ -77,21 +76,19 @@ namespace quest_Basic {
     let deviceType_Controller_Bool = false
     //
     let _debug_Serial_Print_Bool = false
-
     // OLED12864_I2C: Setup
     //
     OLED12864_I2C.init(60)
     OLED12864_I2C.on()
     OLED12864_I2C.zoom(false)
     OLED12864_I2C.clear()
-
-
+ 
     /**
      * rq_Set_ContinueCurrentState_CountdownTimer_Fn
      * @param countdownTimer number
      * @param timeUnits rq_Time_Units_Enum
      */
-    //% block="set continue current state for: $countdownTimer $timeUnits"
+    //% block="set current state to continue for: $countdownTimer $timeUnits"
     //% weight=70 blockGap=8
     //// y countdownTimer.min=0 countdownTimer.max=5000
     export function rq_Set_ContinueCurrentState_CountdownTimer_Fn(countdownTimer: number, timeUnits: rq_Time_Units_Enum): void {
@@ -117,6 +114,27 @@ namespace quest_Basic {
         }
     }
 
+    /**
+    * rq_Get_Number_WithColumnPadding_AsStringOut_Fn
+    * @param number_in number
+    * @param string_len_max_in number
+    * @param decimal_places_in number
+    */
+    //% block="get number with_column_padding as_string_out|number_in: $number_in|string_len_max_in: $string_len_max_in|decimal_places_in  $decimal_places_in"
+    //% weight=60 blockGap=8
+    //% inlineInputMode=external
+    export function rq_Get_Number_WithColumnPadding_AsStringOut_Fn(number_in: number, string_len_max_in: number, decimal_places_in: number=0){
+        let local_number_with_fixed_decimal_deci = Math.round(number_in * 10 ** decimal_places_in) / 10 ** decimal_places_in
+
+        let local_string_out = convertToText(local_number_with_fixed_decimal_deci)
+
+        let local_loop_count_max = string_len_max_in - local_string_out.length
+
+        for (let index = 0; index < local_loop_count_max; index++) {
+            local_string_out = " " + local_string_out
+        }
+        return local_string_out
+    }
 
     /**
     * rq_ShowString_For_Oled_BigFont_Fn
@@ -124,21 +142,17 @@ namespace quest_Basic {
     * @param xColBase0In number
     * @param yRowBase0In number
     */
-    //% block="show oled big_font (AutoSetup I2cAddress=60, 12ColMax, 4RowMax ~ SCL=Pin19, SDA=Pin20)|textStrIn: $textStrIn|xColBase0In: $xColBase0In|yRowBase0In: $yRowBase0In"
-    //% xColBase0In.min=0 xColBase0In.max=12
-    //% yRowBase0In.min=0 yRowBase0In.max=4
-    //% weight=62 blockGap=8
+    //% block="show oled big_font (AutoSetup I2cAddress=60, SCL=Pin19, SDA=Pin20)|textStrIn: $textStrIn|xColBase0In[0..11]: $xColBase0In|yRowBase0In[0..3]: $yRowBase0In"
+    //% xColBase0In.min=0 xColBase0In.max=11
+    //% yRowBase0In.min=0 yRowBase0In.max=3
+    //% weight=52 blockGap=8
     //% inlineInputMode=external
     export function rq_ShowString_For_Oled_BigFont_Fn(textStrIn: string, xColBase0In: number, yRowBase0In: number) {
-
         // Default Values
         let colorIntIn = 1 // default
-        let textStrInLenMAX = 12  // Char Max with Zoom:Off
+        let textStrInLenMAX = 12  // Char Max with Zoom:On
 
         let textStrInLen = textStrIn.length
-
-        // Override Manually
-        OLED12864_I2C.zoom(true)
 
         // post blank-pad 'textStrIn' to full text width max
         //
@@ -146,31 +160,28 @@ namespace quest_Basic {
             textStrIn += " "
         }
 
+        // always setup 'zoom'_in appropriately
+        OLED12864_I2C.zoom(true)
+
         OLED12864_I2C.showString(
             xColBase0In,
             yRowBase0In,
             textStrIn,
             colorIntIn
         )
-
-        // Restore Default
-        OLED12864_I2C.zoom(false)
-
     }
-
     /**
      * rq_Show_String_For_Oled_SmallFont_Fn
      * @param textStrIn string
      * @param xColBase0In number
      * @param yRowBase0In number
      */
-    //% block="show oled small_font (AutoSetup I2cAddress=60, 25ColMax, 8RowMax ~ SCL=Pin19, SDA=Pin20)|textStrIn: $textStrIn|xColBase0In: $xColBase0In|yRowBase0In: $yRowBase0In"
+    //% block="show oled small_font (AutoSetup I2cAddress=60, SCL=Pin19, SDA=Pin20)|textStrIn: $textStrIn|xColBase0In[0..24]: $xColBase0In|yRowBase0In[0..7]: $yRowBase0In"
     //% xColBase0In.min=0 xColBase0In.max=24
-    //% yRowBase0In.min=0 yRowBase0In.max=6
-    //% weight=60 blockGap=8
+    //% yRowBase0In.min=0 yRowBase0In.max=7
+    //% weight=50 blockGap=8
     //% inlineInputMode=external
     export function rq_Show_String_For_Oled_SmallFont_Fn(textStrIn: string, xColBase0In: number, yRowBase0In: number) {
-
         // Default Values
         let colorIntIn = 1 // default
         let textStrInLenMAX = 25  // Char Max with Zoom:Off
@@ -183,39 +194,8 @@ namespace quest_Basic {
             textStrIn += " "
         }
 
-        OLED12864_I2C.showString(
-            xColBase0In,
-            yRowBase0In,
-            textStrIn,
-            colorIntIn
-        )
-
-    }
-
-    /**
-     * rq_Show_String_For_Oled_SmallFont_02_Fn
-     * @param textStrIn string
-     * @param xColBase0In number
-     * @param yRowBase0In number
-     */
-    //% block="show oled small_font 02 (AutoSetup I2cAddress=60, 25ColMax, 8RowMax ~ SCL=Pin19, SDA=Pin20)|textStrIn: $textStrIn|xColBase0In: $xColBase0In|yRowBase0In: $yRowBase0In"
-    //% xColBase0In.min=0 xColBase0In.max=24
-    //% yRowBase0In.min=0 yRowBase0In.max=6
-    //% weight=60 blockGap=8
-    //% inlineInputMode=external
-    export function rq_Show_String_For_Oled_SmallFont_02_Fn(textStrIn: string, xColBase0In: number, yRowBase0In: number) {
-
-        // Default Values
-        let colorIntIn = 1 // default
-        let textStrInLenMAX = 25  // Char Max with Zoom:Off
-
-        let textStrInLen = textStrIn.length
-
-        // post blank-pad 'textStrIn' to full text width max
-        //
-        while (textStrIn.length < textStrInLenMAX) {
-            textStrIn += " "
-        }
+        // always setup 'zoom'_in appropriately
+        OLED12864_I2C.zoom(false)
 
         OLED12864_I2C.showString(
             xColBase0In,
@@ -224,40 +204,23 @@ namespace quest_Basic {
             colorIntIn
         )
     }
-
 }
 
 
-///n //% weight=99 color=#808080 icon=""
-///y //% weight=99 color=#808080 icon="uf005"
-/// 91
+///
+///
+/// 1: Silver #C0C0C0 rgb(192, 192, 192)
+/// 2: Lime #00FF00 rgb(0, 255, 0)
+/// 3: Aqua #00FFFF rgb(0, 255, 255)
+/// 4L Yellow #FFFF00	rgb(255, 255, 0)
+///
+///
 
-// color=#808080 = Gray: rgb(128, 128, 128)
-/// Aqua #00FFFF rgb(0, 255, 255)
-//
 /**
- * quest_Note blocks
+ * quest_Note_1 blocks
  */
-//% weight=82 color=#00FFFF icon="Q"
-namespace quest_Note {
-
-    //
-    // * Global Variables & Constants
-    //
-    // * Default to Bot and not to Controller for most basic total 1 'micro:bit' setup (No Controller)
-    //
-    let deviceType_Bot_Bool = true
-    let deviceType_Controller_Bool = false
-    //
-    let _debug_Serial_Print_Bool = false
-
-    // OLED12864_I2C: Setup
-    //
-    OLED12864_I2C.init(60)
-    OLED12864_I2C.on()
-    OLED12864_I2C.zoom(false)
-    OLED12864_I2C.clear()
-
+//% weight=84 color=#C0C0C0 icon="Q"
+namespace quest_Note_1 {
     /**
      * rq_Show_String_For_Note_Small_Fn
      * @param textStrIn string
@@ -266,9 +229,7 @@ namespace quest_Note {
     //% weight=80 blockGap=8
     //% inlineInputMode=external
     export function rq_Show_String_For_Note_Small_Fn(textStrIn: string) {
-
     }
-
     // * Add space in front of '|' such as ' |' creates reliable 1row spacing
     /**
      * rq_Show_String_For_Note_Big_Fn
@@ -278,19 +239,93 @@ namespace quest_Note {
     //% weight=80 blockGap=8
     //% inlineInputMode=external
     export function rq_Show_String_For_Note_Big_Fn(textStrIn: string) {
-
     }
+}
 
+/**
+ * quest_Note_2 blocks
+ */
+//% weight=83 color=#00FF00 icon="Q"
+namespace quest_Note_2 {
+    /**
+     * rq_Show_String_For_Note_Small_Fn
+     * @param textStrIn string
+     */
+    //% block="note small: $textStrIn"
+    //% weight=80 blockGap=8
+    //% inlineInputMode=external
+    export function rq_Show_String_For_Note_Small_Fn(textStrIn: string) {
+    }
+    // * Add space in front of '|' such as ' |' creates reliable 1row spacing
+    /**
+     * rq_Show_String_For_Note_Big_Fn
+     * @param textStrIn string
+     */
+    //% block=" |note big: $textStrIn |"
+    //% weight=80 blockGap=8
+    //% inlineInputMode=external
+    export function rq_Show_String_For_Note_Big_Fn(textStrIn: string) {
+    }
+}
+
+/**
+ * quest_Note_3 blocks
+ */
+//% weight=82 color=#00FFFF icon="Q"
+namespace quest_Note_3 {
+    /**
+     * rq_Show_String_For_Note_Small_Fn
+     * @param textStrIn string
+     */
+    //% block="note small: $textStrIn"
+    //% weight=80 blockGap=8
+    //% inlineInputMode=external
+    export function rq_Show_String_For_Note_Small_Fn(textStrIn: string) {
+    }
+    // * Add space in front of '|' such as ' |' creates reliable 1row spacing
+    /**
+     * rq_Show_String_For_Note_Big_Fn
+     * @param textStrIn string
+     */
+    //% block=" |note big: $textStrIn |"
+    //% weight=80 blockGap=8
+    //% inlineInputMode=external
+    export function rq_Show_String_For_Note_Big_Fn(textStrIn: string) {
+    }
+}
+
+/**
+ * quest_Note_4 blocks
+ */
+//% weight=81 color=#FFFF00 icon="Q"
+namespace quest_Note_4 {
+    /**
+     * rq_Show_String_For_Note_Small_Fn
+     * @param textStrIn string
+     */
+    //% block="note small: $textStrIn"
+    //% weight=80 blockGap=8
+    //% inlineInputMode=external
+    export function rq_Show_String_For_Note_Small_Fn(textStrIn: string) {
+    }
+    // * Add space in front of '|' such as ' |' creates reliable 1row spacing
+    /**
+     * rq_Show_String_For_Note_Big_Fn
+     * @param textStrIn string
+     */
+    //% block=" |note big: $textStrIn |"
+    //% weight=80 blockGap=8
+    //% inlineInputMode=external
+    export function rq_Show_String_For_Note_Big_Fn(textStrIn: string) {
+    }
 }
 
 
 /**
  * Quest_Robo blocks
  */
-//% weight=80 color=#0000ff icon="Q"
+//% weight=80 color=#0000FF icon="Q"
 namespace quest_Robo {
-
-
     //
     // * Global Variables & Constants
     //
@@ -308,7 +343,6 @@ namespace quest_Robo {
     // Default: Small Font, Override Manually to Big Font as needed
     OLED12864_I2C.zoom(false)
     OLED12864_I2C.clear()
-
 
     /**
      * rq_Set_PowerMotorsViaBlueRedBlackPins_Fn
@@ -357,7 +391,6 @@ namespace quest_Robo {
     //% block="show motion_direction: $motionDirectionIn"
     //% weight=81 blockGap=8
     export function rq_show_MotionDirection_Fn(motionDirectionIn: rq_Motion_Direction_Enum): void {
-
         switch (motionDirectionIn) {
             // * if on 'bot', then 5x5LED is upside-down - so Yes_Flip graphics
             // * if on 'controller', then 5x5 is rightside-up - so No_Flip graphics
@@ -536,44 +569,5 @@ namespace quest_Robo {
             "B:" + convertToText(deviceType_Bot_Bool) + ", C:" + convertToText(deviceType_Controller_Bool),
             1
         )
-
-    }
-
-    // OBSOLETE BUT ARCHIVE FOR REFERENCE
-    // OBSOLETE BUT ARCHIVE FOR REFERENCE
-    // OBSOLETE BUT ARCHIVE FOR REFERENCE
-    //
-    /**
-     * rq_Show_String_For_Oled_And_Serial_Fn
-     * @param textStrIn string
-     * @param xColBase0In number
-     * @param yRowBase0In number
-     * @param colorIntIn number; eg: 1
-     * @param borderTopBoolIn boolean
-     * @param borderBottomBoolIn boolean
-     * ; eg: 150, 100, 200, -100
-    */
-    //% block="show oled & serial|textStrIn: $textStrIn|xColBase0In: $xColBase0In|yRowBase0In: $yRowBase0In|colorIntIn: $colorIntIn|borderTopBoolIn: $borderTopBoolIn|borderBottomBoolIn: $borderBottomBoolIn"
-    //% xColBase0In.min=0 xColBase0In.max=4
-    //% yRowBase0In.min=0 yRowBase0In.max=4
-    //% weight=40 blockGap=8
-    //% inlineInputMode=external
-    export function rq_Show_String_For_Oled_And_Serial_Fn(textStrIn: string, xColBase0In: number, yRowBase0In: number, colorIntIn: number = 1, borderTopBoolIn: boolean, borderBottomBoolIn: boolean) {
-        OLED12864_I2C.showString(
-            xColBase0In,
-            yRowBase0In,
-            textStrIn,
-            colorIntIn
-        )
-        if (_debug_Serial_Print_Bool) {
-            if (borderTopBoolIn) {
-                serial.writeLine("")
-            }
-            serial.writeString(textStrIn)
-            serial.writeString(",")
-            if (borderBottomBoolIn) {
-                serial.writeLine("")
-            }
-        }
     }
 }
