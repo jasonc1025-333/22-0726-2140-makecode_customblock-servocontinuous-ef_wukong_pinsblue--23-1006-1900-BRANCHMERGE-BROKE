@@ -588,15 +588,15 @@ namespace quest_Note_4 {
  */
 //% weight=51 color=#7f7fff icon="Q"
 namespace quest_Hardware {
-    //
-    // * Global Variables Q Constants
-    //
-    // * Default to Bot and not to Controller for most basic total 1 'micro:bit' setup (No Controller)
-    //
-    let deviceType_Bot_Bool = true
-    let deviceType_Controller_Bool = false
-    //
-    let _debug_Serial_Print_Bool = false
+    /// //
+    /// // * Global Variables Q Constants
+    /// //
+    /// // * Default to Bot and not to Controller for most basic total 1 'micro:bit' setup (No Controller)
+    /// //
+    /// let deviceType_Bot_Bool = true
+    /// let deviceType_Controller_Bool = false
+    /// //
+    /// let _debug_Serial_Print_Bool = false
 
     /**
      * rq_Set_PowerMotorsViaBlueRedBlackPins_Fn
