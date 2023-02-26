@@ -577,11 +577,12 @@ namespace quest_Note_4 {
     }
 }
 
-
+// light blue rgb(127, 190, 255) #7fbeff
+// * not too dark since would cover thin-black-boundaries
 /**
  * quest_Hardware blocks
  */
-//% weight=51 color=#0000FF icon="Q"
+//% weight=51 color=#7fbeff icon="Q"
 namespace quest_Hardware {
     //
     // * Global Variables Q Constants
@@ -740,25 +741,9 @@ namespace quest_Hardware {
                 }
         }
     
-        // Motor-Left Conversion: Same Rotational Direction
-        motor_Power_L = Math.map(motor_Power_L, -100, 100, 0, 360)
-        // Motor-Right Conversion: Opposite Rotational Direction
-        motor_Power_R = Math.map(motor_Power_R, -100, 100, 360, 0)
-
-        switch (port_Ids_In) {
-            case rq_PortGroup_BlueRedBlack_PortIds_Enum.S1_MotorLeft__S0_MotorRight:
-                wuKong.setServoAngle(wuKong.ServoTypeList._360, wuKong.ServoList.S1, motor_Power_L)
-                wuKong.setServoAngle(wuKong.ServoTypeList._360, wuKong.ServoList.S0, motor_Power_R)
-                break
-            case rq_PortGroup_BlueRedBlack_PortIds_Enum.S3_MotorLeft__S2_MotorRight:
-                wuKong.setServoAngle(wuKong.ServoTypeList._360, wuKong.ServoList.S3, motor_Power_L)
-                wuKong.setServoAngle(wuKong.ServoTypeList._360, wuKong.ServoList.S2, motor_Power_R)
-                break
-        }
-
         switch (turn_Duration_In) {
             case turn_Duration_Small_Enum.msec_020:
-                turn_Duration = 20    
+                turn_Duration = 20
                 break
             case turn_Duration_Small_Enum.msec_040:
                 turn_Duration = 40
@@ -777,12 +762,27 @@ namespace quest_Hardware {
         // temp TODO
         turn_Duration *= 100
 
-        quest_Hardware.rq_Set_PowerMotorsViaBlueRedBlackPins_Fn(rq_PortGroup_BlueRedBlack_PortIds_Enum.S1_MotorLeft__S0_MotorRight, motor_Power_L, motor_Power_R)
+        // Motor-Left Conversion: Same Rotational Direction
+        motor_Power_L = Math.map(motor_Power_L, -100, 100, 0, 360)
+        // Motor-Right Conversion: Opposite Rotational Direction
+        motor_Power_R = Math.map(motor_Power_R, -100, 100, 360, 0)
+
+        /// jwc> switch (port_Ids_In) {
+        ///    case rq_PortGroup_BlueRedBlack_PortIds_Enum.S1_MotorLeft__S0_MotorRight:
+        ///        wuKong.setServoAngle(wuKong.ServoTypeList._360, wuKong.ServoList.S1, motor_Power_L)
+        ///        wuKong.setServoAngle(wuKong.ServoTypeList._360, wuKong.ServoList.S0, motor_Power_R)
+        ///        break
+        ///    case rq_PortGroup_BlueRedBlack_PortIds_Enum.S3_MotorLeft__S2_MotorRight:
+        ///        wuKong.setServoAngle(wuKong.ServoTypeList._360, wuKong.ServoList.S3, motor_Power_L)
+        ///        wuKong.setServoAngle(wuKong.ServoTypeList._360, wuKong.ServoList.S2, motor_Power_R)
+        ///        break
+        /// < jwc }
+
+
+        quest_Hardware.rq_Set_PowerMotorsViaBlueRedBlackPins_Fn(port_Ids_In, motor_Power_L, motor_Power_R)
         quest_Timer.rq_Set_ContinueCurrentState_CountdownTimer_Fn(turn_Duration, rq_Time_Units_Enum.Milliseconds)
         
-        quest_Hardware.rq_Set_PowerMotorsViaBlueRedBlackPins_Fn(rq_PortGroup_BlueRedBlack_PortIds_Enum.S1_MotorLeft__S0_MotorRight, 0, 0)
-        quest_Timer.rq_Set_ContinueCurrentState_CountdownTimer_Fn(0, rq_Time_Units_Enum.Seconds)
-
+        quest_Hardware.rq_Set_PowerMotorsViaBlueRedBlackPins_Fn(port_Ids_In, 0, 0)
 
         basic.showIcon(IconNames.Heart)
 

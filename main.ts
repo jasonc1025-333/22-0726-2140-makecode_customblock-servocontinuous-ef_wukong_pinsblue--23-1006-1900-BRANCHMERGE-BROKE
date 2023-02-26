@@ -26,6 +26,7 @@ input.onButtonPressed(Button.A, function () {
     0,
     0
     )
+    quest_Timer.rq_Set_ContinueCurrentState_CountdownTimer_Fn(2, rq_Time_Units_Enum.Seconds)
 })
 input.onButtonPressed(Button.AB, function () {
     quest_Hardware.rq_Set_PowerMotorsViaBlueRedBlackPins_Fn(
@@ -36,6 +37,10 @@ input.onButtonPressed(Button.AB, function () {
 })
 basic.showIcon(IconNames.Happy)
 quest_Timer.rq_Set_ContinueCurrentState_CountdownTimer_Fn(2, rq_Time_Units_Enum.Seconds)
+quest_Hardware.set_Settings_Fn(
+true,
+false
+)
 basic.forever(function () {
     quest_Note_1.rq_Show_String_For_Note_Big_Fn(
     "1"
