@@ -61,6 +61,8 @@ enum turn_Duration_Small_Enum {
     msec_020,
     //% block="040msec"
     msec_040,
+    //% block="060msec"
+    msec_060,
     //% block="080msec"
     msec_080,
     //% block="100msec"
@@ -604,28 +606,28 @@ namespace quest_Hardware {
     //% inlineInputMode=external
     export function rq_Set_PowerMotorsViaBlueRedBlackPins_Fn(portIdsIn: rq_PortGroup_BlueRedBlack_PortIds_Enum, powerLeftIn: number, powerRightIn: number): void {
         // Motor-Left Conversion: Same Rotational Direction
-        let powerLeftNew = Math.map(powerLeftIn, -100, 100, 0, 360)
+        let motor_Power_L = Math.map(powerLeftIn, -100, 100, 0, 360)
         // Motor-Right Conversion: Opposite Rotational Direction
-        let powerRightNew = Math.map(powerRightIn, -100, 100, 360, 0)
+        let motor_Power_R = Math.map(powerRightIn, -100, 100, 360, 0)
 
         switch (portIdsIn) {
             case rq_PortGroup_BlueRedBlack_PortIds_Enum.S1_MotorLeft__S0_MotorRight:
-                wuKong.setServoAngle(wuKong.ServoTypeList._360, wuKong.ServoList.S1, powerLeftNew)
-                wuKong.setServoAngle(wuKong.ServoTypeList._360, wuKong.ServoList.S0, powerRightNew)
+                wuKong.setServoAngle(wuKong.ServoTypeList._360, wuKong.ServoList.S1, motor_Power_L)
+                wuKong.setServoAngle(wuKong.ServoTypeList._360, wuKong.ServoList.S0, motor_Power_R)
                 if (_debug_Serial_Print_Bool) {
-                    serial.writeLine("* rq_PowerMotorsViaBlueRedBlackPins_Fn: " + powerLeftIn + " " + powerRightIn + " >> " + powerLeftNew + " " + powerRightNew)
+                    serial.writeLine("* rq_PowerMotorsViaBlueRedBlackPins_Fn: " + powerLeftIn + " " + powerRightIn + " >> " + motor_Power_L + " " + motor_Power_R)
                 }
                 break
             case rq_PortGroup_BlueRedBlack_PortIds_Enum.S3_MotorLeft__S2_MotorRight:
-                wuKong.setServoAngle(wuKong.ServoTypeList._360, wuKong.ServoList.S3, powerLeftNew)
-                wuKong.setServoAngle(wuKong.ServoTypeList._360, wuKong.ServoList.S2, powerRightNew)
+                wuKong.setServoAngle(wuKong.ServoTypeList._360, wuKong.ServoList.S3, motor_Power_L)
+                wuKong.setServoAngle(wuKong.ServoTypeList._360, wuKong.ServoList.S2, motor_Power_R)
                 if (_debug_Serial_Print_Bool) {
-                    serial.writeLine("* rq_PowerMotorsViaBlueRedBlackPins_Fn: " + powerLeftIn + " " + powerRightIn + " >> " + powerLeftNew + " " + powerRightNew)
+                    serial.writeLine("* rq_PowerMotorsViaBlueRedBlackPins_Fn: " + powerLeftIn + " " + powerRightIn + " >> " + motor_Power_L + " " + motor_Power_R)
                 }
                 break
             default:
                 if (_debug_Serial_Print_Bool) {
-                    serial.writeLine("* ERROR: rq_PowerMotorsViaBlueRedBlackPins_Fn: " + powerLeftIn + " " + powerRightIn + " >> " + powerLeftNew + " " + powerRightNew)
+                    serial.writeLine("* ERROR: rq_PowerMotorsViaBlueRedBlackPins_Fn: " + powerLeftIn + " " + powerRightIn + " >> " + motor_Power_L + " " + motor_Power_R)
                 }
                 break
         }
@@ -646,100 +648,138 @@ namespace quest_Hardware {
     //% inlineInputMode=external
     export function rq_Set_Turn_Fn(port_Ids_In: rq_PortGroup_BlueRedBlack_PortIds_Enum, turn_Type_In: turn_Type_Enum, turn_Direction_In: turn_Direction_Enum, turn_Power_In: turn_Power_Enum, turn_Duration_In: turn_Duration_Small_Enum): void {
         
-        let powerLeftNew = 0
-        let powerRightNew = 0
+        let motor_Power_L = 0
+        let motor_Power_R = 0
+
+        let turn_Duration = 0
         
         switch (turn_Type_In) {
             case turn_Type_Enum.Pivot:
-                switch (turn_Direction_In){
-                    case turn_Direction_Enum.right:
-                        powerLeftNew  = motor_Power_Lo
-                        powerRightNew = motor_Power_No
-                        break
-                    case turn_Direction_Enum.left:
-                        powerLeftNew  = motor_Power_No
-                        powerRightNew = motor_Power_Lo
-                        break
-                    default:
-                        if (_debug_Serial_Print_Bool) {
-                            serial.writeLine("*** ERROR ***")
-                        }
-                        break
-                }
-            case turn_Type_Enum.Spin:
-                switch (turn_Direction_In) {
-                    case turn_Direction_Enum.right:
-                        powerLeftNew  = motor_Power_Lo
-                        powerRightNew = motor_Power_Lo * (-1)
-                        break
-                    case turn_Direction_Enum.left:
-                        powerLeftNew  = motor_Power_Lo * (-1)
-                        powerRightNew = motor_Power_Lo
-                        break
-                    default:
-                        if (_debug_Serial_Print_Bool) {
-                            serial.writeLine("*** ERROR ***")
-                        }
-                        break
-                }
-        }
-        switch (turn_Power_In) {
-            case turn_Power_Enum.Mi:
-                powerLeftNew *= 2
-                powerRightNew *= 2
-                break
-            case turn_Power_Enum.Hi:
-                powerLeftNew *= 3
-                powerRightNew *= 3
-                break
-        }
 
+                switch (turn_Direction_In){                   
+                    case turn_Direction_Enum.left:
+
+                        switch (turn_Power_In) {
+                            case turn_Power_Enum.Lo:
+                                motor_Power_L = motor_Power_No
+                                motor_Power_R = motor_Power_Lo
+                                break
+                            case turn_Power_Enum.Mi:
+                                motor_Power_L = motor_Power_No
+                                motor_Power_R = motor_Power_Mi
+                                break
+                            case turn_Power_Enum.Hi:
+                                motor_Power_L = motor_Power_No
+                                motor_Power_R = motor_Power_Hi
+                                break
+                        }
+                        quest_Dashboard.rq_Show_MotionDirection_Fn( rq_Motion_Direction_Enum.Left )
+                        break
+
+                    case turn_Direction_Enum.right:
+
+                        switch (turn_Power_In){
+                            case turn_Power_Enum.Lo:
+                                motor_Power_L = motor_Power_Lo
+                                motor_Power_R = motor_Power_No
+                                break
+                            case turn_Power_Enum.Mi:
+                                motor_Power_L = motor_Power_Mi
+                                motor_Power_R = motor_Power_No
+                                break
+                            case turn_Power_Enum.Hi:
+                                motor_Power_L = motor_Power_Hi
+                                motor_Power_R = motor_Power_No
+                                break
+                        }
+                        quest_Dashboard.rq_Show_MotionDirection_Fn(rq_Motion_Direction_Enum.Right)
+                        break
+                }
+
+            case turn_Type_Enum.Spin: 
+
+                switch (turn_Direction_In) {
+                    case turn_Direction_Enum.left:
+
+                        switch (turn_Power_In) {
+                            case turn_Power_Enum.Lo:
+                                motor_Power_L = motor_Power_Lo * (-1)
+                                motor_Power_R = motor_Power_Lo
+                                break
+                            case turn_Power_Enum.Mi:
+                                motor_Power_L = motor_Power_Mi * (-1)
+                                motor_Power_R = motor_Power_Mi
+                                break
+                            case turn_Power_Enum.Hi:
+                                motor_Power_L = motor_Power_Hi * (-1)
+                                motor_Power_R = motor_Power_Hi
+                                break
+                        }
+                        quest_Dashboard.rq_Show_MotionDirection_Fn(rq_Motion_Direction_Enum.Left)
+                        break
+
+                    case turn_Direction_Enum.right:
+
+                        switch (turn_Power_In) {
+                            case turn_Power_Enum.Lo:
+                                motor_Power_L = motor_Power_Lo
+                                motor_Power_R = motor_Power_Lo * (-1)
+                                break
+                            case turn_Power_Enum.Mi:
+                                motor_Power_L = motor_Power_Mi
+                                motor_Power_R = motor_Power_Mi * (-1)
+                                break
+                            case turn_Power_Enum.Hi:
+                                motor_Power_L = motor_Power_Hi
+                                motor_Power_R = motor_Power_Hi * (-1)
+                                break
+                        }
+                        quest_Dashboard.rq_Show_MotionDirection_Fn(rq_Motion_Direction_Enum.Right)
+                        break
+                }
+        }
+    
         // Motor-Left Conversion: Same Rotational Direction
-        powerLeftNew = Math.map(powerLeftNew, -100, 100, 0, 360)
+        motor_Power_L = Math.map(motor_Power_L, -100, 100, 0, 360)
         // Motor-Right Conversion: Opposite Rotational Direction
-        powerRightNew = Math.map(powerRightNew, -100, 100, 360, 0)
+        motor_Power_R = Math.map(motor_Power_R, -100, 100, 360, 0)
 
         switch (port_Ids_In) {
             case rq_PortGroup_BlueRedBlack_PortIds_Enum.S1_MotorLeft__S0_MotorRight:
-                wuKong.setServoAngle(wuKong.ServoTypeList._360, wuKong.ServoList.S1, powerLeftNew)
-                wuKong.setServoAngle(wuKong.ServoTypeList._360, wuKong.ServoList.S0, powerRightNew)
-                if (_debug_Serial_Print_Bool) {
-                    serial.writeLine("* rq_PowerMotorsViaBlueRedBlackPins_Fn: " + powerLeftNew + " " + powerRightNew)
-                }                
+                wuKong.setServoAngle(wuKong.ServoTypeList._360, wuKong.ServoList.S1, motor_Power_L)
+                wuKong.setServoAngle(wuKong.ServoTypeList._360, wuKong.ServoList.S0, motor_Power_R)
                 break
             case rq_PortGroup_BlueRedBlack_PortIds_Enum.S3_MotorLeft__S2_MotorRight:
-                wuKong.setServoAngle(wuKong.ServoTypeList._360, wuKong.ServoList.S3, powerLeftNew)
-                wuKong.setServoAngle(wuKong.ServoTypeList._360, wuKong.ServoList.S2, powerRightNew)
-                if (_debug_Serial_Print_Bool) {
-                    serial.writeLine("* rq_PowerMotorsViaBlueRedBlackPins_Fn: " + powerLeftNew + " " + powerRightNew)
-                }
-                break
-            default:
-                if (_debug_Serial_Print_Bool) {
-                    serial.writeLine("* ERROR: rq_PowerMotorsViaBlueRedBlackPins_Fn: " + powerLeftNew + " " + powerRightNew)
-                }
+                wuKong.setServoAngle(wuKong.ServoTypeList._360, wuKong.ServoList.S3, motor_Power_L)
+                wuKong.setServoAngle(wuKong.ServoTypeList._360, wuKong.ServoList.S2, motor_Power_R)
                 break
         }
 
-        //TODO
-        if (true) {
-            serial.writeLine("TODO: Code 'Turn Right'")
-            roboQuest.rq_PowerMotorsViaBlueRedBlackPins_Fn(rq_PortGroup_BlueRedBlack_PortIds_Enum.S1_MotorLeft__S0_MotorRight, 0, 15)
-            roboQuest.rq_ContinueCurrentState_CountdownTimer_Set_Fn(20, rq_Time_Units_Enum.Milliseconds)
-            led.plot(4, 0)
+        switch (turn_Duration_In) {
+            case turn_Duration_Small_Enum.msec_020:
+                turn_Duration = 20    
+                break
+            case turn_Duration_Small_Enum.msec_040:
+                turn_Duration = 40
+                break
+            case turn_Duration_Small_Enum.msec_060:
+                turn_Duration = 60
+                break
+            case turn_Duration_Small_Enum.msec_080:
+                turn_Duration = 80
+                break
+            case turn_Duration_Small_Enum.msec_100:
+                turn_Duration = 100
+                break
         }
 
-        if (true) {
-            serial.writeLine("Stop")
-            roboQuest.rq_PowerMotorsViaBlueRedBlackPins_Fn(rq_PortGroup_BlueRedBlack_PortIds_Enum.S1_MotorLeft__S0_MotorRight, 0, 0)
-            roboQuest.rq_ContinueCurrentState_CountdownTimer_Set_Fn(0, rq_Time_Units_Enum.Seconds)
-        }
-
+        quest_Hardware.rq_Set_PowerMotorsViaBlueRedBlackPins_Fn(rq_PortGroup_BlueRedBlack_PortIds_Enum.S1_MotorLeft__S0_MotorRight, motor_Power_L, motor_Power_R)
+        quest_Timer.rq_Set_ContinueCurrentState_CountdownTimer_Fn(turn_Duration, rq_Time_Units_Enum.Milliseconds)
+        
+        quest_Hardware.rq_Set_PowerMotorsViaBlueRedBlackPins_Fn(rq_PortGroup_BlueRedBlack_PortIds_Enum.S1_MotorLeft__S0_MotorRight, 0, 0)
+        quest_Timer.rq_Set_ContinueCurrentState_CountdownTimer_Fn(0, rq_Time_Units_Enum.Seconds)
 
     }
-
-
-
 
 
     /**
