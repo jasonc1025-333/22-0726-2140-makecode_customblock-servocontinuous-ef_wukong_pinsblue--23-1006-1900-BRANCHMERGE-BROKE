@@ -579,13 +579,14 @@ namespace quest_Note_4 {
 
 // dark blue #0000ff TOO DARK, CANNOT SEE BLACK BOUNDARY LINES
 // light blue rgb(127, 190, 255) #7fbeff TOO LIGHT
-// less_light blue rgb(0, 127, 255) ##007fff
+// less_light blue rgb(0, 127, 255) ##007fff to dark that matches other groups
+// rgb(127,127,255)  #7f7fff Good Purple to not drown out blue_borderlines
 
 // * not too dark since would cover thin-black-boundaries
 /**
  * quest_Hardware blocks
  */
-//% weight=51 color=#7fbeff icon="Q"
+//% weight=51 color=#7f7fff icon="Q"
 namespace quest_Hardware {
     //
     // * Global Variables Q Constants
@@ -700,6 +701,7 @@ namespace quest_Hardware {
                         quest_Dashboard.rq_Show_MotionDirection_Fn(rq_Motion_Direction_Enum.Right)
                         break
                 }
+                break
 
             case turn_Type_Enum.Spin: 
 
@@ -742,6 +744,7 @@ namespace quest_Hardware {
                         quest_Dashboard.rq_Show_MotionDirection_Fn(rq_Motion_Direction_Enum.Right)
                         break
                 }
+                break
         }
     
         switch (turn_Duration_In) {
@@ -768,7 +771,7 @@ namespace quest_Hardware {
        
         
         // temp TODO
-        turn_Duration *= 100
+        //turn_Duration *= 100
 
         /// // Motor-Left Conversion: Same Rotational Direction
         /// motor_Power_L = Math.map(motor_Power_L, -100, 100, 0, 360)
