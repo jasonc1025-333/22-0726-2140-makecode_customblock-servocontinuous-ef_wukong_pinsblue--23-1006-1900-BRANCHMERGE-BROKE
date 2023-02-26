@@ -3,7 +3,7 @@
 * Read more at https://makecode.microbit.org/blocks/custom
 */
 
-// *** IMPORTANT NEWS ***
+// *** IMPORTANT NOTES ***
 //
 // * Naming Scheme
 //   ** global_Variable_Etc
@@ -17,6 +17,9 @@
 // * Proactive approach to Commenting:
 //   ** With more upfront transperency w/ 3 note levels: gray, green, blue, 
 //   ** less need for debugging/troubleshooting notes - thus 1 level: yellow
+// * For full/complete upload to Github, press 'Github' button 
+//   ** while in any file within JavaScript mode, not 'Blocks' mode
+// * Note any edits is saved real-time since a cloud-editor, even before Github upload
 //
 
 // enum MyEnum {
@@ -53,11 +56,72 @@ enum rq_Motion_Direction_Enum {
     Stop,
 }
 
+enum turn_Duration_Small_Enum {
+    //% block="020msec"
+    msec_020,
+    //% block="040msec"
+    msec_040,
+    //% block="080msec"
+    msec_080,
+    //% block="100msec"
+    msec_100,
+}
+enum turn_Duration_Big_Enum {
+    //% block="01sec"
+    sec_01,
+    //% block="02sec"
+    sec_02,
+    //% block="03sec"
+    sec_03,
+    //% block="04sec"
+    sec_04,
+    //% block="05sec"
+    sec_05,
+}
+enum turn_Type_Enum {
+    //% block="Pivot(One Wheel Rotates While Other Not Rotates)"
+    Pivot,
+    //% block="Spin(Both Wheels Rotate in Opposite Direction)"
+    Spin,
+}
+enum turn_Direction_Enum {
+    //% block="right"
+    right,
+    //% block="left"
+    left,
+}
+enum turn_Power_Enum {
+    //% block="Lo(30%)"
+    Lo,
+    //% block="Mi(65%)"
+    Mi,
+    //% block="Hi(100%)"
+    Hi,
+}
+
+
 // * Though it seems that can define global vars here, but not advised 
 // ** since memory storage would be safer within 'namespace'
 //
 ///y let deviceType_Bot_Bool = false
 ///y let deviceType_Controller_Bool = true
+
+
+// * Go ahead and define here, since multiple 'namespaces'
+//
+// * Global Variables & Constants
+//
+// * Default to Bot and not to Controller for most basic total 1 'micro:bit' setup (No Controller)
+//
+let deviceType_Bot_Bool = true
+let deviceType_Controller_Bool = false
+//
+let _debug_Serial_Print_Bool = false
+//
+let motor_Power_No = 0
+let motor_Power_Lo = 30
+let motor_Power_Mi = 65
+let motor_Power_Hi = 100
 
 
 ///y //% weight=100 color=#0fbc11 icon=""
@@ -78,16 +142,6 @@ enum rq_Motion_Direction_Enum {
  */
 //% weight=69 color=#008000 icon="Q"
 namespace quest_Dashboard {
-    //
-    // * Global Variables & Constants
-    //
-    // * Default to Bot and not to Controller for most basic total 1 'micro:bit' setup (No Controller)
-    //
-    let deviceType_Bot_Bool = true
-    let deviceType_Controller_Bool = false
-    //
-    let _debug_Serial_Print_Bool = false
-    
     // OLED12864_I2C: Setup
     //
     OLED12864_I2C.init(60)
@@ -374,12 +428,14 @@ namespace quest_Timer {
 
 //
 // color=#808080 = Gray: rgb(128, 128, 128)
+// color=#3f3f3f = Dark Gray: rgb(63, 63, 63)
+// ** to better differentiate vs. Silver Note
 // * Gray like a 'black/gray box' which needs more transparency
 //
 /**
  * quest_Algorithm blocks
  */
-//% weight=65 color=#808080 icon="Q"
+//% weight=65 color=#3f3f3f icon="Q"
 namespace quest_Algorithm {
     /**
     * rq_Get_Number_WithColumnPadding_AsStringOut_Fn
@@ -574,6 +630,117 @@ namespace quest_Hardware {
                 break
         }
     }
+
+
+    /**
+     * rq_Set_Turn_Fn
+     * @param portIdsIn rq_PortGroup_BlueRedBlack_PortIds_Enum
+     * @param turnTypeIn rq_Turn_Type_Enum
+     * @param turnTypeIn rq_Turn_Type_Enum
+     * @param turnDurationIn rq_Turn_Duration_Small_Enum
+     */
+    //% block="set motors power: $portIdsIn|for left motor power: $powerLeftIn|right motor power: $powerRightIn"
+    //% powerLeftIn.min=-100 powerLeftIn.max=100
+    //% powerRightIn.min=-100 powerRightIn.max=100
+    //% weight=80 blockGap=8
+    //% inlineInputMode=external
+    export function rq_Set_Turn_Fn(port_Ids_In: rq_PortGroup_BlueRedBlack_PortIds_Enum, turn_Type_In: turn_Type_Enum, turn_Direction_In: turn_Direction_Enum, turn_Power_In: turn_Power_Enum, turn_Duration_In: turn_Duration_Small_Enum): void {
+        
+        let powerLeftNew = 0
+        let powerRightNew = 0
+        
+        switch (turn_Type_In) {
+            case turn_Type_Enum.Pivot:
+                switch (turn_Direction_In){
+                    case turn_Direction_Enum.right:
+                        powerLeftNew  = motor_Power_Lo
+                        powerRightNew = motor_Power_No
+                        break
+                    case turn_Direction_Enum.left:
+                        powerLeftNew  = motor_Power_No
+                        powerRightNew = motor_Power_Lo
+                        break
+                    default:
+                        if (_debug_Serial_Print_Bool) {
+                            serial.writeLine("*** ERROR ***")
+                        }
+                        break
+                }
+            case turn_Type_Enum.Spin:
+                switch (turn_Direction_In) {
+                    case turn_Direction_Enum.right:
+                        powerLeftNew  = motor_Power_Lo
+                        powerRightNew = motor_Power_Lo * (-1)
+                        break
+                    case turn_Direction_Enum.left:
+                        powerLeftNew  = motor_Power_Lo * (-1)
+                        powerRightNew = motor_Power_Lo
+                        break
+                    default:
+                        if (_debug_Serial_Print_Bool) {
+                            serial.writeLine("*** ERROR ***")
+                        }
+                        break
+                }
+        }
+        switch (turn_Power_In) {
+            case turn_Power_Enum.Mi:
+                powerLeftNew *= 2
+                powerRightNew *= 2
+                break
+            case turn_Power_Enum.Hi:
+                powerLeftNew *= 3
+                powerRightNew *= 3
+                break
+        }
+
+        // Motor-Left Conversion: Same Rotational Direction
+        powerLeftNew = Math.map(powerLeftNew, -100, 100, 0, 360)
+        // Motor-Right Conversion: Opposite Rotational Direction
+        powerRightNew = Math.map(powerRightNew, -100, 100, 360, 0)
+
+        switch (port_Ids_In) {
+            case rq_PortGroup_BlueRedBlack_PortIds_Enum.S1_MotorLeft__S0_MotorRight:
+                wuKong.setServoAngle(wuKong.ServoTypeList._360, wuKong.ServoList.S1, powerLeftNew)
+                wuKong.setServoAngle(wuKong.ServoTypeList._360, wuKong.ServoList.S0, powerRightNew)
+                if (_debug_Serial_Print_Bool) {
+                    serial.writeLine("* rq_PowerMotorsViaBlueRedBlackPins_Fn: " + powerLeftNew + " " + powerRightNew)
+                }                
+                break
+            case rq_PortGroup_BlueRedBlack_PortIds_Enum.S3_MotorLeft__S2_MotorRight:
+                wuKong.setServoAngle(wuKong.ServoTypeList._360, wuKong.ServoList.S3, powerLeftNew)
+                wuKong.setServoAngle(wuKong.ServoTypeList._360, wuKong.ServoList.S2, powerRightNew)
+                if (_debug_Serial_Print_Bool) {
+                    serial.writeLine("* rq_PowerMotorsViaBlueRedBlackPins_Fn: " + powerLeftNew + " " + powerRightNew)
+                }
+                break
+            default:
+                if (_debug_Serial_Print_Bool) {
+                    serial.writeLine("* ERROR: rq_PowerMotorsViaBlueRedBlackPins_Fn: " + powerLeftNew + " " + powerRightNew)
+                }
+                break
+        }
+
+        //TODO
+        if (true) {
+            serial.writeLine("TODO: Code 'Turn Right'")
+            roboQuest.rq_PowerMotorsViaBlueRedBlackPins_Fn(rq_PortGroup_BlueRedBlack_PortIds_Enum.S1_MotorLeft__S0_MotorRight, 0, 15)
+            roboQuest.rq_ContinueCurrentState_CountdownTimer_Set_Fn(20, rq_Time_Units_Enum.Milliseconds)
+            led.plot(4, 0)
+        }
+
+        if (true) {
+            serial.writeLine("Stop")
+            roboQuest.rq_PowerMotorsViaBlueRedBlackPins_Fn(rq_PortGroup_BlueRedBlack_PortIds_Enum.S1_MotorLeft__S0_MotorRight, 0, 0)
+            roboQuest.rq_ContinueCurrentState_CountdownTimer_Set_Fn(0, rq_Time_Units_Enum.Seconds)
+        }
+
+
+    }
+
+
+
+
 
     /**
      * set_Settings_Fn

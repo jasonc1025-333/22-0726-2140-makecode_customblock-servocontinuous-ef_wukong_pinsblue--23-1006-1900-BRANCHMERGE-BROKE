@@ -25,22 +25,25 @@ basic.forever(function () {
     quest_Note_4.rq_Show_String_For_Note_Small_Fn(
     "44"
     )
+    quest_Note_1.rq_Show_String_For_Note_Small_Fn(
+    "Decimal is 2 less of max width"
+    )
     quest_Dashboard.rq_Show_Oled_Cleared_Fn(
     )
     quest_Dashboard.rq_Show_String_For_Oled_SmallFont_Fn(
     quest_Algorithm.rq_Get_Number_WithColumnPadding_AsStringOut_Fn(
-    randint(1000, 2000) / randint(0, 3),
+    randint(1000, 2000) / randint(1, 3),
     24,
-    randint(0, 3)
+    randint(0, 22)
     ),
     0,
     0
     )
     quest_Dashboard.rq_Show_String_For_Oled_SmallFont_Fn(
     quest_Algorithm.rq_Get_Number_WithColumnPadding_AsStringOut_Fn(
-    randint(1000, 2000) / randint(0, 3),
+    randint(1000, 2000) / randint(1, 3),
     24,
-    randint(0, 3)
+    randint(0, 22)
     ),
     0,
     7
@@ -50,18 +53,18 @@ basic.forever(function () {
     )
     quest_Dashboard.rq_Show_String_For_Oled_BigFont_Fn(
     quest_Algorithm.rq_Get_Number_WithColumnPadding_AsStringOut_Fn(
-    randint(1000, 2000) / randint(0, 3),
+    randint(1000, 2000) / randint(1, 3),
     12,
-    randint(0, 3)
+    randint(0, 10)
     ),
     0,
     0
     )
     quest_Dashboard.rq_Show_String_For_Oled_BigFont_Fn(
     quest_Algorithm.rq_Get_Number_WithColumnPadding_AsStringOut_Fn(
-    randint(1000, 2000) / randint(0, 3),
+    randint(1000, 2000) / randint(1, 3),
     12,
-    randint(0, 3)
+    randint(0, 10)
     ),
     0,
     3
