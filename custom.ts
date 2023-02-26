@@ -647,6 +647,8 @@ namespace quest_Hardware {
     //% inlineInputMode=external
     export function rq_Set_Turn_Fn(port_Ids_In: rq_PortGroup_BlueRedBlack_PortIds_Enum, turn_Type_In: turn_Type_Enum, turn_Direction_In: turn_Direction_Enum, turn_Power_In: turn_Power_Enum, turn_Duration_In: turn_Duration_Small_Enum): void {
         
+        basic.showIcon(IconNames.SmallHeart)
+
         let motor_Power_L = 0
         let motor_Power_R = 0
 
@@ -772,11 +774,17 @@ namespace quest_Hardware {
                 break
         }
 
+        // temp TODO
+        turn_Duration *= 100
+
         quest_Hardware.rq_Set_PowerMotorsViaBlueRedBlackPins_Fn(rq_PortGroup_BlueRedBlack_PortIds_Enum.S1_MotorLeft__S0_MotorRight, motor_Power_L, motor_Power_R)
         quest_Timer.rq_Set_ContinueCurrentState_CountdownTimer_Fn(turn_Duration, rq_Time_Units_Enum.Milliseconds)
         
         quest_Hardware.rq_Set_PowerMotorsViaBlueRedBlackPins_Fn(rq_PortGroup_BlueRedBlack_PortIds_Enum.S1_MotorLeft__S0_MotorRight, 0, 0)
         quest_Timer.rq_Set_ContinueCurrentState_CountdownTimer_Fn(0, rq_Time_Units_Enum.Seconds)
+
+
+        basic.showIcon(IconNames.Heart)
 
     }
 
