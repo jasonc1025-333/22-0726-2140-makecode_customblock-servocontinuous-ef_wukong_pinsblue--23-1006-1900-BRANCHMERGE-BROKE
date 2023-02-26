@@ -119,7 +119,117 @@ input.onButtonPressed(Button.AB, function () {
     )
 })
 input.onButtonPressed(Button.B, function () {
-	
+    quest_Hardware.rq_Set_Turn_Fn(
+        rq_PortGroup_BlueRedBlack_PortIds_Enum.S1_MotorLeft__S0_MotorRight,
+        turn_Type_Enum.Spin,
+        turn_Direction_Enum.right,
+        turn_Power_Enum.Lo,
+        turn_Duration_Enum.msec_20
+    )
+    quest_Timer.rq_Set_ContinueCurrentState_CountdownTimer_Fn(2, rq_Time_Units_Enum.Seconds)
+    quest_Hardware.rq_Set_Turn_Fn(
+        rq_PortGroup_BlueRedBlack_PortIds_Enum.S1_MotorLeft__S0_MotorRight,
+        turn_Type_Enum.Spin,
+        turn_Direction_Enum.right,
+        turn_Power_Enum.Lo,
+        turn_Duration_Enum.msec_40
+    )
+    quest_Timer.rq_Set_ContinueCurrentState_CountdownTimer_Fn(2, rq_Time_Units_Enum.Seconds)
+    quest_Hardware.rq_Set_Turn_Fn(
+        rq_PortGroup_BlueRedBlack_PortIds_Enum.S1_MotorLeft__S0_MotorRight,
+        turn_Type_Enum.Spin,
+        turn_Direction_Enum.right,
+        turn_Power_Enum.Lo,
+        turn_Duration_Enum.msec_60
+    )
+    quest_Timer.rq_Set_ContinueCurrentState_CountdownTimer_Fn(2, rq_Time_Units_Enum.Seconds)
+    quest_Hardware.rq_Set_Turn_Fn(
+        rq_PortGroup_BlueRedBlack_PortIds_Enum.S1_MotorLeft__S0_MotorRight,
+        turn_Type_Enum.Spin,
+        turn_Direction_Enum.right,
+        turn_Power_Enum.Lo,
+        turn_Duration_Enum.msec_80
+    )
+    quest_Timer.rq_Set_ContinueCurrentState_CountdownTimer_Fn(2, rq_Time_Units_Enum.Seconds)
+    quest_Hardware.rq_Set_Turn_Fn(
+        rq_PortGroup_BlueRedBlack_PortIds_Enum.S1_MotorLeft__S0_MotorRight,
+        turn_Type_Enum.Spin,
+        turn_Direction_Enum.right,
+        turn_Power_Enum.Lo,
+        turn_Duration_Enum.msec_100
+    )
+    quest_Timer.rq_Set_ContinueCurrentState_CountdownTimer_Fn(2, rq_Time_Units_Enum.Seconds)
+    quest_Hardware.rq_Set_Turn_Fn(
+        rq_PortGroup_BlueRedBlack_PortIds_Enum.S1_MotorLeft__S0_MotorRight,
+        turn_Type_Enum.Spin,
+        turn_Direction_Enum.right,
+        turn_Power_Enum.Lo,
+        turn_Duration_Enum.msec_200
+    )
+    quest_Timer.rq_Set_ContinueCurrentState_CountdownTimer_Fn(2, rq_Time_Units_Enum.Seconds)
+    quest_Hardware.rq_Set_Turn_Fn(
+        rq_PortGroup_BlueRedBlack_PortIds_Enum.S1_MotorLeft__S0_MotorRight,
+        turn_Type_Enum.Spin,
+        turn_Direction_Enum.right,
+        turn_Power_Enum.Lo,
+        turn_Duration_Enum.msec_400
+    )
+    quest_Timer.rq_Set_ContinueCurrentState_CountdownTimer_Fn(2, rq_Time_Units_Enum.Seconds)
+    quest_Hardware.rq_Set_Turn_Fn(
+        rq_PortGroup_BlueRedBlack_PortIds_Enum.S1_MotorLeft__S0_MotorRight,
+        turn_Type_Enum.Spin,
+        turn_Direction_Enum.right,
+        turn_Power_Enum.Lo,
+        turn_Duration_Enum.msec_600
+    )
+    quest_Timer.rq_Set_ContinueCurrentState_CountdownTimer_Fn(2, rq_Time_Units_Enum.Seconds)
+    quest_Hardware.rq_Set_Turn_Fn(
+        rq_PortGroup_BlueRedBlack_PortIds_Enum.S1_MotorLeft__S0_MotorRight,
+        turn_Type_Enum.Spin,
+        turn_Direction_Enum.right,
+        turn_Power_Enum.Lo,
+        turn_Duration_Enum.msec_800
+    )
+    quest_Timer.rq_Set_ContinueCurrentState_CountdownTimer_Fn(2, rq_Time_Units_Enum.Seconds)
+    quest_Hardware.rq_Set_Turn_Fn(
+        rq_PortGroup_BlueRedBlack_PortIds_Enum.S1_MotorLeft__S0_MotorRight,
+        turn_Type_Enum.Spin,
+        turn_Direction_Enum.right,
+        turn_Power_Enum.Lo,
+        turn_Duration_Enum.msec_1000
+    )
+    quest_Timer.rq_Set_ContinueCurrentState_CountdownTimer_Fn(2, rq_Time_Units_Enum.Seconds)
+    quest_Hardware.rq_Set_Turn_Fn(
+        rq_PortGroup_BlueRedBlack_PortIds_Enum.S1_MotorLeft__S0_MotorRight,
+        turn_Type_Enum.Spin,
+        turn_Direction_Enum.right,
+        turn_Power_Enum.Lo,
+        turn_Duration_Enum.msec_2000
+    )
+    quest_Timer.rq_Set_ContinueCurrentState_CountdownTimer_Fn(2, rq_Time_Units_Enum.Seconds)
+    quest_Hardware.rq_Set_Turn_Fn(
+        rq_PortGroup_BlueRedBlack_PortIds_Enum.S1_MotorLeft__S0_MotorRight,
+        turn_Type_Enum.Spin,
+        turn_Direction_Enum.right,
+        turn_Power_Enum.Lo,
+        turn_Duration_Enum.msec_3000
+    )
+    quest_Timer.rq_Set_ContinueCurrentState_CountdownTimer_Fn(2, rq_Time_Units_Enum.Seconds)
+    quest_Hardware.rq_Set_Turn_Fn(
+        rq_PortGroup_BlueRedBlack_PortIds_Enum.S1_MotorLeft__S0_MotorRight,
+        turn_Type_Enum.Spin,
+        turn_Direction_Enum.right,
+        turn_Power_Enum.Lo,
+        turn_Duration_Enum.msec_4000
+    )
+    quest_Timer.rq_Set_ContinueCurrentState_CountdownTimer_Fn(2, rq_Time_Units_Enum.Seconds)
+    quest_Hardware.rq_Set_Turn_Fn(
+        rq_PortGroup_BlueRedBlack_PortIds_Enum.S1_MotorLeft__S0_MotorRight,
+        turn_Type_Enum.Spin,
+        turn_Direction_Enum.right,
+        turn_Power_Enum.Lo,
+        turn_Duration_Enum.msec_5000
+    )
 })
 input.onLogoEvent(TouchButtonEvent.Pressed, function () {
     quest_Note_1.rq_Show_String_For_Note_Big_Fn(
