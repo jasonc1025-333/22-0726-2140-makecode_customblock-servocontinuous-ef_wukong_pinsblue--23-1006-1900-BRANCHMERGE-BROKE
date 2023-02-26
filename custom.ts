@@ -577,7 +577,10 @@ namespace quest_Note_4 {
     }
 }
 
-// light blue rgb(127, 190, 255) #7fbeff
+// dark blue #0000ff TOO DARK, CANNOT SEE BLACK BOUNDARY LINES
+// light blue rgb(127, 190, 255) #7fbeff TOO LIGHT
+// less_light blue rgb(0, 127, 255) ##007fff
+
 // * not too dark since would cover thin-black-boundaries
 /**
  * quest_Hardware blocks
@@ -759,13 +762,20 @@ namespace quest_Hardware {
                 break
         }
 
+
+        quest_Dashboard.rq_Show_Oled_Cleared_Fn
+        quest_Dashboard.rq_Show_String_For_Oled_SmallFont_Fn(convertToText(motor_Power_L) + " " + convertToText(motor_Power_R) + " " + convertToText(turn_Duration),0,0)
+       
+        
         // temp TODO
         turn_Duration *= 100
 
-        // Motor-Left Conversion: Same Rotational Direction
-        motor_Power_L = Math.map(motor_Power_L, -100, 100, 0, 360)
-        // Motor-Right Conversion: Opposite Rotational Direction
-        motor_Power_R = Math.map(motor_Power_R, -100, 100, 360, 0)
+        /// // Motor-Left Conversion: Same Rotational Direction
+        /// motor_Power_L = Math.map(motor_Power_L, -100, 100, 0, 360)
+        /// // Motor-Right Conversion: Opposite Rotational Direction
+        /// motor_Power_R = Math.map(motor_Power_R, -100, 100, 360, 0)
+
+        quest_Dashboard.rq_Show_String_For_Oled_SmallFont_Fn(convertToText(motor_Power_L) + " " + convertToText(motor_Power_R) + " " + convertToText(turn_Duration), 0, 1)
 
         /// jwc> switch (port_Ids_In) {
         ///    case rq_PortGroup_BlueRedBlack_PortIds_Enum.S1_MotorLeft__S0_MotorRight:

@@ -35,13 +35,7 @@ input.onButtonPressed(Button.AB, function () {
     0
     )
 })
-basic.showIcon(IconNames.Happy)
-quest_Timer.rq_Set_ContinueCurrentState_CountdownTimer_Fn(2, rq_Time_Units_Enum.Seconds)
-quest_Hardware.set_Settings_Fn(
-true,
-false
-)
-basic.forever(function () {
+input.onButtonPressed(Button.B, function () {
     quest_Note_1.rq_Show_String_For_Note_Big_Fn(
     "1"
     )
@@ -111,4 +105,13 @@ basic.forever(function () {
     3
     )
     quest_Timer.rq_Set_ContinueCurrentState_CountdownTimer_Fn(2, rq_Time_Units_Enum.Seconds)
+})
+basic.showIcon(IconNames.Happy)
+quest_Timer.rq_Set_ContinueCurrentState_CountdownTimer_Fn(2, rq_Time_Units_Enum.Seconds)
+quest_Hardware.set_Settings_Fn(
+true,
+false
+)
+basic.forever(function () {
+	
 })
