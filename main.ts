@@ -74,7 +74,7 @@ input.onButtonPressed(Button.B, function () {
     quest_Hardware.rq_Set_Turn_Fn(
     rq_PortGroup_BlueRedBlack_PortIds_Enum.S1_MotorLeft__S0_MotorRight,
     turn_Type_Enum.Pivot,
-    turn_Direction_Enum.right,
+    turn_Direction_Enum.left,
     turn_Power_Enum.Lo,
     turn_Duration_Small_Enum.msec_080
     )
