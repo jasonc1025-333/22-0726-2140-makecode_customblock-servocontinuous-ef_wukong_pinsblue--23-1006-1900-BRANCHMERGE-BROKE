@@ -636,15 +636,14 @@ namespace quest_Hardware {
 
     /**
      * rq_Set_Turn_Fn
-     * @param portIdsIn rq_PortGroup_BlueRedBlack_PortIds_Enum
-     * @param turnTypeIn rq_Turn_Type_Enum
-     * @param turnTypeIn rq_Turn_Type_Enum
-     * @param turnDurationIn rq_Turn_Duration_Small_Enum
+     * @param port_Ids_In rq_PortGroup_BlueRedBlack_PortIds_Enum
+     * @param turn_Type_In rq_Turn_Type_Enum
+     * @param turn_Direction_In turn_Direction_Enum
+     * @param turn_Power_In turn_Power_Enum
+     * @param turn_Duration_In turn_Duration_Small_Enum
      */
-    //% block="set motors power: $portIdsIn|for left motor power: $powerLeftIn|right motor power: $powerRightIn"
-    //% powerLeftIn.min=-100 powerLeftIn.max=100
-    //% powerRightIn.min=-100 powerRightIn.max=100
-    //% weight=80 blockGap=8
+    //% block="set turn: port_Ids_In: $port_Ids_In|turn_Type_In: $turn_Type_In|turn_Direction_In: $turn_Direction_In|turn_Power_In $turn_Power_In|turn_Duration_In $turn_Duration_In "
+    //% weight=78 blockGap=8
     //% inlineInputMode=external
     export function rq_Set_Turn_Fn(port_Ids_In: rq_PortGroup_BlueRedBlack_PortIds_Enum, turn_Type_In: turn_Type_Enum, turn_Direction_In: turn_Direction_Enum, turn_Power_In: turn_Power_Enum, turn_Duration_In: turn_Duration_Small_Enum): void {
         
