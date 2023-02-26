@@ -56,35 +56,42 @@ enum rq_Motion_Direction_Enum {
     Stop,
 }
 
-enum turn_Duration_Tiny_Enum {
-    //% block="020msec"
-    msec_020,
-    //% block="040msec"
-    msec_040,
-    //% block="060msec"
-    msec_060,
-    //% block="080msec"
-    msec_080,
-    //% block="100msec"
+enum turn_Duration_Enum {
+    //% block="20 msec"
+    msec_20,
+    //% block="40 msec"
+    msec_40,
+    //% block="60 msec"
+    msec_60,
+    //% block="80 msec"
+    msec_80,
+    //% block="100 msec"
     msec_100,
+    //% block="200 msec"
+    msec_200,
+    //% block="400 msec"
+    msec_400,
+    //% block="600 msec"
+    msec_600,
+    //% block="800 msec"
+    msec_800,
+    //% block="1000 msec(1 sec)"
+    msec_1000,
+    //% block="2000 msec(2 sec)"
+    msec_2000,
+    //% block="3000 msec(3 sec)"
+    msec_3000,
+    //% block="4000 msec(4 sec)"
+    msec_4000,
+    //% block="5000 msec(5 sec)"
+    msec_5000,
 }
-enum turn_Duration_Biggy_Enum {
-    //% block="01sec"
-    sec_01,
-    //% block="02sec"
-    sec_02,
-    //% block="03sec"
-    sec_03,
-    //% block="04sec"
-    sec_04,
-    //% block="05sec"
-    sec_05,
-}
+// 'Spin' as default since is more bi-directional (left and right capable)
 enum turn_Type_Enum {
-    //% block="Pivot(One Wheel Rotates While Other Not Rotates)"
-    Pivot,
-    //% block="Spin(Both Wheels Rotate in Opposite Direction)"
+    //% block="Spin(Both Wheels Rotate in Opposite Directions)"
     Spin,
+    //% block="Pivot(One Wheel Rotates While Other Wheel Rotates_Not)"
+    Pivot,
 }
 enum turn_Direction_Enum {
     //% block="right"
@@ -638,19 +645,18 @@ namespace quest_Hardware {
         }
     }
 
-
     /**
-     * rq_Set_Turn_Tiny_Fn
+     * rq_Set_Turn_Fn
      * @param port_Ids_In rq_PortGroup_BlueRedBlack_PortIds_Enum
      * @param turn_Type_In rq_Turn_Type_Enum
      * @param turn_Direction_In turn_Direction_Enum
      * @param turn_Power_In turn_Power_Enum
-     * @param turn_Duration_In turn_Duration_Tiny_Enum
+     * @param turn_Duration_In turn_Duration_Enum
      */
     //% block="set turn tiny: port_Ids_In: $port_Ids_In|turn_Type_In: $turn_Type_In|turn_Direction_In: $turn_Direction_In|turn_Power_In $turn_Power_In|turn_Duration_In $turn_Duration_In "
     //% weight=78 blockGap=8
     //% inlineInputMode=external
-    export function rq_Set_Turn_Tiny_Fn(port_Ids_In: rq_PortGroup_BlueRedBlack_PortIds_Enum, turn_Type_In: turn_Type_Enum, turn_Direction_In: turn_Direction_Enum, turn_Power_In: turn_Power_Enum, turn_Duration_In: turn_Duration_Tiny_Enum): void {
+    export function rq_Set_Turn_Fn(port_Ids_In: rq_PortGroup_BlueRedBlack_PortIds_Enum, turn_Type_In: turn_Type_Enum, turn_Direction_In: turn_Direction_Enum, turn_Power_In: turn_Power_Enum, turn_Duration_In: turn_Duration_Enum): void {
         
         basic.showIcon(IconNames.SmallHeart)
 
@@ -748,215 +754,65 @@ namespace quest_Hardware {
         }
     
         switch (turn_Duration_In) {
-            case turn_Duration_Tiny_Enum.msec_020:
+            case turn_Duration_Enum.msec_20:
                 turn_Duration = 20
                 break  // out of these case statements
-            case turn_Duration_Tiny_Enum.msec_040:
+            case turn_Duration_Enum.msec_40:
                 turn_Duration = 40
                 break  // out of these case statements
-            case turn_Duration_Tiny_Enum.msec_060:
+            case turn_Duration_Enum.msec_60:
                 turn_Duration = 60
                 break  // out of these case statements
-            case turn_Duration_Tiny_Enum.msec_080:
+            case turn_Duration_Enum.msec_80:
                 turn_Duration = 80
                 break  // out of these case statements
-            case turn_Duration_Tiny_Enum.msec_100:
+            case turn_Duration_Enum.msec_100:
                 turn_Duration = 100
                 break  // out of these case statements
-        }
-
-        quest_Dashboard.rq_Show_Oled_Cleared_Fn
-        quest_Dashboard.rq_Show_String_For_Oled_SmallFont_Fn(convertToText(motor_Power_L) + " " + convertToText(motor_Power_R) + " " + convertToText(turn_Duration),0,0)   
-        
-        // temp TODO
-        //turn_Duration *= 100
-
-        /// // Motor-Left Conversion: Same Rotational Direction
-        /// motor_Power_L = Math.map(motor_Power_L, -100, 100, 0, 360)
-        /// // Motor-Right Conversion: Opposite Rotational Direction
-        /// motor_Power_R = Math.map(motor_Power_R, -100, 100, 360, 0)
-
-        quest_Dashboard.rq_Show_String_For_Oled_SmallFont_Fn(convertToText(motor_Power_L) + " " + convertToText(motor_Power_R) + " " + convertToText(turn_Duration), 0, 1)
-
-        /// jwc> switch (port_Ids_In) {
-        ///    case rq_PortGroup_BlueRedBlack_PortIds_Enum.S1_MotorLeft__S0_MotorRight:
-        ///        wuKong.setServoAngle(wuKong.ServoTypeList._360, wuKong.ServoList.S1, motor_Power_L)
-        ///        wuKong.setServoAngle(wuKong.ServoTypeList._360, wuKong.ServoList.S0, motor_Power_R)
-        ///        break
-        ///    case rq_PortGroup_BlueRedBlack_PortIds_Enum.S3_MotorLeft__S2_MotorRight:
-        ///        wuKong.setServoAngle(wuKong.ServoTypeList._360, wuKong.ServoList.S3, motor_Power_L)
-        ///        wuKong.setServoAngle(wuKong.ServoTypeList._360, wuKong.ServoList.S2, motor_Power_R)
-        ///        break
-        /// < jwc }
-
-        quest_Hardware.rq_Set_PowerMotorsViaBlueRedBlackPins_Fn(port_Ids_In, motor_Power_L, motor_Power_R)
-        quest_Timer.rq_Set_ContinueCurrentState_CountdownTimer_Fn(turn_Duration, rq_Time_Units_Enum.Milliseconds)
-        
-        quest_Hardware.rq_Set_PowerMotorsViaBlueRedBlackPins_Fn(port_Ids_In, 0, 0)
-
-        basic.showIcon(IconNames.Heart)
-    }
-
-
-    /**
-    * rq_Set_Turn_Biggy_Fn
-    * @param port_Ids_In rq_PortGroup_BlueRedBlack_PortIds_Enum
-    * @param turn_Type_In rq_Turn_Type_Enum
-    * @param turn_Direction_In turn_Direction_Enum
-    * @param turn_Power_In turn_Power_Enum
-    * @param turn_Duration_In turn_Duration_Biggy_Enum
-    */
-    //% block="set turn biggy: port_Ids_In: $port_Ids_In|turn_Type_In: $turn_Type_In|turn_Direction_In: $turn_Direction_In|turn_Power_In $turn_Power_In|turn_Duration_In $turn_Duration_In "
-    //% weight=78 blockGap=8
-    //% inlineInputMode=external
-    export function rq_Set_Turn_Biggy_Fn(port_Ids_In: rq_PortGroup_BlueRedBlack_PortIds_Enum, turn_Type_In: turn_Type_Enum, turn_Direction_In: turn_Direction_Enum, turn_Power_In: turn_Power_Enum, turn_Duration_In: turn_Duration_Biggy_Enum): void {
-
-        basic.showIcon(IconNames.SmallHeart)
-
-        let motor_Power_L = 0
-        let motor_Power_R = 0
-
-        let turn_Duration = 0
-
-        switch (turn_Type_In) {
-            case turn_Type_Enum.Pivot:
-
-                switch (turn_Direction_In) {
-                    case turn_Direction_Enum.left:
-
-                        switch (turn_Power_In) {
-                            case turn_Power_Enum.Lo:
-                                motor_Power_L = motor_Power_No
-                                motor_Power_R = motor_Power_Lo
-                                break  // out of these case statements
-                            case turn_Power_Enum.Mi:
-                                motor_Power_L = motor_Power_No
-                                motor_Power_R = motor_Power_Mi
-                                break  // out of these case statements
-                            case turn_Power_Enum.Hi:
-                                motor_Power_L = motor_Power_No
-                                motor_Power_R = motor_Power_Hi
-                                break  // out of these case statements
-                        }
-                        quest_Dashboard.rq_Show_MotionDirection_Fn(rq_Motion_Direction_Enum.Left)
-                        break  // out of these case statements
-
-                    case turn_Direction_Enum.right:
-
-                        switch (turn_Power_In) {
-                            case turn_Power_Enum.Lo:
-                                motor_Power_L = motor_Power_Lo
-                                motor_Power_R = motor_Power_No
-                                break  // out of these case statements
-                            case turn_Power_Enum.Mi:
-                                motor_Power_L = motor_Power_Mi
-                                motor_Power_R = motor_Power_No
-                                break  // out of these case statements
-                            case turn_Power_Enum.Hi:
-                                motor_Power_L = motor_Power_Hi
-                                motor_Power_R = motor_Power_No
-                                break  // out of these case statements
-                        }
-                        quest_Dashboard.rq_Show_MotionDirection_Fn(rq_Motion_Direction_Enum.Right)
-                        break  // out of these case statements
-                }
+            case turn_Duration_Enum.msec_200:
+                turn_Duration = 200
                 break  // out of these case statements
-
-            case turn_Type_Enum.Spin:
-
-                switch (turn_Direction_In) {
-                    case turn_Direction_Enum.left:
-
-                        switch (turn_Power_In) {
-                            case turn_Power_Enum.Lo:
-                                motor_Power_L = motor_Power_Lo * (-1)
-                                motor_Power_R = motor_Power_Lo
-                                break  // out of these case statements
-                            case turn_Power_Enum.Mi:
-                                motor_Power_L = motor_Power_Mi * (-1)
-                                motor_Power_R = motor_Power_Mi
-                                break  // out of these case statements
-                            case turn_Power_Enum.Hi:
-                                motor_Power_L = motor_Power_Hi * (-1)
-                                motor_Power_R = motor_Power_Hi
-                                break  // out of these case statements
-                        }
-                        quest_Dashboard.rq_Show_MotionDirection_Fn(rq_Motion_Direction_Enum.Left)
-                        break  // out of these case statements
-
-                    case turn_Direction_Enum.right:
-
-                        switch (turn_Power_In) {
-                            case turn_Power_Enum.Lo:
-                                motor_Power_L = motor_Power_Lo
-                                motor_Power_R = motor_Power_Lo * (-1)
-                                break  // out of these case statements
-                            case turn_Power_Enum.Mi:
-                                motor_Power_L = motor_Power_Mi
-                                motor_Power_R = motor_Power_Mi * (-1)
-                                break  // out of these case statements
-                            case turn_Power_Enum.Hi:
-                                motor_Power_L = motor_Power_Hi
-                                motor_Power_R = motor_Power_Hi * (-1)
-                                break  // out of these case statements
-                        }
-                        quest_Dashboard.rq_Show_MotionDirection_Fn(rq_Motion_Direction_Enum.Right)
-                        break  // out of these case statements
-                }
+            case turn_Duration_Enum.msec_400:
+                turn_Duration = 400
                 break  // out of these case statements
-        }
-
-        switch (turn_Duration_In) {
-            case turn_Duration_Biggy_Enum.sec_01:
+            case turn_Duration_Enum.msec_600:
+                turn_Duration = 600
+                break  // out of these case statements
+            case turn_Duration_Enum.msec_800:
+                turn_Duration = 800
+                break  // out of these case statements
+            case turn_Duration_Enum.msec_1000:
                 turn_Duration = 1000
                 break  // out of these case statements
-            case turn_Duration_Biggy_Enum.sec_02:
+            case turn_Duration_Enum.msec_2000:
                 turn_Duration = 2000
                 break  // out of these case statements
-            case turn_Duration_Biggy_Enum.sec_03:
+            case turn_Duration_Enum.msec_3000:
                 turn_Duration = 3000
                 break  // out of these case statements
-            case turn_Duration_Biggy_Enum.sec_04:
+            case turn_Duration_Enum.msec_4000:
                 turn_Duration = 4000
                 break  // out of these case statements
-            case turn_Duration_Biggy_Enum.sec_05:
+            case turn_Duration_Enum.msec_5000:
                 turn_Duration = 5000
                 break  // out of these case statements
         }
 
+        // diagnostics
         quest_Dashboard.rq_Show_Oled_Cleared_Fn
-        quest_Dashboard.rq_Show_String_For_Oled_SmallFont_Fn(convertToText(motor_Power_L) + " " + convertToText(motor_Power_R) + " " + convertToText(turn_Duration), 0, 0)
-
-        // temp TODO
-        //turn_Duration *= 100
-
-        /// // Motor-Left Conversion: Same Rotational Direction
-        /// motor_Power_L = Math.map(motor_Power_L, -100, 100, 0, 360)
-        /// // Motor-Right Conversion: Opposite Rotational Direction
-        /// motor_Power_R = Math.map(motor_Power_R, -100, 100, 360, 0)
-
-        quest_Dashboard.rq_Show_String_For_Oled_SmallFont_Fn(convertToText(motor_Power_L) + " " + convertToText(motor_Power_R) + " " + convertToText(turn_Duration), 0, 1)
-
-        /// jwc> switch (port_Ids_In) {
-        ///    case rq_PortGroup_BlueRedBlack_PortIds_Enum.S1_MotorLeft__S0_MotorRight:
-        ///        wuKong.setServoAngle(wuKong.ServoTypeList._360, wuKong.ServoList.S1, motor_Power_L)
-        ///        wuKong.setServoAngle(wuKong.ServoTypeList._360, wuKong.ServoList.S0, motor_Power_R)
-        ///        break
-        ///    case rq_PortGroup_BlueRedBlack_PortIds_Enum.S3_MotorLeft__S2_MotorRight:
-        ///        wuKong.setServoAngle(wuKong.ServoTypeList._360, wuKong.ServoList.S3, motor_Power_L)
-        ///        wuKong.setServoAngle(wuKong.ServoTypeList._360, wuKong.ServoList.S2, motor_Power_R)
-        ///        break
-        /// < jwc }
-
+        quest_Dashboard.rq_Show_String_For_Oled_SmallFont_Fn(convertToText(motor_Power_L) + " " + convertToText(motor_Power_R) + " " + convertToText(turn_Duration),0,0)   
+        
+        // turn
         quest_Hardware.rq_Set_PowerMotorsViaBlueRedBlackPins_Fn(port_Ids_In, motor_Power_L, motor_Power_R)
         quest_Timer.rq_Set_ContinueCurrentState_CountdownTimer_Fn(turn_Duration, rq_Time_Units_Enum.Milliseconds)
-
+        
+        // stop
         quest_Hardware.rq_Set_PowerMotorsViaBlueRedBlackPins_Fn(port_Ids_In, 0, 0)
 
+        // diagnostics
         basic.showIcon(IconNames.Heart)
     }
 
- 
     /**
      * set_Settings_Fn
      * @param deviceTypeBotBoolIn boolean
