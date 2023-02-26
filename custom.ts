@@ -916,7 +916,7 @@ namespace quest_Hardware {
             case turn_Duration_Biggy_Enum.sec_03:
                 turn_Duration = 3000
                 break  // out of these case statements
-            case turn_Duration_Biggy_Enum.sec_05:
+            case turn_Duration_Biggy_Enum.sec_04:
                 turn_Duration = 4000
                 break  // out of these case statements
             case turn_Duration_Biggy_Enum.sec_05:

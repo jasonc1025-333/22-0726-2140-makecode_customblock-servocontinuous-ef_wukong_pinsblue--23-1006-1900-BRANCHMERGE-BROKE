@@ -246,6 +246,3 @@ quest_Hardware.set_Settings_Fn(
 true,
 false
 )
-basic.forever(function () {
-	
-})
