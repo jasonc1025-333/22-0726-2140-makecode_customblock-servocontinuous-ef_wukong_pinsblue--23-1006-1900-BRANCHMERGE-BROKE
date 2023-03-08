@@ -611,7 +611,7 @@ namespace quest_Hardware {
      * @param powerLeftIn number
      * @param powerRightIn number
      */
-    //% block="set motors power: $portIdsIn|for left motor power: $powerLeftIn|right motor power: $powerRightIn"
+    //% block="set servo_motors: $portIdsIn|@ left motor power: $powerLeftIn|@ right motor power: $powerRightIn"
     //% powerLeftIn.min=-100 powerLeftIn.max=100
     //% powerRightIn.min=-100 powerRightIn.max=100
     //% weight=80 blockGap=8
