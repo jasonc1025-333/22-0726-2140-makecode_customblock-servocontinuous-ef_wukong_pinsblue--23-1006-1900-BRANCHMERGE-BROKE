@@ -476,7 +476,8 @@ namespace quest_Algorithm {
 // 1: Silver #C0C0C0 rgb(192, 192, 192)
 // 2: Lime #00FF00 rgb(0, 255, 0)
 // 3: Aqua #00FFFF rgb(0, 255, 255)
-// 4L Yellow #FFFF00	rgb(255, 255, 0)
+// 4: Yellow #FFFF00 rgb(255, 255, 0)
+// 5: Red #FF0000 rgb(255,0,0)
 //
 //
 
@@ -583,6 +584,33 @@ namespace quest_Note_4 {
     export function rq_Show_String_For_Note_Big_Fn(textStrIn: string) {
     }
 }
+
+/**
+ * quest_Note_4 blo5ks
+ */
+//% weight=55 color=#FF0000 icon="Q"
+namespace quest_Note_5 {
+    /**
+     * rq_Show_String_For_Note_Small_Fn
+     * @param textStrIn string
+     */
+    //% block="note small: $textStrIn"
+    //% weight=80 blockGap=8
+    //% inlineInputMode=external
+    export function rq_Show_String_For_Note_Small_Fn(textStrIn: string) {
+    }
+    // * Add space in front of '|' such as ' |' creates reliable 1row spacing
+    /**
+     * rq_Show_String_For_Note_Big_Fn
+     * @param textStrIn string
+     */
+    //% block=" |note big: $textStrIn |"
+    //% weight=80 blockGap=8
+    //% inlineInputMode=external
+    export function rq_Show_String_For_Note_Big_Fn(textStrIn: string) {
+    }
+}
+
 
 // dark blue #0000ff TOO DARK, CANNOT SEE BLACK BOUNDARY LINES
 // light blue rgb(127, 190, 255) #7fbeff TOO LIGHT
