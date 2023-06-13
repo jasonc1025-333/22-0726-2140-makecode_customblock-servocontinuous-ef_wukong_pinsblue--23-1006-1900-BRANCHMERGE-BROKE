@@ -6,7 +6,7 @@
 // *** IMPORTANT NOTES ***
 //
 // * Naming Scheme
-//   ** global_Variable_Etc
+//   ** global_Variable_Etc_Quest_Global
 //   ** local_variable_etc
 //   ** name_Space_Etc (since treated like an class/object, so like a 'global_Variable')
 //
@@ -21,6 +21,7 @@
 //   ** while in any file within JavaScript mode, not 'Blocks' mode
 // * Note any edits is saved real-time since a cloud-editor, even before Github upload
 // * TYJ 1 sec spin ~ 45 deg, 2 sec spin ~ 90 deg, 2 sec spin ~ 180, 4 sec spin ~ 360, thus sufficient to max 5 sec spin
+// * x2 '//' = '////jwc y' is better comment-out than standard x3 '//////jwc y', since latter too long to add and delete
 
 // enum MyEnum {
 //    //% block="one"
@@ -86,20 +87,16 @@ enum turn_Duration_Enum {
     //% block="5000 msec(5 sec)"
     msec_5000,
 }
-//////jwc y // 'Spin' as default since is more bi-directional (left and right capable)
+
+////jwc y // 'Spin' as default since is more bi-directional (left and right capable)
 // 'Pivot' as default since is slower for more accurate turns
-//////jwc y enum turn_Type_Enum {
-//////jwc y     //% block="Pivot(One Wheel Rotates While Other Wheel Rotates_Not)"
-//////jwc y     Pivot,
-//////jwc y     //% block="Spin(Both Wheels Rotate in Opposite Directions)"
-//////jwc y     Spin,
-//////jwc y }
-enum turn_Type_Enum {
+enum turn_Type_03_Enum {
     //% block="Pivot(One Wheel Rotates While Other Wheel Rotates_Not)"
     Pivot,
-    //////jwc y //% block="Spin(Both Wheels Rotate in Opposite Directions)"
-    //////jwc y Spin,
+    //% block="Spin(Both Wheels Rotate in Opposite Directions)"
+    Spin,
 }
+
 enum turn_Direction_Enum {
     //% block="right"
     right,
@@ -484,13 +481,13 @@ namespace quest_Hardware {
     /// //
     /// let _debug_Serial_Print_Bool_QuestGlobal = false
 
-    //////jwc y export function rq_Show_MotionDirection_Fn(motionDirectionIn: rq_Motion_Direction_Enum): void {
-    //////jwc no longer an external block: /**
-    //////jwc no longer an external block:  * rq_Show_MotionDirection_Fn
-    //////jwc no longer an external block:  * @param motionDirectionIn rq_Motion_Direction_Enum
-    //////jwc no longer an external block:  */
-    //////jwc no longer an external block: //% block="show motion_direction: $motionDirectionIn"
-    //////jwc no longer an external block: //% weight=81 blockGap=8
+    ////jwc y export function rq_Show_MotionDirection_Fn(motionDirectionIn: rq_Motion_Direction_Enum): void {
+    ////jwc no longer an external block: /**
+    ////jwc no longer an external block:  * rq_Show_MotionDirection_Fn
+    ////jwc no longer an external block:  * @param motionDirectionIn rq_Motion_Direction_Enum
+    ////jwc no longer an external block:  */
+    ////jwc no longer an external block: //% block="show motion_direction: $motionDirectionIn"
+    ////jwc no longer an external block: //% weight=81 blockGap=8
     function rq_Show_MotionDirection_Fn(motionDirectionIn: rq_Motion_Direction_Enum): void {
         switch (motionDirectionIn) {
             // * if on 'bot', then 5x5LED is upside-down - so Yes_Flip graphics
@@ -799,33 +796,32 @@ namespace quest_Hardware {
 
     }
 
-
     /**
-     * rq_Set_Turn_WithTimer_Fn
-     * @param port_Ids_In rq_PortGroup_BlueRedBlack_PortIds_Enum
-     * @param turn_Type_In rq_Turn_Type_Enum
-     * @param turn_Direction_In turn_Direction_Enum
-     * @param turn_Power_In turn_Power_Enum
-     * @param turn_Duration_In turn_Duration_Enum
-     */
-    /// jwc o block="set turn w/ timer: port_Ids_In: $port_Ids_In|turn_Type_In: $turn_Type_In|turn_Direction_In: $turn_Direction_In|turn_Power_In $turn_Power_In|turn_Duration_In $turn_Duration_In"
-    /// jwc y block="set turn w/ timer: $port_Ids_In|turn_Type: $turn_Type_In|turn_Direction_In: $turn_Direction_In|turn_Power $turn_Power_In|turn_Duration $turn_Duration_In"
-    //% block="set turn w/ timer:|* ports: $port_Ids_In|* turn_Type: $turn_Type_In|* turn_Direction: $turn_Direction_In|* turn_Power: $turn_Power_In|* turn_Duration: $turn_Duration_In"
+    * rq_Set_Turn_WithTimer_03_Fn
+    * @param port_Ids_In rq_PortGroup_BlueRedBlack_PortIds_Enum
+    * @param turn_Type_03_In turn_Type_03_Enum
+    * @param turn_Direction_In turn_Direction_Enum
+    * @param turn_Power_In turn_Power_Enum
+    * @param turn_Duration_In turn_Duration_Enum
+    */
+    //% block="set turn w/ timer_03:|* ports: $port_Ids_In|* turn_Type: $turn_Type_03_In|* turn_Direction: $turn_Direction_In|* turn_Power: $turn_Power_In|* turn_Duration: $turn_Duration_In"
     //% weight=60 blockGap=8
     //% inlineInputMode=external
-    export function rq_Set_Turn_WithTimer_Fn(port_Ids_In: rq_PortGroup_BlueRedBlack_PortIds_Enum, turn_Type_In: turn_Type_Enum=turn_Type_Enum.Pivot, turn_Direction_In: turn_Direction_Enum, turn_Power_In: turn_Power_Enum, turn_Duration_In: turn_Duration_Enum): void {
-        
+    export function rq_Set_Turn_WithTimer_03_Fn(port_Ids_In: rq_PortGroup_BlueRedBlack_PortIds_Enum, turn_Type_03_In: turn_Type_03_Enum, turn_Direction_In: turn_Direction_Enum, turn_Power_In: turn_Power_Enum, turn_Duration_In: turn_Duration_Enum): void {
+
         basic.showIcon(IconNames.SmallHeart)
 
         let motor_Power_L = 0
         let motor_Power_R = 0
 
         let turn_Duration = 0
-        
-        switch (turn_Type_In) {
-            case turn_Type_Enum.Pivot:
 
-                switch (turn_Direction_In){                   
+        switch (turn_Type_03_In) {
+            //////jwc y case turn_Type_Enum.Pivot:
+            ////jwc n case turn_Type_02_Enum.Pivot:
+            case turn_Type_03_Enum.Pivot:
+
+                switch (turn_Direction_In) {
                     case turn_Direction_Enum.left:
 
                         switch (turn_Power_In) {
@@ -849,7 +845,7 @@ namespace quest_Hardware {
 
                     case turn_Direction_Enum.right:
 
-                        switch (turn_Power_In){
+                        switch (turn_Power_In) {
                             case turn_Power_Enum.Lo:
                                 motor_Power_L = motor_Power_Lo_QuestGlobal
                                 motor_Power_R = motor_Power_No_QuestGlobal
@@ -870,8 +866,10 @@ namespace quest_Hardware {
                 }
                 break  // out of these case statements
 
-            //////jwc y TODO case turn_Type_Enum.Spin:
-            case turn_Type_Enum.Pivot:
+            ////jwc y TODO case turn_Type_Enum.Spin:
+            ////jwc n case turn_Type_02_Enum.Spin:
+            case turn_Type_03_Enum.Spin:
+
 
                 switch (turn_Direction_In) {
                     case turn_Direction_Enum.left:
@@ -918,7 +916,7 @@ namespace quest_Hardware {
                 }
                 break  // out of these case statements
         }
-    
+
         switch (turn_Duration_In) {
             case turn_Duration_Enum.msec_20:
                 turn_Duration = 20
@@ -966,20 +964,22 @@ namespace quest_Hardware {
 
         // diagnostics
         quest_Dashboard.rq_Show_Oled_Cleared_Fn
-        quest_Dashboard.rq_Show_String_For_Oled_SmallFont_Fn(convertToText(motor_Power_L) + " " + convertToText(motor_Power_R) + " " + convertToText(turn_Duration),0,0)   
-        
+        quest_Dashboard.rq_Show_String_For_Oled_SmallFont_Fn(convertToText(motor_Power_L) + " " + convertToText(motor_Power_R) + " " + convertToText(turn_Duration), 0, 0)
+
         // turn
         quest_Hardware.rq_Set_PowerMotorsViaBlueRedBlackPins_Fn(port_Ids_In, motor_Power_L, motor_Power_R)
-        
+
         // timer
         quest_Timer.rq_Set_ContinueCurrentState_CountdownTimer_Fn(turn_Duration, rq_Time_Units_Enum.Milliseconds)
-        
+
         // stop
         quest_Hardware.rq_Set_PowerMotorsViaBlueRedBlackPins_Fn(port_Ids_In, 0, 0)
 
         // diagnostics
         basic.showIcon(IconNames.Heart)
     }
+
+
 
     //////jwc 23-0612-2020 Obsolete since too complicated to change global_var of 'main.blocks': /**
     //////jwc 23-0612-2020 Obsolete since too complicated to change global_var of 'main.blocks':  * set_Settings_Fn
