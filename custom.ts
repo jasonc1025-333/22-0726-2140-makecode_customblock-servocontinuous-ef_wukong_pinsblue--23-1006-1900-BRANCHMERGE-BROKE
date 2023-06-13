@@ -641,12 +641,13 @@ namespace quest_Hardware {
      * @param powerLeftIn number
      * @param powerRightIn number
      */
-    //% block="set servo_motors: $portIdsIn|@ left motor power: $powerLeftIn|@ right motor power: $powerRightIn"
+    //% block="set servo_motors:|* ports: $portIdsIn|* left motor power: $powerLeftIn|* right motor power: $powerRightIn"
     //% powerLeftIn.min=-100 powerLeftIn.max=100
     //% powerRightIn.min=-100 powerRightIn.max=100
     //% weight=80 blockGap=8
     //% inlineInputMode=external
     export function rq_Set_PowerMotorsViaBlueRedBlackPins_Fn(portIdsIn: rq_PortGroup_BlueRedBlack_PortIds_Enum, powerLeftIn: number, powerRightIn: number): void {
+
         // Motor-Left Conversion: Same Rotational Direction
         let motor_Power_L = Math.map(powerLeftIn, -100, 100, 0, 360)
         // Motor-Right Conversion: Opposite Rotational Direction
@@ -675,18 +676,128 @@ namespace quest_Hardware {
         }
     }
 
+
     /**
-     * rq_Set_Turn_Fn
+     * rq_Set_PowerMotorsViaBlueRedBlackPins_WithTimer_Fn
+     * @param portIdsIn rq_PortGroup_BlueRedBlack_PortIds_Enum
+     * @param powerLeftIn number
+     * @param powerRightIn number
+     * @param turn_Duration_In turn_Duration_Enum
+     */
+    /// jwc o  block="set servo_motors w/ timer: $portIdsIn|@ left motor power: $powerLeftIn|@ right motor power: $powerRightIn|turn_Duration_In $turn_Duration_In"
+    //% block="set servo_motors w/ timer:|* ports: $portIdsIn|* left motor power: $powerLeftIn|* right motor power: $powerRightIn|* turn_Duration: $turn_Duration_In"
+    //% powerLeftIn.min=-100 powerLeftIn.max=100
+    //% powerRightIn.min=-100 powerRightIn.max=100
+    //% weight=78 blockGap=8
+    //% inlineInputMode=external
+    export function rq_Set_PowerMotorsViaBlueRedBlackPins_WithTimer_Fn(portIdsIn: rq_PortGroup_BlueRedBlack_PortIds_Enum, powerLeftIn: number, powerRightIn: number, turn_Duration_In: turn_Duration_Enum): void {
+
+        basic.showIcon(IconNames.SmallHeart)
+
+        // Motor-Left Conversion: Same Rotational Direction
+        let motor_Power_L = Math.map(powerLeftIn, -100, 100, 0, 360)
+        // Motor-Right Conversion: Opposite Rotational Direction
+        let motor_Power_R = Math.map(powerRightIn, -100, 100, 360, 0)
+
+        let turn_Duration = 0
+
+        switch (turn_Duration_In) {
+            case turn_Duration_Enum.msec_20:
+                turn_Duration = 20
+                break  // out of these case statements
+            case turn_Duration_Enum.msec_40:
+                turn_Duration = 40
+                break  // out of these case statements
+            case turn_Duration_Enum.msec_60:
+                turn_Duration = 60
+                break  // out of these case statements
+            case turn_Duration_Enum.msec_80:
+                turn_Duration = 80
+                break  // out of these case statements
+            case turn_Duration_Enum.msec_100:
+                turn_Duration = 100
+                break  // out of these case statements
+            case turn_Duration_Enum.msec_200:
+                turn_Duration = 200
+                break  // out of these case statements
+            case turn_Duration_Enum.msec_400:
+                turn_Duration = 400
+                break  // out of these case statements
+            case turn_Duration_Enum.msec_600:
+                turn_Duration = 600
+                break  // out of these case statements
+            case turn_Duration_Enum.msec_800:
+                turn_Duration = 800
+                break  // out of these case statements
+            case turn_Duration_Enum.msec_1000:
+                turn_Duration = 1000
+                break  // out of these case statements
+            case turn_Duration_Enum.msec_2000:
+                turn_Duration = 2000
+                break  // out of these case statements
+            case turn_Duration_Enum.msec_3000:
+                turn_Duration = 3000
+                break  // out of these case statements
+            case turn_Duration_Enum.msec_4000:
+                turn_Duration = 4000
+                break  // out of these case statements
+            case turn_Duration_Enum.msec_5000:
+                turn_Duration = 5000
+                break  // out of these case statements
+        }
+
+        switch (portIdsIn) {
+            case rq_PortGroup_BlueRedBlack_PortIds_Enum.S1_MotorLeft__S0_MotorRight:
+                wuKong.setServoAngle(wuKong.ServoTypeList._360, wuKong.ServoList.S1, motor_Power_L)
+                wuKong.setServoAngle(wuKong.ServoTypeList._360, wuKong.ServoList.S0, motor_Power_R)
+                if (_debug_Serial_Print_Bool) {
+                    serial.writeLine("* rq_PowerMotorsViaBlueRedBlackPins_Fn: " + powerLeftIn + " " + powerRightIn + " >> " + motor_Power_L + " " + motor_Power_R)
+                }
+                break
+            case rq_PortGroup_BlueRedBlack_PortIds_Enum.S3_MotorLeft__S2_MotorRight:
+                wuKong.setServoAngle(wuKong.ServoTypeList._360, wuKong.ServoList.S3, motor_Power_L)
+                wuKong.setServoAngle(wuKong.ServoTypeList._360, wuKong.ServoList.S2, motor_Power_R)
+                if (_debug_Serial_Print_Bool) {
+                    serial.writeLine("* rq_PowerMotorsViaBlueRedBlackPins_Fn: " + powerLeftIn + " " + powerRightIn + " >> " + motor_Power_L + " " + motor_Power_R)
+                }
+                break
+            default:
+                if (_debug_Serial_Print_Bool) {
+                    serial.writeLine("* ERROR: rq_PowerMotorsViaBlueRedBlackPins_Fn: " + powerLeftIn + " " + powerRightIn + " >> " + motor_Power_L + " " + motor_Power_R)
+                }
+                break
+        }
+
+        // diagnostics
+        quest_Dashboard.rq_Show_Oled_Cleared_Fn
+        quest_Dashboard.rq_Show_String_For_Oled_SmallFont_Fn(convertToText(motor_Power_L) + " " + convertToText(motor_Power_R) + " " + convertToText(turn_Duration), 0, 0)
+
+        // timer
+        quest_Timer.rq_Set_ContinueCurrentState_CountdownTimer_Fn(turn_Duration, rq_Time_Units_Enum.Milliseconds)
+
+        // stop
+        quest_Hardware.rq_Set_PowerMotorsViaBlueRedBlackPins_Fn(portIdsIn, 0, 0)
+
+        // diagnostics
+        basic.showIcon(IconNames.Heart)
+
+    }
+
+
+    /**
+     * rq_Set_Turn_WithTimer_Fn
      * @param port_Ids_In rq_PortGroup_BlueRedBlack_PortIds_Enum
      * @param turn_Type_In rq_Turn_Type_Enum
      * @param turn_Direction_In turn_Direction_Enum
      * @param turn_Power_In turn_Power_Enum
      * @param turn_Duration_In turn_Duration_Enum
      */
-    //% block="set turn tiny: port_Ids_In: $port_Ids_In|turn_Type_In: $turn_Type_In|turn_Direction_In: $turn_Direction_In|turn_Power_In $turn_Power_In|turn_Duration_In $turn_Duration_In "
-    //% weight=78 blockGap=8
+    /// jwc o block="set turn w/ timer: port_Ids_In: $port_Ids_In|turn_Type_In: $turn_Type_In|turn_Direction_In: $turn_Direction_In|turn_Power_In $turn_Power_In|turn_Duration_In $turn_Duration_In"
+    /// jwc y block="set turn w/ timer: $port_Ids_In|turn_Type: $turn_Type_In|turn_Direction_In: $turn_Direction_In|turn_Power $turn_Power_In|turn_Duration $turn_Duration_In"
+    //% block="set turn w/ timer:|* ports: $port_Ids_In|* turn_Type: $turn_Type_In|* turn_Direction: $turn_Direction_In|* turn_Power: $turn_Power_In|* turn_Duration: $turn_Duration_In"
+    //% weight=60 blockGap=8
     //% inlineInputMode=external
-    export function rq_Set_Turn_Fn(port_Ids_In: rq_PortGroup_BlueRedBlack_PortIds_Enum, turn_Type_In: turn_Type_Enum, turn_Direction_In: turn_Direction_Enum, turn_Power_In: turn_Power_Enum, turn_Duration_In: turn_Duration_Enum): void {
+    export function rq_Set_Turn_WithTimer_Fn(port_Ids_In: rq_PortGroup_BlueRedBlack_PortIds_Enum, turn_Type_In: turn_Type_Enum, turn_Direction_In: turn_Direction_Enum, turn_Power_In: turn_Power_Enum, turn_Duration_In: turn_Duration_Enum): void {
         
         basic.showIcon(IconNames.SmallHeart)
 
@@ -834,6 +945,8 @@ namespace quest_Hardware {
         
         // turn
         quest_Hardware.rq_Set_PowerMotorsViaBlueRedBlackPins_Fn(port_Ids_In, motor_Power_L, motor_Power_R)
+        
+        // timer
         quest_Timer.rq_Set_ContinueCurrentState_CountdownTimer_Fn(turn_Duration, rq_Time_Units_Enum.Milliseconds)
         
         // stop
@@ -843,14 +956,12 @@ namespace quest_Hardware {
         basic.showIcon(IconNames.Heart)
     }
 
-
-
     //////jwc 23-0612-2020 Obsolete since too complicated to change global_var of 'main.blocks': /**
     //////jwc 23-0612-2020 Obsolete since too complicated to change global_var of 'main.blocks':  * set_Settings_Fn
     //////jwc 23-0612-2020 Obsolete since too complicated to change global_var of 'main.blocks':  * @param deviceTypeBotBoolIn boolean
     //////jwc 23-0612-2020 Obsolete since too complicated to change global_var of 'main.blocks':  * @param deviceTypeControllerBoolIn boolean
     //////jwc 23-0612-2020 Obsolete since too complicated to change global_var of 'main.blocks':  */
-    //////jwc 23-0612-2020 Obsolete since too complicated to change global_var of 'main.blocks': //% block="set settings: 'deviceType_Bot_Bool': $deviceTypeBotBoolIn|'deviceType_Controller_Bool': $deviceTypeControllerBoolIn"
+    //////jwc 23-0612-2020 Obsolete since too complicated to change global_var of 'main.blocks': //% block="set settings(required in 'on start' stack):|* 'deviceType_Bot_Bool': $deviceTypeBotBoolIn|'deviceType_Controller_Bool': $deviceTypeControllerBoolIn"
     //////jwc 23-0612-2020 Obsolete since too complicated to change global_var of 'main.blocks': //% weight=100 blockGap=8
     //////jwc 23-0612-2020 Obsolete since too complicated to change global_var of 'main.blocks': //% inlineInputMode=external
     //////jwc 23-0612-2020 Obsolete since too complicated to change global_var of 'main.blocks': export function set_Settings_Fn(deviceTypeBotBoolIn: boolean, deviceTypeControllerBoolIn: boolean): void {
