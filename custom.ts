@@ -25,6 +25,11 @@
 // * Successive two '_' special formatting to italics, so use '\\_' to deactivate special character processing
 // * To force Front_End UX to update from Back_End Code, good to use Browser_Refresh and will not lose Back_End Code 
 //   (even though not 'github-ed' yet) 
+// * Colors
+//   ** http://www.baskent.edu.tr/~tkaracay/etudio/agora/nnn/html_colors.htm#:~:text=aqua%2C%20black%2C%20blue%2C%20fuchsia,for%20the%20same%20color%20name.
+//   ** https://www.rapidtables.com/web/color/RGB_Color.html
+//   ** https://www.indezine.com/products/powerpoint/learn/color/color-rgb.html
+
 
 // enum MyEnum {
 //    //% block="one"
