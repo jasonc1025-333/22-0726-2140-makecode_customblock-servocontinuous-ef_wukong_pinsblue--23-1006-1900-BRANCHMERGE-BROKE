@@ -112,25 +112,27 @@ enum turn_Power_Enum {
 // * Though it seems that can define global vars here, but not advised 
 // ** since memory storage would be safer within 'namespace'
 //
-///y let deviceType_Bot_Bool = false
-///y let deviceType_Controller_Bool = true
+///y let deviceType_Bot_Bool_QuestGlobal = false
+///y let deviceType_Controller_Bool_QuestGlobal = true
 
 
 // * Go ahead and define here, since multiple 'namespaces'
 //
 // * Global Variables & Constants
 //
-// * Default to Bot and not to Controller for most basic total 1 'micro:bit' setup (No Controller)
+// * Default to Bot and not to Controller for most basic total 1 'micro:bit' setup (No Controller: Autonomous)
 //
-let deviceType_Bot_Bool = true
-let deviceType_Controller_Bool = false
+//////jwc 23-0612-2020 Obsolete since too complicated to change global_var of 'main.blocks': let deviceType_Bot_Bool = true
+//////jwc 23-0612-2020 Obsolete since too complicated to change global_var of 'main.blocks': let deviceType_Controller_Bool = false
+let deviceType_Bot_Bool_QuestGlobal = true
+let deviceType_Controller_Bool_QuestGlobal = false
 //
-let _debug_Serial_Print_Bool = false
+let _debug_Serial_Print_Bool_QuestGlobal = false
 //
-let motor_Power_No = 0
-let motor_Power_Lo = 30
-let motor_Power_Mi = 65
-let motor_Power_Hi = 100
+let motor_Power_No_QuestGlobal = 0
+let motor_Power_Lo_QuestGlobal = 30
+let motor_Power_Mi_QuestGlobal = 65
+let motor_Power_Hi_QuestGlobal = 100
 
 
 ///y //% weight=100 color=#0fbc11 icon=""
@@ -248,7 +250,7 @@ namespace quest_Dashboard {
             // * if on 'controller', then 5x5 is rightside-up - so No_Flip graphics
             //
             case rq_Motion_Direction_Enum.Forward:
-                if (deviceType_Bot_Bool) {
+                if (deviceType_Bot_Bool_QuestGlobal) {
                     led.plot(2, 4)
                     /*basic.showLeds(`
                             . . # . .
@@ -259,7 +261,7 @@ namespace quest_Dashboard {
                             `)
                     */
                 }
-                else if (deviceType_Controller_Bool) {
+                else if (deviceType_Controller_Bool_QuestGlobal) {
                     led.plot(2, 0)
                     /*basic.showLeds(`
                             . . # . .
@@ -278,7 +280,7 @@ namespace quest_Dashboard {
                 )
                 break
             case rq_Motion_Direction_Enum.Backward:
-                if (deviceType_Bot_Bool) {
+                if (deviceType_Bot_Bool_QuestGlobal) {
                     led.plot(2, 0)
                     /*basic.showLeds(`
                             . . # . .
@@ -289,7 +291,7 @@ namespace quest_Dashboard {
                             `)
                     */
                 }
-                else if (deviceType_Controller_Bool) {
+                else if (deviceType_Controller_Bool_QuestGlobal) {
                     led.plot(2, 4)
                     /*basic.showLeds(`
                             . . # . .
@@ -308,7 +310,7 @@ namespace quest_Dashboard {
                 )
                 break
             case rq_Motion_Direction_Enum.Left:
-                if (deviceType_Bot_Bool) {
+                if (deviceType_Bot_Bool_QuestGlobal) {
                     led.plot(4, 2)
                     /*basic.showLeds(`
                             . . # . .
@@ -319,7 +321,7 @@ namespace quest_Dashboard {
                             `)
                     */
                 }
-                else if (deviceType_Controller_Bool) {
+                else if (deviceType_Controller_Bool_QuestGlobal) {
                     led.plot(0, 2)
                     /*basic.showLeds(`
                             . . # . .
@@ -338,7 +340,7 @@ namespace quest_Dashboard {
                 )
                 break
             case rq_Motion_Direction_Enum.Right:
-                if (deviceType_Bot_Bool) {
+                if (deviceType_Bot_Bool_QuestGlobal) {
                     led.plot(0, 2)
                     /*basic.showLeds(`
                             . . # . .
@@ -349,7 +351,7 @@ namespace quest_Dashboard {
                             `)
                     */
                 }
-                else if (deviceType_Controller_Bool) {
+                else if (deviceType_Controller_Bool_QuestGlobal) {
                     led.plot(4, 2)
                     /*basic.showLeds(`
                             . . # . .
@@ -628,10 +630,10 @@ namespace quest_Hardware {
     /// //
     /// // * Default to Bot and not to Controller for most basic total 1 'micro:bit' setup (No Controller)
     /// //
-    /// let deviceType_Bot_Bool = true
-    /// let deviceType_Controller_Bool = false
+    /// let deviceType_Bot_Bool_QuestGlobal = true
+    /// let deviceType_Controller_Bool_QuestGlobal = false
     /// //
-    /// let _debug_Serial_Print_Bool = false
+    /// let _debug_Serial_Print_Bool_QuestGlobal = false
 
     /**
      * rq_Set_PowerMotorsViaBlueRedBlackPins_Fn
@@ -654,19 +656,19 @@ namespace quest_Hardware {
             case rq_PortGroup_BlueRedBlack_PortIds_Enum.S1_MotorLeft__S0_MotorRight:
                 wuKong.setServoAngle(wuKong.ServoTypeList._360, wuKong.ServoList.S1, motor_Power_L)
                 wuKong.setServoAngle(wuKong.ServoTypeList._360, wuKong.ServoList.S0, motor_Power_R)
-                if (_debug_Serial_Print_Bool) {
+                if (_debug_Serial_Print_Bool_QuestGlobal) {
                     serial.writeLine("* rq_PowerMotorsViaBlueRedBlackPins_Fn: " + powerLeftIn + " " + powerRightIn + " >> " + motor_Power_L + " " + motor_Power_R)
                 }
                 break
             case rq_PortGroup_BlueRedBlack_PortIds_Enum.S3_MotorLeft__S2_MotorRight:
                 wuKong.setServoAngle(wuKong.ServoTypeList._360, wuKong.ServoList.S3, motor_Power_L)
                 wuKong.setServoAngle(wuKong.ServoTypeList._360, wuKong.ServoList.S2, motor_Power_R)
-                if (_debug_Serial_Print_Bool) {
+                if (_debug_Serial_Print_Bool_QuestGlobal) {
                     serial.writeLine("* rq_PowerMotorsViaBlueRedBlackPins_Fn: " + powerLeftIn + " " + powerRightIn + " >> " + motor_Power_L + " " + motor_Power_R)
                 }
                 break
             default:
-                if (_debug_Serial_Print_Bool) {
+                if (_debug_Serial_Print_Bool_QuestGlobal) {
                     serial.writeLine("* ERROR: rq_PowerMotorsViaBlueRedBlackPins_Fn: " + powerLeftIn + " " + powerRightIn + " >> " + motor_Power_L + " " + motor_Power_R)
                 }
                 break
@@ -701,16 +703,16 @@ namespace quest_Hardware {
 
                         switch (turn_Power_In) {
                             case turn_Power_Enum.Lo:
-                                motor_Power_L = motor_Power_No
-                                motor_Power_R = motor_Power_Lo
+                                motor_Power_L = motor_Power_No_QuestGlobal
+                                motor_Power_R = motor_Power_Lo_QuestGlobal
                                 break  // out of these case statements
                             case turn_Power_Enum.Mi:
-                                motor_Power_L = motor_Power_No
-                                motor_Power_R = motor_Power_Mi
+                                motor_Power_L = motor_Power_No_QuestGlobal
+                                motor_Power_R = motor_Power_Mi_QuestGlobal
                                 break  // out of these case statements
                             case turn_Power_Enum.Hi:
-                                motor_Power_L = motor_Power_No
-                                motor_Power_R = motor_Power_Hi
+                                motor_Power_L = motor_Power_No_QuestGlobal
+                                motor_Power_R = motor_Power_Hi_QuestGlobal
                                 break  // out of these case statements
                         }
                         quest_Dashboard.rq_Show_MotionDirection_Fn( rq_Motion_Direction_Enum.Left )
@@ -720,16 +722,16 @@ namespace quest_Hardware {
 
                         switch (turn_Power_In){
                             case turn_Power_Enum.Lo:
-                                motor_Power_L = motor_Power_Lo
-                                motor_Power_R = motor_Power_No
+                                motor_Power_L = motor_Power_Lo_QuestGlobal
+                                motor_Power_R = motor_Power_No_QuestGlobal
                                 break  // out of these case statements
                             case turn_Power_Enum.Mi:
-                                motor_Power_L = motor_Power_Mi
-                                motor_Power_R = motor_Power_No
+                                motor_Power_L = motor_Power_Mi_QuestGlobal
+                                motor_Power_R = motor_Power_No_QuestGlobal
                                 break  // out of these case statements
                             case turn_Power_Enum.Hi:
-                                motor_Power_L = motor_Power_Hi
-                                motor_Power_R = motor_Power_No
+                                motor_Power_L = motor_Power_Hi_QuestGlobal
+                                motor_Power_R = motor_Power_No_QuestGlobal
                                 break  // out of these case statements
                         }
                         quest_Dashboard.rq_Show_MotionDirection_Fn(rq_Motion_Direction_Enum.Right)
@@ -744,16 +746,16 @@ namespace quest_Hardware {
 
                         switch (turn_Power_In) {
                             case turn_Power_Enum.Lo:
-                                motor_Power_L = motor_Power_Lo * (-1)
-                                motor_Power_R = motor_Power_Lo
+                                motor_Power_L = motor_Power_Lo_QuestGlobal * (-1)
+                                motor_Power_R = motor_Power_Lo_QuestGlobal
                                 break  // out of these case statements
                             case turn_Power_Enum.Mi:
-                                motor_Power_L = motor_Power_Mi * (-1)
-                                motor_Power_R = motor_Power_Mi
+                                motor_Power_L = motor_Power_Mi_QuestGlobal * (-1)
+                                motor_Power_R = motor_Power_Mi_QuestGlobal
                                 break  // out of these case statements
                             case turn_Power_Enum.Hi:
-                                motor_Power_L = motor_Power_Hi * (-1)
-                                motor_Power_R = motor_Power_Hi
+                                motor_Power_L = motor_Power_Hi_QuestGlobal * (-1)
+                                motor_Power_R = motor_Power_Hi_QuestGlobal
                                 break  // out of these case statements
                         }
                         quest_Dashboard.rq_Show_MotionDirection_Fn(rq_Motion_Direction_Enum.Left)
@@ -763,16 +765,16 @@ namespace quest_Hardware {
 
                         switch (turn_Power_In) {
                             case turn_Power_Enum.Lo:
-                                motor_Power_L = motor_Power_Lo
-                                motor_Power_R = motor_Power_Lo * (-1)
+                                motor_Power_L = motor_Power_Lo_QuestGlobal
+                                motor_Power_R = motor_Power_Lo_QuestGlobal * (-1)
                                 break  // out of these case statements
                             case turn_Power_Enum.Mi:
-                                motor_Power_L = motor_Power_Mi
-                                motor_Power_R = motor_Power_Mi * (-1)
+                                motor_Power_L = motor_Power_Mi_QuestGlobal
+                                motor_Power_R = motor_Power_Mi_QuestGlobal * (-1)
                                 break  // out of these case statements
                             case turn_Power_Enum.Hi:
-                                motor_Power_L = motor_Power_Hi
-                                motor_Power_R = motor_Power_Hi * (-1)
+                                motor_Power_L = motor_Power_Hi_QuestGlobal
+                                motor_Power_R = motor_Power_Hi_QuestGlobal * (-1)
                                 break  // out of these case statements
                         }
                         quest_Dashboard.rq_Show_MotionDirection_Fn(rq_Motion_Direction_Enum.Right)
@@ -841,24 +843,26 @@ namespace quest_Hardware {
         basic.showIcon(IconNames.Heart)
     }
 
-    /**
-     * set_Settings_Fn
-     * @param deviceTypeBotBoolIn boolean
-     * @param deviceTypeControllerBoolIn boolean
-     */
-    //% block="set settings: 'deviceType_Bot_Bool': $deviceTypeBotBoolIn|'deviceType_Controller_Bool': $deviceTypeControllerBoolIn"
-    //% weight=100 blockGap=8
-    //% inlineInputMode=external
-    export function set_Settings_Fn(deviceTypeBotBoolIn: boolean, deviceTypeControllerBoolIn: boolean): void {
 
-        deviceType_Bot_Bool = deviceTypeBotBoolIn
-        deviceType_Controller_Bool = deviceTypeControllerBoolIn
 
-        OLED12864_I2C.showString(
-            0,
-            1,
-            "B:" + convertToText(deviceType_Bot_Bool) + ", C:" + convertToText(deviceType_Controller_Bool),
-            1
-        )
-    }
+    //////jwc 23-0612-2020 Obsolete since too complicated to change global_var of 'main.blocks': /**
+    //////jwc 23-0612-2020 Obsolete since too complicated to change global_var of 'main.blocks':  * set_Settings_Fn
+    //////jwc 23-0612-2020 Obsolete since too complicated to change global_var of 'main.blocks':  * @param deviceTypeBotBoolIn boolean
+    //////jwc 23-0612-2020 Obsolete since too complicated to change global_var of 'main.blocks':  * @param deviceTypeControllerBoolIn boolean
+    //////jwc 23-0612-2020 Obsolete since too complicated to change global_var of 'main.blocks':  */
+    //////jwc 23-0612-2020 Obsolete since too complicated to change global_var of 'main.blocks': //% block="set settings: 'deviceType_Bot_Bool': $deviceTypeBotBoolIn|'deviceType_Controller_Bool': $deviceTypeControllerBoolIn"
+    //////jwc 23-0612-2020 Obsolete since too complicated to change global_var of 'main.blocks': //% weight=100 blockGap=8
+    //////jwc 23-0612-2020 Obsolete since too complicated to change global_var of 'main.blocks': //% inlineInputMode=external
+    //////jwc 23-0612-2020 Obsolete since too complicated to change global_var of 'main.blocks': export function set_Settings_Fn(deviceTypeBotBoolIn: boolean, deviceTypeControllerBoolIn: boolean): void {
+    //////jwc 23-0612-2020 Obsolete since too complicated to change global_var of 'main.blocks': 
+    //////jwc 23-0612-2020 Obsolete since too complicated to change global_var of 'main.blocks':     deviceType_Bot_Bool = deviceTypeBotBoolIn
+    //////jwc 23-0612-2020 Obsolete since too complicated to change global_var of 'main.blocks':     deviceType_Controller_Bool = deviceTypeControllerBoolIn
+    //////jwc 23-0612-2020 Obsolete since too complicated to change global_var of 'main.blocks': 
+    //////jwc 23-0612-2020 Obsolete since too complicated to change global_var of 'main.blocks':     OLED12864_I2C.showString(
+    //////jwc 23-0612-2020 Obsolete since too complicated to change global_var of 'main.blocks':         0,
+    //////jwc 23-0612-2020 Obsolete since too complicated to change global_var of 'main.blocks':         1,
+    //////jwc 23-0612-2020 Obsolete since too complicated to change global_var of 'main.blocks':         "B:" + convertToText(deviceType_Bot_Bool) + ", C:" + convertToText(deviceType_Controller_Bool),
+    //////jwc 23-0612-2020 Obsolete since too complicated to change global_var of 'main.blocks':         1
+    //////jwc 23-0612-2020 Obsolete since too complicated to change global_var of 'main.blocks':     )
+    //////jwc 23-0612-2020 Obsolete since too complicated to change global_var of 'main.blocks': }
 }
