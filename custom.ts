@@ -22,6 +22,9 @@
 // * Note any edits is saved real-time since a cloud-editor, even before Github upload
 // * TYJ 1 sec spin ~ 45 deg, 2 sec spin ~ 90 deg, 2 sec spin ~ 180, 4 sec spin ~ 360, thus sufficient to max 5 sec spin
 // * x2 '//' = '////jwc y' is better comment-out than standard x3 '//////jwc y', since latter too long to add and delete
+// * Successive two '_' special formatting to italics, so use '\\_' to deactivate special character processing
+// * To force Front_End UX to update from Back_End Code, good to use Browser_Refresh and will not lose Back_End Code 
+//   (even though not 'github-ed' yet) 
 
 // enum MyEnum {
 //    //% block="one"
@@ -88,9 +91,17 @@ enum turn_Duration_Enum {
     msec_5000,
 }
 
+////jwc yy ////jwc y // 'Spin' as default since is more bi-directional (left and right capable)
+////jwc yy // 'Pivot' as default since is slower for more accurate turns
+////jwc yy enum turn_Type_03_Enum {
+////jwc yy     //% block="Pivot(One Wheel Rotates While Other Wheel Rotates_Not)"
+////jwc yy     Pivot,
+////jwc yy     //% block="Spin(Both Wheels Rotate in Opposite Directions)"
+////jwc yy     Spin,
+////jwc yy }
 ////jwc y // 'Spin' as default since is more bi-directional (left and right capable)
 // 'Pivot' as default since is slower for more accurate turns
-enum turn_Type_03_Enum {
+enum turn_Type_Enum {
     //% block="Pivot(One Wheel Rotates While Other Wheel Rotates_Not)"
     Pivot,
     //% block="Spin(Both Wheels Rotate in Opposite Directions)"
@@ -156,7 +167,7 @@ let motor_Power_Hi_QuestGlobal = 100
 /**
  * quest_Dashboard blocks
  */
-//% weight=69 color=#7f3f00 icon="Q"
+//% weight=65 color=#7f3f00 icon="Q"
 namespace quest_Dashboard {
     // OLED12864_I2C: Setup
     //
@@ -180,7 +191,9 @@ namespace quest_Dashboard {
     * @param xColBase0In number
     * @param yRowBase0In number
     */
-    //% block="show oled big_font (AutoSetup I2cAddress=60, SCL=Pin19, SDA=Pin20)|textStrIn: $textStrIn|xColBase0In[0..11]: $xColBase0In|yRowBase0In[0..3]: $yRowBase0In"
+    ////jwc y //% block="show oled big_font (AutoSetup I2cAddress=60, SCL=Pin19, SDA=Pin20)|textStrIn: $textStrIn|xColBase0In[0..11]: $xColBase0In|yRowBase0In[0..3]: $yRowBase0In"
+    //% '\\' escape character to deactivate special character processing
+    //% block="show oled big_font (AutoSetup I2cAddress=60, SCL=Pin19, SDA=Pin20)|text\\_Str\\_In: $textStrIn|x\\_Col\\_Base0\\_In[0..11]: $xColBase0In|y\\_Row\\_Base0\\_In[0..3]: $yRowBase0In"
     //% xColBase0In.min=0 xColBase0In.max=11
     //% yRowBase0In.min=0 yRowBase0In.max=3
     //% weight=52 blockGap=8
@@ -214,7 +227,8 @@ namespace quest_Dashboard {
      * @param xColBase0In number
      * @param yRowBase0In number
      */
-    //% block="show oled small_font (AutoSetup I2cAddress=60, SCL=Pin19, SDA=Pin20)|textStrIn: $textStrIn|xColBase0In[0..24]: $xColBase0In|yRowBase0In[0..7]: $yRowBase0In"
+    //% '\\' escape character to deactivate special character processing
+    //% block="show oled small_font (AutoSetup I2cAddress=60, SCL=Pin19, SDA=Pin20)|text\\_Str\\_In: $textStrIn|x\\_Col\\_Base0\\_In[0..24]: $xColBase0In|y\\_Row\\_Base0\\_In[0..7]: $yRowBase0In"
     //% xColBase0In.min=0 xColBase0In.max=24
     //% yRowBase0In.min=0 yRowBase0In.max=7
     //% weight=50 blockGap=8
@@ -261,7 +275,7 @@ namespace quest_Timer {
      * @param countdownTimer number
      * @param timeUnits rq_Time_Units_Enum
      */
-    //% block="set current state to continue for: $countdownTimer $timeUnits"
+    //% block="set current_state to continue for: $countdownTimer $timeUnits"
     //% weight=70 blockGap=8
     //// y countdownTimer.min=0 countdownTimer.max=5000
     export function rq_Set_ContinueCurrentState_CountdownTimer_Fn(countdownTimer: number, timeUnits: rq_Time_Units_Enum): void {
@@ -285,17 +299,19 @@ namespace quest_Timer {
 // * Gray like a 'black/gray box' which needs more transparency
 //
 /**
- * quest_Algorithm blocks
+ * quest_General blocks
  */
-//% weight=65 color=#3f3f3f icon="Q"
-namespace quest_Algorithm {
+//% weight=63 color=#3f3f3f icon="Q"
+namespace quest_General {
     /**
     * rq_Get_Number_WithColumnPadding_AsStringOut_Fn
     * @param number_in number
     * @param string_len_max_in number
     * @param decimal_places_in number
     */
-    //% block="get number with_column_padding as_string_out|number_in: $number_in|string_len_max_in: $string_len_max_in|decimal_places_in  $decimal_places_in"
+    ////jwc m //% block="get number with_column_padding as_string_out|number_in: $number_in|string_len_max_in: $string_len_max_in|decimal_places_in  $decimal_places_in"
+    // '\\' escape character to deactivate special character processing
+    //% block="get number w/ column\\_padding as string\\_out|number_in: $number_in|string\\_len\\_max\\_in: $string_len_max_in|decimal\\_places\\_in  $decimal_places_in"
     //% weight=60 blockGap=8
     //% inlineInputMode=external
     export function rq_Get_Number_WithColumnPadding_AsStringOut_Fn(number_in: number, string_len_max_in: number, decimal_places_in: number = 0) {
@@ -327,13 +343,14 @@ namespace quest_Algorithm {
 /**
  * quest_Note_1 blocks
  */
-//% weight=59 color=#C0C0C0 icon="Q"
+//% weight=55 color=#C0C0C0 icon="Q"
 namespace quest_Note_1 {
     /**
      * rq_Show_String_For_Note_Small_Fn
      * @param textStrIn string
      */
-    //% block="note small: $textStrIn"
+    // '\\' escape character to deactivate special character processing
+    //% block="note\\_small: $textStrIn"
     //% weight=80 blockGap=8
     //% inlineInputMode=external
     export function rq_Show_String_For_Note_Small_Fn(textStrIn: string) {
@@ -343,7 +360,8 @@ namespace quest_Note_1 {
      * rq_Show_String_For_Note_Big_Fn
      * @param textStrIn string
      */
-    //% block=" |note big: $textStrIn |"
+    // '\\' escape character to deactivate special character processing
+    //% block=" |note\\_big: $textStrIn |"
     //% weight=80 blockGap=8
     //% inlineInputMode=external
     export function rq_Show_String_For_Note_Big_Fn(textStrIn: string) {
@@ -353,13 +371,14 @@ namespace quest_Note_1 {
 /**
  * quest_Note_2 blocks
  */
-//% weight=58 color=#00FF00 icon="Q"
+//% weight=54 color=#00FF00 icon="Q"
 namespace quest_Note_2 {
     /**
      * rq_Show_String_For_Note_Small_Fn
      * @param textStrIn string
      */
-    //% block="note small: $textStrIn"
+    // '\\' escape character to deactivate special character processing
+    //% block="note\\_small: $textStrIn"
     //% weight=80 blockGap=8
     //% inlineInputMode=external
     export function rq_Show_String_For_Note_Small_Fn(textStrIn: string) {
@@ -369,7 +388,8 @@ namespace quest_Note_2 {
      * rq_Show_String_For_Note_Big_Fn
      * @param textStrIn string
      */
-    //% block=" |note big: $textStrIn |"
+    // '\\' escape character to deactivate special character processing
+    //% block=" |note\\_big: $textStrIn |"
     //% weight=80 blockGap=8
     //% inlineInputMode=external
     export function rq_Show_String_For_Note_Big_Fn(textStrIn: string) {
@@ -379,13 +399,14 @@ namespace quest_Note_2 {
 /**
  * quest_Note_3 blocks
  */
-//% weight=57 color=#00FFFF icon="Q"
+//% weight=53 color=#00FFFF icon="Q"
 namespace quest_Note_3 {
     /**
      * rq_Show_String_For_Note_Small_Fn
      * @param textStrIn string
      */
-    //% block="note small: $textStrIn"
+    // '\\' escape character to deactivate special character processing
+    //% block="note\\_small: $textStrIn"
     //% weight=80 blockGap=8
     //% inlineInputMode=external
     export function rq_Show_String_For_Note_Small_Fn(textStrIn: string) {
@@ -395,7 +416,8 @@ namespace quest_Note_3 {
      * rq_Show_String_For_Note_Big_Fn
      * @param textStrIn string
      */
-    //% block=" |note big: $textStrIn |"
+    // '\\' escape character to deactivate special character processing
+    //% block=" |note\\_big: $textStrIn |"
     //% weight=80 blockGap=8
     //% inlineInputMode=external
     export function rq_Show_String_For_Note_Big_Fn(textStrIn: string) {
@@ -408,13 +430,14 @@ namespace quest_Note_3 {
 /**
  * quest_Note_4 blocks
  */
-//% weight=56 color=#ffff00 icon="Q"
+//% weight=52 color=#ffff00 icon="Q"
 namespace quest_Note_4 {
     /**
      * rq_Show_String_For_Note_Small_Fn
      * @param textStrIn string
      */
-    //% block="note small: $textStrIn"
+    // '\\' escape character to deactivate special character processing
+    //% block="note\\_small: $textStrIn"
     //% weight=80 blockGap=8
     //% inlineInputMode=external
     export function rq_Show_String_For_Note_Small_Fn(textStrIn: string) {
@@ -424,7 +447,8 @@ namespace quest_Note_4 {
      * rq_Show_String_For_Note_Big_Fn
      * @param textStrIn string
      */
-    //% block=" |note big: $textStrIn |"
+    // '\\' escape character to deactivate special character processing
+    //% block=" |note\\_big: $textStrIn |"
     //% weight=80 blockGap=8
     //% inlineInputMode=external
     export function rq_Show_String_For_Note_Big_Fn(textStrIn: string) {
@@ -436,13 +460,14 @@ namespace quest_Note_4 {
 /**
  * quest_Note_5 blocks
  */
-//% weight=55 color=#ff7f00 icon="Q"
+//% weight=51 color=#ff7f00 icon="Q"
 namespace quest_Note_5 {
     /**
      * rq_Show_String_For_Note_Small_Fn
      * @param textStrIn string
      */
-    //% block="note small: $textStrIn"
+    // '\\' escape character to deactivate special character processing
+    //% block="note\\_small: $textStrIn"
     //% weight=80 blockGap=8
     //% inlineInputMode=external
     export function rq_Show_String_For_Note_Small_Fn(textStrIn: string) {
@@ -452,13 +477,15 @@ namespace quest_Note_5 {
      * rq_Show_String_For_Note_Big_Fn
      * @param textStrIn string
      */
-    //% block=" |note big: $textStrIn |"
+    // '\\' escape character to deactivate special character processing
+    //% block=" |note\\_big: $textStrIn |"
     //% weight=80 blockGap=8
     //% inlineInputMode=external
     export function rq_Show_String_For_Note_Big_Fn(textStrIn: string) {
     }
 }
 
+////jwc y //% weight=51 color=#7f7fff icon="Q"
 
 // dark blue #0000ff TOO DARK, CANNOT SEE BLACK BOUNDARY LINES
 // light blue rgb(127, 190, 255) #7fbeff TOO LIGHT
@@ -469,7 +496,7 @@ namespace quest_Note_5 {
 /**
  * quest_Hardware blocks
  */
-//% weight=51 color=#7f7fff icon="Q"
+//% weight=69 color=#7f7fff icon="Q"
 namespace quest_Hardware {
     /// //
     /// // * Global Variables Q Constants
@@ -654,7 +681,9 @@ namespace quest_Hardware {
      * @param powerLeftIn number
      * @param powerRightIn number
      */
-    //% block="set servo_motors:|* ports: $portIdsIn|* left motor power: $powerLeftIn|* right motor power: $powerRightIn"
+    ////jwc yy //% block="set manual:servo_motors:|* ports: $portIdsIn|* left motor power: $powerLeftIn|* right motor power: $powerRightIn"
+    // '\\' = escape character to deactivate following special character
+    //% block="set manual\\_servo\\_motors:|* ports: $portIdsIn|* left_motor power: $powerLeftIn|* right_motor power: $powerRightIn"
     //% powerLeftIn.min=-100 powerLeftIn.max=100
     //% powerRightIn.min=-100 powerRightIn.max=100
     //% weight=80 blockGap=8
@@ -697,8 +726,11 @@ namespace quest_Hardware {
      * @param powerRightIn number
      * @param turn_Duration_In turn_Duration_Enum
      */
-    /// jwc o  block="set servo_motors w/ timer: $portIdsIn|@ left motor power: $powerLeftIn|@ right motor power: $powerRightIn|turn_Duration_In $turn_Duration_In"
-    //% block="set servo_motors w/ timer:|* ports: $portIdsIn|* left motor power: $powerLeftIn|* right motor power: $powerRightIn|* turn_Duration: $turn_Duration_In"
+    ////jwc o //% block="set servo_motors w/ timer: $portIdsIn|@ left motor power: $powerLeftIn|@ right motor power: $powerRightIn|turn_Duration_In $turn_Duration_In"
+    ////jwc y //% block="set servo_motors w/ timer:|* ports: $portIdsIn|* left motor power: $powerLeftIn|* right motor power: $powerRightIn|* turn_Duration: $turn_Duration_In"
+    ////jwc //% block="set manual'_servo\\_motors w/ timer:|* ports: $portIdsIn|* left motor power: $powerLeftIn|* right motor power: $powerRightIn|* turn_Duration: $turn_Duration_In"
+    // '\\' = escape character to deactivate following special character
+    //% block="set manual\\_servo\\_motors w/ timer:|* ports: $portIdsIn|* left_motor power: $powerLeftIn|* right_motor power: $powerRightIn|* turn_Duration: $turn_Duration_In"
     //% powerLeftIn.min=-100 powerLeftIn.max=100
     //% powerRightIn.min=-100 powerRightIn.max=100
     //% weight=78 blockGap=8
@@ -797,17 +829,17 @@ namespace quest_Hardware {
     }
 
     /**
-    * rq_Set_Turn_WithTimer_03_Fn
+    * rq_Set_Turn_WithTimer_Fn
     * @param port_Ids_In rq_PortGroup_BlueRedBlack_PortIds_Enum
-    * @param turn_Type_03_In turn_Type_03_Enum
+    * @param turn_Type_In turn_Type_Enum
     * @param turn_Direction_In turn_Direction_Enum
     * @param turn_Power_In turn_Power_Enum
     * @param turn_Duration_In turn_Duration_Enum
     */
-    //% block="set turn w/ timer_03:|* ports: $port_Ids_In|* turn_Type: $turn_Type_03_In|* turn_Direction: $turn_Direction_In|* turn_Power: $turn_Power_In|* turn_Duration: $turn_Duration_In"
+    //% block="set auto_turn w/ timer:|* ports: $port_Ids_In|* turn_Type: $turn_Type_In|* turn_Direction: $turn_Direction_In|* turn_Power: $turn_Power_In|* turn_Duration: $turn_Duration_In"
     //% weight=60 blockGap=8
     //% inlineInputMode=external
-    export function rq_Set_Turn_WithTimer_03_Fn(port_Ids_In: rq_PortGroup_BlueRedBlack_PortIds_Enum, turn_Type_03_In: turn_Type_03_Enum, turn_Direction_In: turn_Direction_Enum, turn_Power_In: turn_Power_Enum, turn_Duration_In: turn_Duration_Enum): void {
+    export function rq_Set_Turn_WithTimer_Fn(port_Ids_In: rq_PortGroup_BlueRedBlack_PortIds_Enum, turn_Type_In: turn_Type_Enum, turn_Direction_In: turn_Direction_Enum, turn_Power_In: turn_Power_Enum, turn_Duration_In: turn_Duration_Enum): void {
 
         basic.showIcon(IconNames.SmallHeart)
 
@@ -816,10 +848,10 @@ namespace quest_Hardware {
 
         let turn_Duration = 0
 
-        switch (turn_Type_03_In) {
+        switch (turn_Type_In) {
             //////jwc y case turn_Type_Enum.Pivot:
             ////jwc n case turn_Type_02_Enum.Pivot:
-            case turn_Type_03_Enum.Pivot:
+            case turn_Type_Enum.Pivot:
 
                 switch (turn_Direction_In) {
                     case turn_Direction_Enum.left:
@@ -868,7 +900,7 @@ namespace quest_Hardware {
 
             ////jwc y TODO case turn_Type_Enum.Spin:
             ////jwc n case turn_Type_02_Enum.Spin:
-            case turn_Type_03_Enum.Spin:
+            case turn_Type_Enum.Spin:
 
 
                 switch (turn_Direction_In) {
