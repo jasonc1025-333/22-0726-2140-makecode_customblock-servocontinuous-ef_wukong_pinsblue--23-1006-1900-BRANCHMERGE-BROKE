@@ -33,21 +33,21 @@
 //    Two
 // }
 
-enum rq_PortGroup_BlueRedBlack_PortIds_Enum {
+enum quest_PortGroup_BlueRedBlack_PortIds_Enum {
     //% block="S1_MotorLeft__S0_MotorRight"
     S1_MotorLeft__S0_MotorRight,
     //% block="S3_MotorLeft__S2_MotorRight"
     S3_MotorLeft__S2_MotorRight,
 }
 
-enum rq_Time_Units_Enum {
+enum quest_Time_Units_Enum {
     //% block="seconds"
     Seconds,
     //% block="milliseconds"
     Milliseconds,
 }
 
-enum rq_Motion_Direction_Enum {
+enum quest_Motion_Direction_Enum {
     //% block="Forward"
     Forward,
     //% block="Backward"
@@ -177,16 +177,16 @@ namespace quest_Dashboard {
     OLED12864_I2C.clear()
  
     /**
-    * rq_Show_Oled_Cleared_Fn
+    * quest_Show_Oled_Cleared_Fn
     */
     //% block="show oled cleared"
     //% weight=53 blockGap=8
     //% inlineInputMode=external
-    export function rq_Show_Oled_Cleared_Fn() {
+    export function quest_Show_Oled_Cleared_Fn() {
         OLED12864_I2C.clear()
     }
     /**
-    * rq_Show_String_For_Oled_BigFont_Fn
+    * quest_Show_String_For_Oled_BigFont_Fn
     * @param textStrIn string
     * @param xColBase0In number
     * @param yRowBase0In number
@@ -198,7 +198,7 @@ namespace quest_Dashboard {
     //% yRowBase0In.min=0 yRowBase0In.max=3
     //% weight=52 blockGap=8
     //% inlineInputMode=external
-    export function rq_Show_String_For_Oled_BigFont_Fn(textStrIn: string, xColBase0In: number, yRowBase0In: number) {
+    export function quest_Show_String_For_Oled_BigFont_Fn(textStrIn: string, xColBase0In: number, yRowBase0In: number) {
         // Default Values
         let colorIntIn = 1 // default
         let textStrInLenMAX = 12  // Char Max with Zoom:On
@@ -222,7 +222,7 @@ namespace quest_Dashboard {
         )
     }
     /**
-     * rq_Show_String_For_Oled_SmallFont_Fn
+     * quest_Show_String_For_Oled_SmallFont_Fn
      * @param textStrIn string
      * @param xColBase0In number
      * @param yRowBase0In number
@@ -233,7 +233,7 @@ namespace quest_Dashboard {
     //% yRowBase0In.min=0 yRowBase0In.max=7
     //% weight=50 blockGap=8
     //% inlineInputMode=external
-    export function rq_Show_String_For_Oled_SmallFont_Fn(textStrIn: string, xColBase0In: number, yRowBase0In: number) {
+    export function quest_Show_String_For_Oled_SmallFont_Fn(textStrIn: string, xColBase0In: number, yRowBase0In: number) {
         // Default Values
         let colorIntIn = 1 // default
         let textStrInLenMAX = 25  // Char Max with Zoom:Off
@@ -271,21 +271,21 @@ namespace quest_Dashboard {
 //% weight=67 color=#7f7f00 icon="Q"
 namespace quest_Timer {
     /**
-     * rq_Set_ContinueCurrentState_CountdownTimer_Fn
+     * quest_Set_ContinueCurrentState_CountdownTimer_Fn
      * @param countdownTimer number
-     * @param timeUnits rq_Time_Units_Enum
+     * @param timeUnits quest_Time_Units_Enum
      */
     //% block="set current_state to continue for: $countdownTimer $timeUnits"
     //% weight=70 blockGap=8
     //// y countdownTimer.min=0 countdownTimer.max=5000
-    export function rq_Set_ContinueCurrentState_CountdownTimer_Fn(countdownTimer: number, timeUnits: rq_Time_Units_Enum): void {
+    export function quest_Set_ContinueCurrentState_CountdownTimer_Fn(countdownTimer: number, timeUnits: quest_Time_Units_Enum): void {
         let countdownTimerNew = 0
         // Minimum border check
         if (countdownTimer < 0) { countdownTimer = 0 }
-        if (timeUnits == rq_Time_Units_Enum.Seconds) {
+        if (timeUnits == quest_Time_Units_Enum.Seconds) {
             countdownTimerNew = countdownTimer * 1000
             basic.pause(countdownTimerNew)
-        } else if (timeUnits == rq_Time_Units_Enum.Milliseconds) {
+        } else if (timeUnits == quest_Time_Units_Enum.Milliseconds) {
             countdownTimerNew = countdownTimer
             basic.pause(countdownTimerNew)
         }
@@ -304,7 +304,7 @@ namespace quest_Timer {
 //% weight=63 color=#3f3f3f icon="Q"
 namespace quest_General {
     /**
-    * rq_Get_Number_WithColumnPadding_AsStringOut_Fn
+    * quest_Get_Number_WithColumnPadding_AsStringOut_Fn
     * @param number_in number
     * @param string_len_max_in number
     * @param decimal_places_in number
@@ -314,7 +314,7 @@ namespace quest_General {
     //% block="get number w/ column\\_padding as string\\_out|number_in: $number_in|string\\_len\\_max\\_in: $string_len_max_in|decimal\\_places\\_in  $decimal_places_in"
     //% weight=60 blockGap=8
     //% inlineInputMode=external
-    export function rq_Get_Number_WithColumnPadding_AsStringOut_Fn(number_in: number, string_len_max_in: number, decimal_places_in: number = 0) {
+    export function quest_Get_Number_WithColumnPadding_AsStringOut_Fn(number_in: number, string_len_max_in: number, decimal_places_in: number = 0) {
         let local_number_with_fixed_decimal_deci = Math.round(number_in * 10 ** decimal_places_in) / 10 ** decimal_places_in
 
         let local_string_out = convertToText(local_number_with_fixed_decimal_deci)
@@ -346,25 +346,25 @@ namespace quest_General {
 //% weight=55 color=#C0C0C0 icon="Q"
 namespace quest_Note_1 {
     /**
-     * rq_Show_String_For_Note_Small_Fn
+     * quest_Show_String_For_Note_Small_Fn
      * @param textStrIn string
      */
     // '\\' escape character to deactivate special character processing
     //% block="note\\_small: $textStrIn"
     //% weight=80 blockGap=8
     //% inlineInputMode=external
-    export function rq_Show_String_For_Note_Small_Fn(textStrIn: string) {
+    export function quest_Show_String_For_Note_Small_Fn(textStrIn: string) {
     }
     // * Add space in front of '|' such as ' |' creates reliable 1row spacing
     /**
-     * rq_Show_String_For_Note_Big_Fn
+     * quest_Show_String_For_Note_Big_Fn
      * @param textStrIn string
      */
     // '\\' escape character to deactivate special character processing
     //% block=" |note\\_big: $textStrIn |"
     //% weight=80 blockGap=8
     //% inlineInputMode=external
-    export function rq_Show_String_For_Note_Big_Fn(textStrIn: string) {
+    export function quest_Show_String_For_Note_Big_Fn(textStrIn: string) {
     }
 }
 
@@ -374,25 +374,25 @@ namespace quest_Note_1 {
 //% weight=54 color=#00FF00 icon="Q"
 namespace quest_Note_2 {
     /**
-     * rq_Show_String_For_Note_Small_Fn
+     * quest_Show_String_For_Note_Small_Fn
      * @param textStrIn string
      */
     // '\\' escape character to deactivate special character processing
     //% block="note\\_small: $textStrIn"
     //% weight=80 blockGap=8
     //% inlineInputMode=external
-    export function rq_Show_String_For_Note_Small_Fn(textStrIn: string) {
+    export function quest_Show_String_For_Note_Small_Fn(textStrIn: string) {
     }
     // * Add space in front of '|' such as ' |' creates reliable 1row spacing
     /**
-     * rq_Show_String_For_Note_Big_Fn
+     * quest_Show_String_For_Note_Big_Fn
      * @param textStrIn string
      */
     // '\\' escape character to deactivate special character processing
     //% block=" |note\\_big: $textStrIn |"
     //% weight=80 blockGap=8
     //% inlineInputMode=external
-    export function rq_Show_String_For_Note_Big_Fn(textStrIn: string) {
+    export function quest_Show_String_For_Note_Big_Fn(textStrIn: string) {
     }
 }
 
@@ -402,25 +402,25 @@ namespace quest_Note_2 {
 //% weight=53 color=#00FFFF icon="Q"
 namespace quest_Note_3 {
     /**
-     * rq_Show_String_For_Note_Small_Fn
+     * quest_Show_String_For_Note_Small_Fn
      * @param textStrIn string
      */
     // '\\' escape character to deactivate special character processing
     //% block="note\\_small: $textStrIn"
     //% weight=80 blockGap=8
     //% inlineInputMode=external
-    export function rq_Show_String_For_Note_Small_Fn(textStrIn: string) {
+    export function quest_Show_String_For_Note_Small_Fn(textStrIn: string) {
     }
     // * Add space in front of '|' such as ' |' creates reliable 1row spacing
     /**
-     * rq_Show_String_For_Note_Big_Fn
+     * quest_Show_String_For_Note_Big_Fn
      * @param textStrIn string
      */
     // '\\' escape character to deactivate special character processing
     //% block=" |note\\_big: $textStrIn |"
     //% weight=80 blockGap=8
     //% inlineInputMode=external
-    export function rq_Show_String_For_Note_Big_Fn(textStrIn: string) {
+    export function quest_Show_String_For_Note_Big_Fn(textStrIn: string) {
     }
 }
 
@@ -433,25 +433,25 @@ namespace quest_Note_3 {
 //% weight=52 color=#ffff00 icon="Q"
 namespace quest_Note_4 {
     /**
-     * rq_Show_String_For_Note_Small_Fn
+     * quest_Show_String_For_Note_Small_Fn
      * @param textStrIn string
      */
     // '\\' escape character to deactivate special character processing
     //% block="note\\_small: $textStrIn"
     //% weight=80 blockGap=8
     //% inlineInputMode=external
-    export function rq_Show_String_For_Note_Small_Fn(textStrIn: string) {
+    export function quest_Show_String_For_Note_Small_Fn(textStrIn: string) {
     }
     // * Add space in front of '|' such as ' |' creates reliable 1row spacing
     /**
-     * rq_Show_String_For_Note_Big_Fn
+     * quest_Show_String_For_Note_Big_Fn
      * @param textStrIn string
      */
     // '\\' escape character to deactivate special character processing
     //% block=" |note\\_big: $textStrIn |"
     //% weight=80 blockGap=8
     //% inlineInputMode=external
-    export function rq_Show_String_For_Note_Big_Fn(textStrIn: string) {
+    export function quest_Show_String_For_Note_Big_Fn(textStrIn: string) {
     }
 }
 
@@ -463,25 +463,25 @@ namespace quest_Note_4 {
 //% weight=51 color=#ff7f00 icon="Q"
 namespace quest_Note_5 {
     /**
-     * rq_Show_String_For_Note_Small_Fn
+     * quest_Show_String_For_Note_Small_Fn
      * @param textStrIn string
      */
     // '\\' escape character to deactivate special character processing
     //% block="note\\_small: $textStrIn"
     //% weight=80 blockGap=8
     //% inlineInputMode=external
-    export function rq_Show_String_For_Note_Small_Fn(textStrIn: string) {
+    export function quest_Show_String_For_Note_Small_Fn(textStrIn: string) {
     }
     // * Add space in front of '|' such as ' |' creates reliable 1row spacing
     /**
-     * rq_Show_String_For_Note_Big_Fn
+     * quest_Show_String_For_Note_Big_Fn
      * @param textStrIn string
      */
     // '\\' escape character to deactivate special character processing
     //% block=" |note\\_big: $textStrIn |"
     //% weight=80 blockGap=8
     //% inlineInputMode=external
-    export function rq_Show_String_For_Note_Big_Fn(textStrIn: string) {
+    export function quest_Show_String_For_Note_Big_Fn(textStrIn: string) {
     }
 }
 
@@ -508,19 +508,19 @@ namespace quest_Hardware {
     /// //
     /// let _debug_Serial_Print_Bool_QuestGlobal = false
 
-    ////jwc y export function rq_Show_MotionDirection_Fn(motionDirectionIn: rq_Motion_Direction_Enum): void {
+    ////jwc y export function quest_Show_MotionDirection_Fn(motionDirectionIn: quest_Motion_Direction_Enum): void {
     ////jwc no longer an external block: /**
-    ////jwc no longer an external block:  * rq_Show_MotionDirection_Fn
-    ////jwc no longer an external block:  * @param motionDirectionIn rq_Motion_Direction_Enum
+    ////jwc no longer an external block:  * quest_Show_MotionDirection_Fn
+    ////jwc no longer an external block:  * @param motionDirectionIn quest_Motion_Direction_Enum
     ////jwc no longer an external block:  */
     ////jwc no longer an external block: //% block="show motion_direction: $motionDirectionIn"
     ////jwc no longer an external block: //% weight=81 blockGap=8
-    function rq_Show_MotionDirection_Fn(motionDirectionIn: rq_Motion_Direction_Enum): void {
+    function quest_Show_MotionDirection_Fn(motionDirectionIn: quest_Motion_Direction_Enum): void {
         switch (motionDirectionIn) {
             // * if on 'bot', then 5x5LED is upside-down - so Yes_Flip graphics
             // * if on 'controller', then 5x5 is rightside-up - so No_Flip graphics
             //
-            case rq_Motion_Direction_Enum.Forward:
+            case quest_Motion_Direction_Enum.Forward:
                 if (deviceType_Bot_Bool_QuestGlobal) {
                     led.plot(2, 4)
                     /*basic.showLeds(`
@@ -550,7 +550,7 @@ namespace quest_Hardware {
                     1
                 )
                 break
-            case rq_Motion_Direction_Enum.Backward:
+            case quest_Motion_Direction_Enum.Backward:
                 if (deviceType_Bot_Bool_QuestGlobal) {
                     led.plot(2, 0)
                     /*basic.showLeds(`
@@ -580,7 +580,7 @@ namespace quest_Hardware {
                     1
                 )
                 break
-            case rq_Motion_Direction_Enum.Left:
+            case quest_Motion_Direction_Enum.Left:
                 if (deviceType_Bot_Bool_QuestGlobal) {
                     led.plot(4, 2)
                     /*basic.showLeds(`
@@ -610,7 +610,7 @@ namespace quest_Hardware {
                     1
                 )
                 break
-            case rq_Motion_Direction_Enum.Right:
+            case quest_Motion_Direction_Enum.Right:
                 if (deviceType_Bot_Bool_QuestGlobal) {
                     led.plot(0, 2)
                     /*basic.showLeds(`
@@ -640,7 +640,7 @@ namespace quest_Hardware {
                     1
                 )
                 break
-            case rq_Motion_Direction_Enum.Stop:
+            case quest_Motion_Direction_Enum.Stop:
                 led.plot(2, 2)
                 /*basic.showLeds(`
                         . . . . .
@@ -676,8 +676,8 @@ namespace quest_Hardware {
     }
 
     /**
-     * rq_Set_PowerMotorsViaBlueRedBlackPins_Fn
-     * @param portIdsIn rq_PortGroup_BlueRedBlack_PortIds_Enum
+     * quest_Set_PowerMotorsViaBlueRedBlackPins_Fn
+     * @param portIdsIn quest_PortGroup_BlueRedBlack_PortIds_Enum
      * @param powerLeftIn number
      * @param powerRightIn number
      */
@@ -688,7 +688,7 @@ namespace quest_Hardware {
     //% powerRightIn.min=-100 powerRightIn.max=100
     //% weight=80 blockGap=8
     //% inlineInputMode=external
-    export function rq_Set_PowerMotorsViaBlueRedBlackPins_Fn(portIdsIn: rq_PortGroup_BlueRedBlack_PortIds_Enum, powerLeftIn: number, powerRightIn: number): void {
+    export function quest_Set_PowerMotorsViaBlueRedBlackPins_Fn(portIdsIn: quest_PortGroup_BlueRedBlack_PortIds_Enum, powerLeftIn: number, powerRightIn: number): void {
 
         // Motor-Left Conversion: Same Rotational Direction
         let motor_Power_L = Math.map(powerLeftIn, -100, 100, 0, 360)
@@ -696,23 +696,23 @@ namespace quest_Hardware {
         let motor_Power_R = Math.map(powerRightIn, -100, 100, 360, 0)
 
         switch (portIdsIn) {
-            case rq_PortGroup_BlueRedBlack_PortIds_Enum.S1_MotorLeft__S0_MotorRight:
+            case quest_PortGroup_BlueRedBlack_PortIds_Enum.S1_MotorLeft__S0_MotorRight:
                 wuKong.setServoAngle(wuKong.ServoTypeList._360, wuKong.ServoList.S1, motor_Power_L)
                 wuKong.setServoAngle(wuKong.ServoTypeList._360, wuKong.ServoList.S0, motor_Power_R)
                 if (_debug_Serial_Print_Bool_QuestGlobal) {
-                    serial.writeLine("* rq_PowerMotorsViaBlueRedBlackPins_Fn: " + powerLeftIn + " " + powerRightIn + " >> " + motor_Power_L + " " + motor_Power_R)
+                    serial.writeLine("* quest_PowerMotorsViaBlueRedBlackPins_Fn: " + powerLeftIn + " " + powerRightIn + " >> " + motor_Power_L + " " + motor_Power_R)
                 }
                 break
-            case rq_PortGroup_BlueRedBlack_PortIds_Enum.S3_MotorLeft__S2_MotorRight:
+            case quest_PortGroup_BlueRedBlack_PortIds_Enum.S3_MotorLeft__S2_MotorRight:
                 wuKong.setServoAngle(wuKong.ServoTypeList._360, wuKong.ServoList.S3, motor_Power_L)
                 wuKong.setServoAngle(wuKong.ServoTypeList._360, wuKong.ServoList.S2, motor_Power_R)
                 if (_debug_Serial_Print_Bool_QuestGlobal) {
-                    serial.writeLine("* rq_PowerMotorsViaBlueRedBlackPins_Fn: " + powerLeftIn + " " + powerRightIn + " >> " + motor_Power_L + " " + motor_Power_R)
+                    serial.writeLine("* quest_PowerMotorsViaBlueRedBlackPins_Fn: " + powerLeftIn + " " + powerRightIn + " >> " + motor_Power_L + " " + motor_Power_R)
                 }
                 break
             default:
                 if (_debug_Serial_Print_Bool_QuestGlobal) {
-                    serial.writeLine("* ERROR: rq_PowerMotorsViaBlueRedBlackPins_Fn: " + powerLeftIn + " " + powerRightIn + " >> " + motor_Power_L + " " + motor_Power_R)
+                    serial.writeLine("* ERROR: quest_PowerMotorsViaBlueRedBlackPins_Fn: " + powerLeftIn + " " + powerRightIn + " >> " + motor_Power_L + " " + motor_Power_R)
                 }
                 break
         }
@@ -720,8 +720,8 @@ namespace quest_Hardware {
 
 
     /**
-     * rq_Set_PowerMotorsViaBlueRedBlackPins_WithTimer_Fn
-     * @param portIdsIn rq_PortGroup_BlueRedBlack_PortIds_Enum
+     * quest_Set_PowerMotorsViaBlueRedBlackPins_WithTimer_Fn
+     * @param portIdsIn quest_PortGroup_BlueRedBlack_PortIds_Enum
      * @param powerLeftIn number
      * @param powerRightIn number
      * @param turn_Duration_In turn_Duration_Enum
@@ -735,7 +735,7 @@ namespace quest_Hardware {
     //% powerRightIn.min=-100 powerRightIn.max=100
     //% weight=78 blockGap=8
     //% inlineInputMode=external
-    export function rq_Set_PowerMotorsViaBlueRedBlackPins_WithTimer_Fn(portIdsIn: rq_PortGroup_BlueRedBlack_PortIds_Enum, powerLeftIn: number, powerRightIn: number, turn_Duration_In: turn_Duration_Enum): void {
+    export function quest_Set_PowerMotorsViaBlueRedBlackPins_WithTimer_Fn(portIdsIn: quest_PortGroup_BlueRedBlack_PortIds_Enum, powerLeftIn: number, powerRightIn: number, turn_Duration_In: turn_Duration_Enum): void {
 
         basic.showIcon(IconNames.SmallHeart)
 
@@ -792,36 +792,36 @@ namespace quest_Hardware {
         }
 
         switch (portIdsIn) {
-            case rq_PortGroup_BlueRedBlack_PortIds_Enum.S1_MotorLeft__S0_MotorRight:
+            case quest_PortGroup_BlueRedBlack_PortIds_Enum.S1_MotorLeft__S0_MotorRight:
                 wuKong.setServoAngle(wuKong.ServoTypeList._360, wuKong.ServoList.S1, motor_Power_L)
                 wuKong.setServoAngle(wuKong.ServoTypeList._360, wuKong.ServoList.S0, motor_Power_R)
                 if (_debug_Serial_Print_Bool_QuestGlobal) {
-                    serial.writeLine("* rq_PowerMotorsViaBlueRedBlackPins_Fn: " + powerLeftIn + " " + powerRightIn + " >> " + motor_Power_L + " " + motor_Power_R)
+                    serial.writeLine("* quest_PowerMotorsViaBlueRedBlackPins_Fn: " + powerLeftIn + " " + powerRightIn + " >> " + motor_Power_L + " " + motor_Power_R)
                 }
                 break
-            case rq_PortGroup_BlueRedBlack_PortIds_Enum.S3_MotorLeft__S2_MotorRight:
+            case quest_PortGroup_BlueRedBlack_PortIds_Enum.S3_MotorLeft__S2_MotorRight:
                 wuKong.setServoAngle(wuKong.ServoTypeList._360, wuKong.ServoList.S3, motor_Power_L)
                 wuKong.setServoAngle(wuKong.ServoTypeList._360, wuKong.ServoList.S2, motor_Power_R)
                 if (_debug_Serial_Print_Bool_QuestGlobal) {
-                    serial.writeLine("* rq_PowerMotorsViaBlueRedBlackPins_Fn: " + powerLeftIn + " " + powerRightIn + " >> " + motor_Power_L + " " + motor_Power_R)
+                    serial.writeLine("* quest_PowerMotorsViaBlueRedBlackPins_Fn: " + powerLeftIn + " " + powerRightIn + " >> " + motor_Power_L + " " + motor_Power_R)
                 }
                 break
             default:
                 if (_debug_Serial_Print_Bool_QuestGlobal) {
-                    serial.writeLine("* ERROR: rq_PowerMotorsViaBlueRedBlackPins_Fn: " + powerLeftIn + " " + powerRightIn + " >> " + motor_Power_L + " " + motor_Power_R)
+                    serial.writeLine("* ERROR: quest_PowerMotorsViaBlueRedBlackPins_Fn: " + powerLeftIn + " " + powerRightIn + " >> " + motor_Power_L + " " + motor_Power_R)
                 }
                 break
         }
 
         // diagnostics
-        quest_Dashboard.rq_Show_Oled_Cleared_Fn
-        quest_Dashboard.rq_Show_String_For_Oled_SmallFont_Fn(convertToText(motor_Power_L) + " " + convertToText(motor_Power_R) + " " + convertToText(turn_Duration), 0, 0)
+        quest_Dashboard.quest_Show_Oled_Cleared_Fn
+        quest_Dashboard.quest_Show_String_For_Oled_SmallFont_Fn(convertToText(motor_Power_L) + " " + convertToText(motor_Power_R) + " " + convertToText(turn_Duration), 0, 0)
 
         // timer
-        quest_Timer.rq_Set_ContinueCurrentState_CountdownTimer_Fn(turn_Duration, rq_Time_Units_Enum.Milliseconds)
+        quest_Timer.quest_Set_ContinueCurrentState_CountdownTimer_Fn(turn_Duration, quest_Time_Units_Enum.Milliseconds)
 
         // stop
-        quest_Hardware.rq_Set_PowerMotorsViaBlueRedBlackPins_Fn(portIdsIn, 0, 0)
+        quest_Hardware.quest_Set_PowerMotorsViaBlueRedBlackPins_Fn(portIdsIn, 0, 0)
 
         // diagnostics
         basic.showIcon(IconNames.Heart)
@@ -829,8 +829,8 @@ namespace quest_Hardware {
     }
 
     /**
-    * rq_Set_Turn_WithTimer_Fn
-    * @param port_Ids_In rq_PortGroup_BlueRedBlack_PortIds_Enum
+    * quest_Set_Turn_WithTimer_Fn
+    * @param port_Ids_In quest_PortGroup_BlueRedBlack_PortIds_Enum
     * @param turn_Type_In turn_Type_Enum
     * @param turn_Direction_In turn_Direction_Enum
     * @param turn_Power_In turn_Power_Enum
@@ -839,7 +839,7 @@ namespace quest_Hardware {
     //% block="set auto_turn w/ timer:|* ports: $port_Ids_In|* turn_Type: $turn_Type_In|* turn_Direction: $turn_Direction_In|* turn_Power: $turn_Power_In|* turn_Duration: $turn_Duration_In"
     //% weight=60 blockGap=8
     //% inlineInputMode=external
-    export function rq_Set_Turn_WithTimer_Fn(port_Ids_In: rq_PortGroup_BlueRedBlack_PortIds_Enum, turn_Type_In: turn_Type_Enum, turn_Direction_In: turn_Direction_Enum, turn_Power_In: turn_Power_Enum, turn_Duration_In: turn_Duration_Enum): void {
+    export function quest_Set_Turn_WithTimer_Fn(port_Ids_In: quest_PortGroup_BlueRedBlack_PortIds_Enum, turn_Type_In: turn_Type_Enum, turn_Direction_In: turn_Direction_Enum, turn_Power_In: turn_Power_Enum, turn_Duration_In: turn_Duration_Enum): void {
 
         basic.showIcon(IconNames.SmallHeart)
 
@@ -870,9 +870,9 @@ namespace quest_Hardware {
                                 motor_Power_R = motor_Power_Hi_QuestGlobal
                                 break  // out of these case statements
                         }
-                        //////jwc y quest_Dashboard.rq_Show_MotionDirection_Fn(rq_Motion_Direction_Enum.Left)
-                        //////jwc n this.rq_Show_MotionDirection_Fn(rq_Motion_Direction_Enum.Left)
-                        rq_Show_MotionDirection_Fn(rq_Motion_Direction_Enum.Left)
+                        //////jwc y quest_Dashboard.quest_Show_MotionDirection_Fn(quest_Motion_Direction_Enum.Left)
+                        //////jwc n this.quest_Show_MotionDirection_Fn(quest_Motion_Direction_Enum.Left)
+                        quest_Show_MotionDirection_Fn(quest_Motion_Direction_Enum.Left)
                         break  // out of these case statements
 
                     case turn_Direction_Enum.right:
@@ -891,9 +891,9 @@ namespace quest_Hardware {
                                 motor_Power_R = motor_Power_No_QuestGlobal
                                 break  // out of these case statements
                         }
-                        //////jwc y quest_Dashboard.rq_Show_MotionDirection_Fn(rq_Motion_Direction_Enum.Right)
-                        //////jwc n this.rq_Show_MotionDirection_Fn(rq_Motion_Direction_Enum.Right)
-                        rq_Show_MotionDirection_Fn(rq_Motion_Direction_Enum.Right)
+                        //////jwc y quest_Dashboard.quest_Show_MotionDirection_Fn(quest_Motion_Direction_Enum.Right)
+                        //////jwc n this.quest_Show_MotionDirection_Fn(quest_Motion_Direction_Enum.Right)
+                        quest_Show_MotionDirection_Fn(quest_Motion_Direction_Enum.Right)
                         break  // out of these case statements
                 }
                 break  // out of these case statements
@@ -920,9 +920,9 @@ namespace quest_Hardware {
                                 motor_Power_R = motor_Power_Hi_QuestGlobal
                                 break  // out of these case statements
                         }
-                        //////jwc y quest_Dashboard.rq_Show_MotionDirection_Fn(rq_Motion_Direction_Enum.Left)
-                        //////jwc n this.rq_Show_MotionDirection_Fn(rq_Motion_Direction_Enum.Left)
-                        rq_Show_MotionDirection_Fn(rq_Motion_Direction_Enum.Left)
+                        //////jwc y quest_Dashboard.quest_Show_MotionDirection_Fn(quest_Motion_Direction_Enum.Left)
+                        //////jwc n this.quest_Show_MotionDirection_Fn(quest_Motion_Direction_Enum.Left)
+                        quest_Show_MotionDirection_Fn(quest_Motion_Direction_Enum.Left)
                         break  // out of these case statements
 
                     case turn_Direction_Enum.right:
@@ -941,9 +941,9 @@ namespace quest_Hardware {
                                 motor_Power_R = motor_Power_Hi_QuestGlobal * (-1)
                                 break  // out of these case statements
                         }
-                        //////jwc y quest_Dashboard.rq_Show_MotionDirection_Fn(rq_Motion_Direction_Enum.Right)
-                        //////jwc n this.rq_Show_MotionDirection_Fn(rq_Motion_Direction_Enum.Right)
-                        rq_Show_MotionDirection_Fn(rq_Motion_Direction_Enum.Right)
+                        //////jwc y quest_Dashboard.quest_Show_MotionDirection_Fn(quest_Motion_Direction_Enum.Right)
+                        //////jwc n this.quest_Show_MotionDirection_Fn(quest_Motion_Direction_Enum.Right)
+                        quest_Show_MotionDirection_Fn(quest_Motion_Direction_Enum.Right)
                         break  // out of these case statements
                 }
                 break  // out of these case statements
@@ -995,17 +995,17 @@ namespace quest_Hardware {
         }
 
         // diagnostics
-        quest_Dashboard.rq_Show_Oled_Cleared_Fn
-        quest_Dashboard.rq_Show_String_For_Oled_SmallFont_Fn(convertToText(motor_Power_L) + " " + convertToText(motor_Power_R) + " " + convertToText(turn_Duration), 0, 0)
+        quest_Dashboard.quest_Show_Oled_Cleared_Fn
+        quest_Dashboard.quest_Show_String_For_Oled_SmallFont_Fn(convertToText(motor_Power_L) + " " + convertToText(motor_Power_R) + " " + convertToText(turn_Duration), 0, 0)
 
         // turn
-        quest_Hardware.rq_Set_PowerMotorsViaBlueRedBlackPins_Fn(port_Ids_In, motor_Power_L, motor_Power_R)
+        quest_Hardware.quest_Set_PowerMotorsViaBlueRedBlackPins_Fn(port_Ids_In, motor_Power_L, motor_Power_R)
 
         // timer
-        quest_Timer.rq_Set_ContinueCurrentState_CountdownTimer_Fn(turn_Duration, rq_Time_Units_Enum.Milliseconds)
+        quest_Timer.quest_Set_ContinueCurrentState_CountdownTimer_Fn(turn_Duration, quest_Time_Units_Enum.Milliseconds)
 
         // stop
-        quest_Hardware.rq_Set_PowerMotorsViaBlueRedBlackPins_Fn(port_Ids_In, 0, 0)
+        quest_Hardware.quest_Set_PowerMotorsViaBlueRedBlackPins_Fn(port_Ids_In, 0, 0)
 
         // diagnostics
         basic.showIcon(IconNames.Heart)
