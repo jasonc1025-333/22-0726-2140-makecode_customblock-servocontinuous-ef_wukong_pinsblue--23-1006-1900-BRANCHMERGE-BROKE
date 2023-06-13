@@ -86,12 +86,19 @@ enum turn_Duration_Enum {
     //% block="5000 msec(5 sec)"
     msec_5000,
 }
-// 'Spin' as default since is more bi-directional (left and right capable)
+//////jwc y // 'Spin' as default since is more bi-directional (left and right capable)
+// 'Pivot' as default since is slower for more accurate turns
+//////jwc y enum turn_Type_Enum {
+//////jwc y     //% block="Pivot(One Wheel Rotates While Other Wheel Rotates_Not)"
+//////jwc y     Pivot,
+//////jwc y     //% block="Spin(Both Wheels Rotate in Opposite Directions)"
+//////jwc y     Spin,
+//////jwc y }
 enum turn_Type_Enum {
-    //% block="Spin(Both Wheels Rotate in Opposite Directions)"
-    Spin,
     //% block="Pivot(One Wheel Rotates While Other Wheel Rotates_Not)"
     Pivot,
+    //////jwc y //% block="Spin(Both Wheels Rotate in Opposite Directions)"
+    //////jwc y Spin,
 }
 enum turn_Direction_Enum {
     //% block="right"
@@ -147,11 +154,12 @@ let motor_Power_Hi_QuestGlobal = 100
 //
 // Teal #008080 rgb(0, 128, 128)
 // Green #008000 rgb(0, 128, 0)
+// Brown #7f3f00 rgb(127, 63, 0)
 //
 /**
  * quest_Dashboard blocks
  */
-//% weight=69 color=#008000 icon="Q"
+//% weight=69 color=#7f3f00 icon="Q"
 namespace quest_Dashboard {
     // OLED12864_I2C: Setup
     //
@@ -237,14 +245,253 @@ namespace quest_Dashboard {
             colorIntIn
         )
     }
+}
 
+//////jwc y //% weight=67 color=#ff7f00 icon="Q"
+//////jwc y //% weight=56 color=#7f7f00 icon="Q"
+//////jwc y brown: //% weight=67 color=#7f3f00 icon="Q"
+
+//
+// Orange #ff7f00 rgb(255, 127, 0)
+//
+/**
+ * quest_Timer blocks
+ */
+//% weight=67 color=#7f7f00 icon="Q"
+namespace quest_Timer {
     /**
-     * rq_Show_MotionDirection_Fn
-     * @param motionDirectionIn rq_Motion_Direction_Enum
+     * rq_Set_ContinueCurrentState_CountdownTimer_Fn
+     * @param countdownTimer number
+     * @param timeUnits rq_Time_Units_Enum
      */
-    //% block="show motion_direction: $motionDirectionIn"
-    //% weight=81 blockGap=8
-    export function rq_Show_MotionDirection_Fn(motionDirectionIn: rq_Motion_Direction_Enum): void {
+    //% block="set current state to continue for: $countdownTimer $timeUnits"
+    //% weight=70 blockGap=8
+    //// y countdownTimer.min=0 countdownTimer.max=5000
+    export function rq_Set_ContinueCurrentState_CountdownTimer_Fn(countdownTimer: number, timeUnits: rq_Time_Units_Enum): void {
+        let countdownTimerNew = 0
+        // Minimum border check
+        if (countdownTimer < 0) { countdownTimer = 0 }
+        if (timeUnits == rq_Time_Units_Enum.Seconds) {
+            countdownTimerNew = countdownTimer * 1000
+            basic.pause(countdownTimerNew)
+        } else if (timeUnits == rq_Time_Units_Enum.Milliseconds) {
+            countdownTimerNew = countdownTimer
+            basic.pause(countdownTimerNew)
+        }
+    }
+}
+
+//
+// color=#808080 = Gray: rgb(128, 128, 128)
+// color=#3f3f3f = Dark Gray: rgb(63, 63, 63)
+// ** to better differentiate vs. Silver Note
+// * Gray like a 'black/gray box' which needs more transparency
+//
+/**
+ * quest_Algorithm blocks
+ */
+//% weight=65 color=#3f3f3f icon="Q"
+namespace quest_Algorithm {
+    /**
+    * rq_Get_Number_WithColumnPadding_AsStringOut_Fn
+    * @param number_in number
+    * @param string_len_max_in number
+    * @param decimal_places_in number
+    */
+    //% block="get number with_column_padding as_string_out|number_in: $number_in|string_len_max_in: $string_len_max_in|decimal_places_in  $decimal_places_in"
+    //% weight=60 blockGap=8
+    //% inlineInputMode=external
+    export function rq_Get_Number_WithColumnPadding_AsStringOut_Fn(number_in: number, string_len_max_in: number, decimal_places_in: number = 0) {
+        let local_number_with_fixed_decimal_deci = Math.round(number_in * 10 ** decimal_places_in) / 10 ** decimal_places_in
+
+        let local_string_out = convertToText(local_number_with_fixed_decimal_deci)
+
+        let local_loop_count_max = string_len_max_in - local_string_out.length
+
+        for (let index = 0; index < local_loop_count_max; index++) {
+            local_string_out = " " + local_string_out
+        }
+        return local_string_out
+    }
+
+}
+
+
+//
+//
+// 1: Silver #C0C0C0 rgb(192, 192, 192)
+// 2: Lime #00FF00 rgb(0, 255, 0)
+// 3: Aqua #00FFFF rgb(0, 255, 255)
+// 4: Yellow #FFFF00 rgb(255, 255, 0)
+// 5: Red #FF0000 rgb(255,0,0)
+//
+//
+
+/**
+ * quest_Note_1 blocks
+ */
+//% weight=59 color=#C0C0C0 icon="Q"
+namespace quest_Note_1 {
+    /**
+     * rq_Show_String_For_Note_Small_Fn
+     * @param textStrIn string
+     */
+    //% block="note small: $textStrIn"
+    //% weight=80 blockGap=8
+    //% inlineInputMode=external
+    export function rq_Show_String_For_Note_Small_Fn(textStrIn: string) {
+    }
+    // * Add space in front of '|' such as ' |' creates reliable 1row spacing
+    /**
+     * rq_Show_String_For_Note_Big_Fn
+     * @param textStrIn string
+     */
+    //% block=" |note big: $textStrIn |"
+    //% weight=80 blockGap=8
+    //% inlineInputMode=external
+    export function rq_Show_String_For_Note_Big_Fn(textStrIn: string) {
+    }
+}
+
+/**
+ * quest_Note_2 blocks
+ */
+//% weight=58 color=#00FF00 icon="Q"
+namespace quest_Note_2 {
+    /**
+     * rq_Show_String_For_Note_Small_Fn
+     * @param textStrIn string
+     */
+    //% block="note small: $textStrIn"
+    //% weight=80 blockGap=8
+    //% inlineInputMode=external
+    export function rq_Show_String_For_Note_Small_Fn(textStrIn: string) {
+    }
+    // * Add space in front of '|' such as ' |' creates reliable 1row spacing
+    /**
+     * rq_Show_String_For_Note_Big_Fn
+     * @param textStrIn string
+     */
+    //% block=" |note big: $textStrIn |"
+    //% weight=80 blockGap=8
+    //% inlineInputMode=external
+    export function rq_Show_String_For_Note_Big_Fn(textStrIn: string) {
+    }
+}
+
+/**
+ * quest_Note_3 blocks
+ */
+//% weight=57 color=#00FFFF icon="Q"
+namespace quest_Note_3 {
+    /**
+     * rq_Show_String_For_Note_Small_Fn
+     * @param textStrIn string
+     */
+    //% block="note small: $textStrIn"
+    //% weight=80 blockGap=8
+    //% inlineInputMode=external
+    export function rq_Show_String_For_Note_Small_Fn(textStrIn: string) {
+    }
+    // * Add space in front of '|' such as ' |' creates reliable 1row spacing
+    /**
+     * rq_Show_String_For_Note_Big_Fn
+     * @param textStrIn string
+     */
+    //% block=" |note big: $textStrIn |"
+    //% weight=80 blockGap=8
+    //% inlineInputMode=external
+    export function rq_Show_String_For_Note_Big_Fn(textStrIn: string) {
+    }
+}
+
+//////jwc y //% weight=56 color=#FFFF00 icon="Q"
+//////jwc y //% weight=56 color=#7F7F00 icon="Q"
+
+/**
+ * quest_Note_4 blocks
+ */
+//% weight=56 color=#ffff00 icon="Q"
+namespace quest_Note_4 {
+    /**
+     * rq_Show_String_For_Note_Small_Fn
+     * @param textStrIn string
+     */
+    //% block="note small: $textStrIn"
+    //% weight=80 blockGap=8
+    //% inlineInputMode=external
+    export function rq_Show_String_For_Note_Small_Fn(textStrIn: string) {
+    }
+    // * Add space in front of '|' such as ' |' creates reliable 1row spacing
+    /**
+     * rq_Show_String_For_Note_Big_Fn
+     * @param textStrIn string
+     */
+    //% block=" |note big: $textStrIn |"
+    //% weight=80 blockGap=8
+    //% inlineInputMode=external
+    export function rq_Show_String_For_Note_Big_Fn(textStrIn: string) {
+    }
+}
+
+//////jwc y //% weight=55 color=#FF0000 icon="Q"
+
+/**
+ * quest_Note_5 blocks
+ */
+//% weight=55 color=#ff7f00 icon="Q"
+namespace quest_Note_5 {
+    /**
+     * rq_Show_String_For_Note_Small_Fn
+     * @param textStrIn string
+     */
+    //% block="note small: $textStrIn"
+    //% weight=80 blockGap=8
+    //% inlineInputMode=external
+    export function rq_Show_String_For_Note_Small_Fn(textStrIn: string) {
+    }
+    // * Add space in front of '|' such as ' |' creates reliable 1row spacing
+    /**
+     * rq_Show_String_For_Note_Big_Fn
+     * @param textStrIn string
+     */
+    //% block=" |note big: $textStrIn |"
+    //% weight=80 blockGap=8
+    //% inlineInputMode=external
+    export function rq_Show_String_For_Note_Big_Fn(textStrIn: string) {
+    }
+}
+
+
+// dark blue #0000ff TOO DARK, CANNOT SEE BLACK BOUNDARY LINES
+// light blue rgb(127, 190, 255) #7fbeff TOO LIGHT
+// less_light blue rgb(0, 127, 255) ##007fff to dark that matches other groups
+// rgb(127,127,255)  #7f7fff Good Purple to not drown out blue_borderlines
+
+// * not too dark since would cover thin-black-boundaries
+/**
+ * quest_Hardware blocks
+ */
+//% weight=51 color=#7f7fff icon="Q"
+namespace quest_Hardware {
+    /// //
+    /// // * Global Variables Q Constants
+    /// //
+    /// // * Default to Bot and not to Controller for most basic total 1 'micro:bit' setup (No Controller)
+    /// //
+    /// let deviceType_Bot_Bool_QuestGlobal = true
+    /// let deviceType_Controller_Bool_QuestGlobal = false
+    /// //
+    /// let _debug_Serial_Print_Bool_QuestGlobal = false
+
+    //////jwc y export function rq_Show_MotionDirection_Fn(motionDirectionIn: rq_Motion_Direction_Enum): void {
+    //////jwc no longer an external block: /**
+    //////jwc no longer an external block:  * rq_Show_MotionDirection_Fn
+    //////jwc no longer an external block:  * @param motionDirectionIn rq_Motion_Direction_Enum
+    //////jwc no longer an external block:  */
+    //////jwc no longer an external block: //% block="show motion_direction: $motionDirectionIn"
+    //////jwc no longer an external block: //% weight=81 blockGap=8
+    function rq_Show_MotionDirection_Fn(motionDirectionIn: rq_Motion_Direction_Enum): void {
         switch (motionDirectionIn) {
             // * if on 'bot', then 5x5LED is upside-down - so Yes_Flip graphics
             // * if on 'controller', then 5x5 is rightside-up - so No_Flip graphics
@@ -403,237 +650,6 @@ namespace quest_Dashboard {
                 break
         }
     }
-}
-
-
-//
-// Orange #ff7f00 rgb(255, 127, 0)
-//
-/**
- * quest_Timer blocks
- */
-//% weight=67 color=#ff7f00 icon="Q"
-namespace quest_Timer {
-    /**
-     * rq_Set_ContinueCurrentState_CountdownTimer_Fn
-     * @param countdownTimer number
-     * @param timeUnits rq_Time_Units_Enum
-     */
-    //% block="set current state to continue for: $countdownTimer $timeUnits"
-    //% weight=70 blockGap=8
-    //// y countdownTimer.min=0 countdownTimer.max=5000
-    export function rq_Set_ContinueCurrentState_CountdownTimer_Fn(countdownTimer: number, timeUnits: rq_Time_Units_Enum): void {
-        let countdownTimerNew = 0
-        // Minimum border check
-        if (countdownTimer < 0) { countdownTimer = 0 }
-        if (timeUnits == rq_Time_Units_Enum.Seconds) {
-            countdownTimerNew = countdownTimer * 1000
-            basic.pause(countdownTimerNew)
-        } else if (timeUnits == rq_Time_Units_Enum.Milliseconds) {
-            countdownTimerNew = countdownTimer
-            basic.pause(countdownTimerNew)
-        }
-    }
-}
-
-
-//
-// color=#808080 = Gray: rgb(128, 128, 128)
-// color=#3f3f3f = Dark Gray: rgb(63, 63, 63)
-// ** to better differentiate vs. Silver Note
-// * Gray like a 'black/gray box' which needs more transparency
-//
-/**
- * quest_Algorithm blocks
- */
-//% weight=65 color=#3f3f3f icon="Q"
-namespace quest_Algorithm {
-    /**
-    * rq_Get_Number_WithColumnPadding_AsStringOut_Fn
-    * @param number_in number
-    * @param string_len_max_in number
-    * @param decimal_places_in number
-    */
-    //% block="get number with_column_padding as_string_out|number_in: $number_in|string_len_max_in: $string_len_max_in|decimal_places_in  $decimal_places_in"
-    //% weight=60 blockGap=8
-    //% inlineInputMode=external
-    export function rq_Get_Number_WithColumnPadding_AsStringOut_Fn(number_in: number, string_len_max_in: number, decimal_places_in: number = 0) {
-        let local_number_with_fixed_decimal_deci = Math.round(number_in * 10 ** decimal_places_in) / 10 ** decimal_places_in
-
-        let local_string_out = convertToText(local_number_with_fixed_decimal_deci)
-
-        let local_loop_count_max = string_len_max_in - local_string_out.length
-
-        for (let index = 0; index < local_loop_count_max; index++) {
-            local_string_out = " " + local_string_out
-        }
-        return local_string_out
-    }
-
-}
-
-
-//
-//
-// 1: Silver #C0C0C0 rgb(192, 192, 192)
-// 2: Lime #00FF00 rgb(0, 255, 0)
-// 3: Aqua #00FFFF rgb(0, 255, 255)
-// 4: Yellow #FFFF00 rgb(255, 255, 0)
-// 5: Red #FF0000 rgb(255,0,0)
-//
-//
-
-/**
- * quest_Note_1 blocks
- */
-//% weight=59 color=#C0C0C0 icon="Q"
-namespace quest_Note_1 {
-    /**
-     * rq_Show_String_For_Note_Small_Fn
-     * @param textStrIn string
-     */
-    //% block="note small: $textStrIn"
-    //% weight=80 blockGap=8
-    //% inlineInputMode=external
-    export function rq_Show_String_For_Note_Small_Fn(textStrIn: string) {
-    }
-    // * Add space in front of '|' such as ' |' creates reliable 1row spacing
-    /**
-     * rq_Show_String_For_Note_Big_Fn
-     * @param textStrIn string
-     */
-    //% block=" |note big: $textStrIn |"
-    //% weight=80 blockGap=8
-    //% inlineInputMode=external
-    export function rq_Show_String_For_Note_Big_Fn(textStrIn: string) {
-    }
-}
-
-/**
- * quest_Note_2 blocks
- */
-//% weight=58 color=#00FF00 icon="Q"
-namespace quest_Note_2 {
-    /**
-     * rq_Show_String_For_Note_Small_Fn
-     * @param textStrIn string
-     */
-    //% block="note small: $textStrIn"
-    //% weight=80 blockGap=8
-    //% inlineInputMode=external
-    export function rq_Show_String_For_Note_Small_Fn(textStrIn: string) {
-    }
-    // * Add space in front of '|' such as ' |' creates reliable 1row spacing
-    /**
-     * rq_Show_String_For_Note_Big_Fn
-     * @param textStrIn string
-     */
-    //% block=" |note big: $textStrIn |"
-    //% weight=80 blockGap=8
-    //% inlineInputMode=external
-    export function rq_Show_String_For_Note_Big_Fn(textStrIn: string) {
-    }
-}
-
-/**
- * quest_Note_3 blocks
- */
-//% weight=57 color=#00FFFF icon="Q"
-namespace quest_Note_3 {
-    /**
-     * rq_Show_String_For_Note_Small_Fn
-     * @param textStrIn string
-     */
-    //% block="note small: $textStrIn"
-    //% weight=80 blockGap=8
-    //% inlineInputMode=external
-    export function rq_Show_String_For_Note_Small_Fn(textStrIn: string) {
-    }
-    // * Add space in front of '|' such as ' |' creates reliable 1row spacing
-    /**
-     * rq_Show_String_For_Note_Big_Fn
-     * @param textStrIn string
-     */
-    //% block=" |note big: $textStrIn |"
-    //% weight=80 blockGap=8
-    //% inlineInputMode=external
-    export function rq_Show_String_For_Note_Big_Fn(textStrIn: string) {
-    }
-}
-
-/**
- * quest_Note_4 blocks
- */
-//% weight=56 color=#FFFF00 icon="Q"
-namespace quest_Note_4 {
-    /**
-     * rq_Show_String_For_Note_Small_Fn
-     * @param textStrIn string
-     */
-    //% block="note small: $textStrIn"
-    //% weight=80 blockGap=8
-    //% inlineInputMode=external
-    export function rq_Show_String_For_Note_Small_Fn(textStrIn: string) {
-    }
-    // * Add space in front of '|' such as ' |' creates reliable 1row spacing
-    /**
-     * rq_Show_String_For_Note_Big_Fn
-     * @param textStrIn string
-     */
-    //% block=" |note big: $textStrIn |"
-    //% weight=80 blockGap=8
-    //% inlineInputMode=external
-    export function rq_Show_String_For_Note_Big_Fn(textStrIn: string) {
-    }
-}
-
-/**
- * quest_Note_4 blo5ks
- */
-//% weight=55 color=#FF0000 icon="Q"
-namespace quest_Note_5 {
-    /**
-     * rq_Show_String_For_Note_Small_Fn
-     * @param textStrIn string
-     */
-    //% block="note small: $textStrIn"
-    //% weight=80 blockGap=8
-    //% inlineInputMode=external
-    export function rq_Show_String_For_Note_Small_Fn(textStrIn: string) {
-    }
-    // * Add space in front of '|' such as ' |' creates reliable 1row spacing
-    /**
-     * rq_Show_String_For_Note_Big_Fn
-     * @param textStrIn string
-     */
-    //% block=" |note big: $textStrIn |"
-    //% weight=80 blockGap=8
-    //% inlineInputMode=external
-    export function rq_Show_String_For_Note_Big_Fn(textStrIn: string) {
-    }
-}
-
-
-// dark blue #0000ff TOO DARK, CANNOT SEE BLACK BOUNDARY LINES
-// light blue rgb(127, 190, 255) #7fbeff TOO LIGHT
-// less_light blue rgb(0, 127, 255) ##007fff to dark that matches other groups
-// rgb(127,127,255)  #7f7fff Good Purple to not drown out blue_borderlines
-
-// * not too dark since would cover thin-black-boundaries
-/**
- * quest_Hardware blocks
- */
-//% weight=51 color=#7f7fff icon="Q"
-namespace quest_Hardware {
-    /// //
-    /// // * Global Variables Q Constants
-    /// //
-    /// // * Default to Bot and not to Controller for most basic total 1 'micro:bit' setup (No Controller)
-    /// //
-    /// let deviceType_Bot_Bool_QuestGlobal = true
-    /// let deviceType_Controller_Bool_QuestGlobal = false
-    /// //
-    /// let _debug_Serial_Print_Bool_QuestGlobal = false
 
     /**
      * rq_Set_PowerMotorsViaBlueRedBlackPins_Fn
@@ -797,7 +813,7 @@ namespace quest_Hardware {
     //% block="set turn w/ timer:|* ports: $port_Ids_In|* turn_Type: $turn_Type_In|* turn_Direction: $turn_Direction_In|* turn_Power: $turn_Power_In|* turn_Duration: $turn_Duration_In"
     //% weight=60 blockGap=8
     //% inlineInputMode=external
-    export function rq_Set_Turn_WithTimer_Fn(port_Ids_In: rq_PortGroup_BlueRedBlack_PortIds_Enum, turn_Type_In: turn_Type_Enum, turn_Direction_In: turn_Direction_Enum, turn_Power_In: turn_Power_Enum, turn_Duration_In: turn_Duration_Enum): void {
+    export function rq_Set_Turn_WithTimer_Fn(port_Ids_In: rq_PortGroup_BlueRedBlack_PortIds_Enum, turn_Type_In: turn_Type_Enum=turn_Type_Enum.Pivot, turn_Direction_In: turn_Direction_Enum, turn_Power_In: turn_Power_Enum, turn_Duration_In: turn_Duration_Enum): void {
         
         basic.showIcon(IconNames.SmallHeart)
 
@@ -826,7 +842,9 @@ namespace quest_Hardware {
                                 motor_Power_R = motor_Power_Hi_QuestGlobal
                                 break  // out of these case statements
                         }
-                        quest_Dashboard.rq_Show_MotionDirection_Fn( rq_Motion_Direction_Enum.Left )
+                        //////jwc y quest_Dashboard.rq_Show_MotionDirection_Fn(rq_Motion_Direction_Enum.Left)
+                        //////jwc n this.rq_Show_MotionDirection_Fn(rq_Motion_Direction_Enum.Left)
+                        rq_Show_MotionDirection_Fn(rq_Motion_Direction_Enum.Left)
                         break  // out of these case statements
 
                     case turn_Direction_Enum.right:
@@ -845,12 +863,15 @@ namespace quest_Hardware {
                                 motor_Power_R = motor_Power_No_QuestGlobal
                                 break  // out of these case statements
                         }
-                        quest_Dashboard.rq_Show_MotionDirection_Fn(rq_Motion_Direction_Enum.Right)
+                        //////jwc y quest_Dashboard.rq_Show_MotionDirection_Fn(rq_Motion_Direction_Enum.Right)
+                        //////jwc n this.rq_Show_MotionDirection_Fn(rq_Motion_Direction_Enum.Right)
+                        rq_Show_MotionDirection_Fn(rq_Motion_Direction_Enum.Right)
                         break  // out of these case statements
                 }
                 break  // out of these case statements
 
-            case turn_Type_Enum.Spin: 
+            //////jwc y TODO case turn_Type_Enum.Spin:
+            case turn_Type_Enum.Pivot:
 
                 switch (turn_Direction_In) {
                     case turn_Direction_Enum.left:
@@ -869,7 +890,9 @@ namespace quest_Hardware {
                                 motor_Power_R = motor_Power_Hi_QuestGlobal
                                 break  // out of these case statements
                         }
-                        quest_Dashboard.rq_Show_MotionDirection_Fn(rq_Motion_Direction_Enum.Left)
+                        //////jwc y quest_Dashboard.rq_Show_MotionDirection_Fn(rq_Motion_Direction_Enum.Left)
+                        //////jwc n this.rq_Show_MotionDirection_Fn(rq_Motion_Direction_Enum.Left)
+                        rq_Show_MotionDirection_Fn(rq_Motion_Direction_Enum.Left)
                         break  // out of these case statements
 
                     case turn_Direction_Enum.right:
@@ -888,7 +911,9 @@ namespace quest_Hardware {
                                 motor_Power_R = motor_Power_Hi_QuestGlobal * (-1)
                                 break  // out of these case statements
                         }
-                        quest_Dashboard.rq_Show_MotionDirection_Fn(rq_Motion_Direction_Enum.Right)
+                        //////jwc y quest_Dashboard.rq_Show_MotionDirection_Fn(rq_Motion_Direction_Enum.Right)
+                        //////jwc n this.rq_Show_MotionDirection_Fn(rq_Motion_Direction_Enum.Right)
+                        rq_Show_MotionDirection_Fn(rq_Motion_Direction_Enum.Right)
                         break  // out of these case statements
                 }
                 break  // out of these case statements
