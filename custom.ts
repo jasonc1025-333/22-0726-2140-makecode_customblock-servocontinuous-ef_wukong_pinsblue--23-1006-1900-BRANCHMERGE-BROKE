@@ -128,14 +128,11 @@ enum turn_Power_Enum {
     Hi,
 }
 
-
 // * Though it seems that can define global vars here, but not advised 
 // ** since memory storage would be safer within 'namespace'
 //
 ///y let deviceType_Bot_Bool_QuestGlobal = false
 ///y let deviceType_Controller_Bool_QuestGlobal = true
-
-
 // * Go ahead and define here, since multiple 'namespaces'
 //
 // * Global Variables & Constants
@@ -154,7 +151,6 @@ let motor_Power_Lo_QuestGlobal = 30
 let motor_Power_Mi_QuestGlobal = 65
 let motor_Power_Hi_QuestGlobal = 100
 
-
 ///y //% weight=100 color=#0fbc11 icon=""
 ///y //% weight=100 color=#0000ff icon="\uf5b8"
 ///y //% weight=100 color=#0000ff icon="\uf005"
@@ -162,8 +158,6 @@ let motor_Power_Hi_QuestGlobal = 100
 ///n //% weight=99 color=#808080 icon=""
 ///y //% weight=99 color=#808080 icon="uf005"
 /// 91
-
-
 //
 // Teal #008080 rgb(0, 128, 128)
 // Green #008000 rgb(0, 128, 0)
@@ -266,7 +260,6 @@ namespace quest_Dashboard {
 //////jwc y //% weight=67 color=#ff7f00 icon="Q"
 //////jwc y //% weight=56 color=#7f7f00 icon="Q"
 //////jwc y brown: //% weight=67 color=#7f3f00 icon="Q"
-
 //
 // Orange #ff7f00 rgb(255, 127, 0)
 //
@@ -333,7 +326,6 @@ namespace quest_General {
     }
 
 }
-
 
 //
 //
@@ -431,7 +423,6 @@ namespace quest_Note_3 {
 
 //////jwc y //% weight=56 color=#FFFF00 icon="Q"
 //////jwc y //% weight=56 color=#7F7F00 icon="Q"
-
 /**
  * quest_Note_4 blocks
  */
@@ -461,7 +452,6 @@ namespace quest_Note_4 {
 }
 
 //////jwc y //% weight=55 color=#FF0000 icon="Q"
-
 /**
  * quest_Note_5 blocks
  */
@@ -491,18 +481,17 @@ namespace quest_Note_5 {
 }
 
 ////jwc y //% weight=51 color=#7f7fff icon="Q"
-
 // dark blue #0000ff TOO DARK, CANNOT SEE BLACK BOUNDARY LINES
 // light blue rgb(127, 190, 255) #7fbeff TOO LIGHT
 // less_light blue rgb(0, 127, 255) ##007fff to dark that matches other groups
 // rgb(127,127,255)  #7f7fff Good Purple to not drown out blue_borderlines
-
+// rgb(191,191,255)  #bfbfff Good Purple to not drown out blue_borderlines
 // * not too dark since would cover thin-black-boundaries
 /**
- * quest_Hardware blocks
+ * quest_Motors blocks
  */
 //% weight=69 color=#7f7fff icon="Q"
-namespace quest_Hardware {
+namespace quest_Motors {
     /// //
     /// // * Global Variables Q Constants
     /// //
@@ -723,7 +712,6 @@ namespace quest_Hardware {
         }
     }
 
-
     /**
      * quest_Set_PowerMotorsViaBlueRedBlackPins_WithTimer_Fn
      * @param portIdsIn quest_PortGroup_BlueRedBlack_PortIds_Enum
@@ -826,11 +814,10 @@ namespace quest_Hardware {
         quest_Timer.quest_Set_ContinueCurrentState_CountdownTimer_Fn(turn_Duration, quest_Time_Units_Enum.Milliseconds)
 
         // stop
-        quest_Hardware.quest_Set_PowerMotorsViaBlueRedBlackPins_Fn(portIdsIn, 0, 0)
+        quest_Motors.quest_Set_PowerMotorsViaBlueRedBlackPins_Fn(portIdsIn, 0, 0)
 
         // diagnostics
         basic.showIcon(IconNames.Heart)
-
     }
 
     /**
@@ -1004,19 +991,17 @@ namespace quest_Hardware {
         quest_Dashboard.quest_Show_String_For_Oled_SmallFont_Fn(convertToText(motor_Power_L) + " " + convertToText(motor_Power_R) + " " + convertToText(turn_Duration), 0, 0)
 
         // turn
-        quest_Hardware.quest_Set_PowerMotorsViaBlueRedBlackPins_Fn(port_Ids_In, motor_Power_L, motor_Power_R)
+        quest_Motors.quest_Set_PowerMotorsViaBlueRedBlackPins_Fn(port_Ids_In, motor_Power_L, motor_Power_R)
 
         // timer
         quest_Timer.quest_Set_ContinueCurrentState_CountdownTimer_Fn(turn_Duration, quest_Time_Units_Enum.Milliseconds)
 
         // stop
-        quest_Hardware.quest_Set_PowerMotorsViaBlueRedBlackPins_Fn(port_Ids_In, 0, 0)
+        quest_Motors.quest_Set_PowerMotorsViaBlueRedBlackPins_Fn(port_Ids_In, 0, 0)
 
         // diagnostics
         basic.showIcon(IconNames.Heart)
     }
-
-
 
     //////jwc 23-0612-2020 Obsolete since too complicated to change global_var of 'main.blocks': /**
     //////jwc 23-0612-2020 Obsolete since too complicated to change global_var of 'main.blocks':  * set_Settings_Fn
@@ -1038,4 +1023,54 @@ namespace quest_Hardware {
     //////jwc 23-0612-2020 Obsolete since too complicated to change global_var of 'main.blocks':         1
     //////jwc 23-0612-2020 Obsolete since too complicated to change global_var of 'main.blocks':     )
     //////jwc 23-0612-2020 Obsolete since too complicated to change global_var of 'main.blocks': }
+
 }
+
+// dark blue #0000ff TOO DARK, CANNOT SEE BLACK BOUNDARY LINES
+// light blue rgb(127, 190, 255) #7fbeff TOO LIGHT
+// less_light blue rgb(0, 127, 255) ##007fff to dark that matches other groups
+// rgb(127,127,255)  #7f7fff Good Purple to not drown out blue_borderlines
+// rgb(191,191,255)  #bfbfff Good Purple to not drown out blue_borderlines
+// * not too dark since would cover thin-black-boundaries
+/**
+ * quest_Sensors blocks
+ */
+//% weight=68 color=#bfbfff icon="Q"
+namespace quest_Sensors {
+    /// //
+    /// // * Global Variables Q Constants
+    /// //
+    /// // * Default to Bot and not to Controller for most basic total 1 'micro:bit' setup (No Controller)
+    /// //
+    /// let deviceType_Bot_Bool_QuestGlobal = true
+    /// let deviceType_Controller_Bool_QuestGlobal = false
+    /// //
+    /// let _debug_Serial_Print_Bool_QuestGlobal = false
+
+    /**
+     * quest_Show_Magnet_Sensor_Fn
+     * @param rawSensorReadMaxIn number, eg: 2000
+     */
+    // '\\' = escape character to deactivate following special character
+    //% block="show magnet\\_sensor\\_value:|* rawSensorReadMaxIn: $rawSensorReadMaxIn"
+    //% rawSensorReadMaxIn.min=0 rawSensorReadMaxIn.max=2000
+    //% weight=80 blockGap=8
+    //% inlineInputMode=external
+    export function quest_Show_Magnet_Sensor_Fn(rawSensorReadMaxIn: number=2000): void {
+        led.plotBarGraph(input.magneticForce(Dimension.Strength), rawSensorReadMaxIn)
+    }
+
+    /**
+     * quest_Show_Light_Sensor_Fn
+     * @param rawSensorReadMaxIn number, eg: 255
+     */
+    // '\\' = escape character to deactivate following special character
+    //% block="show light\\_sensor\\_value:|* rawSensorReadMaxIn: $rawSensorReadMaxIn"
+    //% rawSensorReadMaxIn.min=0 rawSensorReadMaxIn.max=255
+    //% weight=80 blockGap=8
+    //% inlineInputMode=external
+    export function quest_Show_Light_Sensor_Fn(rawSensorReadMaxIn: number=255): void {
+        led.plotBarGraph(input.lightLevel(), rawSensorReadMaxIn)
+    }
+}
+
