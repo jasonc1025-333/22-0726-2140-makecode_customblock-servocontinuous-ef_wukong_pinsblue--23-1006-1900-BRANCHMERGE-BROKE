@@ -456,18 +456,18 @@ namespace quest_Note_4 {
  * quest_Note_5 blocks
  */
 ///jwc n below Quest_Note_1 //% weight=55 color=#ff7f00 icon="Q"
-///jwc //% weight=51 color=#ff7f00 icon="Q"
-///jwc //% weight=51 below Note_4 color=#ff7f00 icon="Q"
+///jwc y //% weight=51 color=#ff7f00 icon="Q"
+///jwc y //% weight=51 below Note_4 color=#ff7f00 icon="Q"
 ///jwc //% weight=50 color=#ff7f00 icon="Q"
 ///jwc //% weight=50 color=#ff7f00 icon="Q"
 ///jwc //% weight=49 color=#ff7f00 icon="Q"
 ///jwc n same //% weight=45 color=#ff7f00 icon="Q"
 ///jwc n below 'wuKong' //% weight=40 color=#ff7f00 icon="Q"
 ///jwc below oled //% weight=20 c'olor=#ff7f00 icon="Q"
+///jwc //% weight=50.5 color=#ff7f00 icon="Q"
 // jwc 21,22,30,40,45,50, 50.5: below 'wuKong'
 // jwc 51 below 'Quest_Note_4'
-//% weight=50.5 color=#ff7f00 icon="Q"
-//% weight=9 color=#ff7f00 icon="Q"
+//% weight=51 color=#ff7f00 icon="Q"
 namespace quest_Note_5 {
     /**
      * quest_Show_String_For_Note_Small_Fn

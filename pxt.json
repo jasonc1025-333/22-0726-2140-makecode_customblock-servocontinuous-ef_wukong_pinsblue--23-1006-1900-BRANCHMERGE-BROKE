@@ -4,9 +4,9 @@
     "description": "",
     "dependencies": {
         "core": "*",
-        "wuKong": "github:elecfreaks/pxt-wukong#v1.4.9",
         "OLED12864_I2C": "github:makecode-extensions/oled12864_i2c#v1.5.0",
-        "radio": "*"
+        "radio": "*",
+        "wuKong": "github:eande-jasonc1025/pxt-wukong#v1.6.0"
     },
     "files": [
         "main.blocks",
