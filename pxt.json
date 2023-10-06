@@ -5,8 +5,8 @@
     "dependencies": {
         "core": "*",
         "radio": "*",
-        "wuKong": "github:eande-jasonc1025/pxt-wukong#v1.6.0",
-        "OLED12864_I2C--ForkedFrom_Makecode-Extensions": "github:eande-jasonc1025/OLED12864_I2C--ForkedFrom_Makecode-Extensions#v2.0.1"
+        "OLED12864_I2C--ForkedFrom_Makecode-Extensions": "github:eande-jasonc1025/OLED12864_I2C--ForkedFrom_Makecode-Extensions#v2.0.1",
+        "pxt-wuKong--ForkedFrom_Wukong": "github:eande-jasonc1025/pxt-wukong--ForkedFrom_Wukong#v2.0.0"
     },
     "files": [
         "main.blocks",
