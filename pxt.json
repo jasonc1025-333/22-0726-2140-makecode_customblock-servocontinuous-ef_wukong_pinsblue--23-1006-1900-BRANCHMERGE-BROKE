@@ -1,12 +1,12 @@
 {
-    "name": "22-0726-2140-makecode_customblock-servocontinuous-ef_wukong_pinsblue",
+    "name": "22-0726-2140-makecode_customblock-servocontinuous-ef_wukong_pinsblue#23-1004-1650-Branch--Test-QuestBlocksAsLastUsableCategories",
     "version": "6.0.0",
     "description": "",
     "dependencies": {
         "core": "*",
-        "wuKong": "github:elecfreaks/pxt-wukong#v1.4.9",
-        "OLED12864_I2C": "github:makecode-extensions/oled12864_i2c#v1.5.0",
-        "radio": "*"
+        "radio": "*",
+        "OLED12864_I2C--ForkedFrom_Makecode-Extensions": "github:eande-jasonc1025/OLED12864_I2C--ForkedFrom_Makecode-Extensions#v2.0.1",
+        "pxt-wuKong--ForkedFrom_Wukong": "github:eande-jasonc1025/pxt-wukong--ForkedFrom_Wukong#v2.0.0"
     },
     "files": [
         "main.blocks",
@@ -18,11 +18,11 @@
         "test.ts"
     ],
     "targetVersions": {
-        "target": "5.0.12",
+        "target": "6.0.18",
         "targetId": "microbit"
     },
     "supportedTargets": [
         "microbit"
     ],
-    "preferredEditor": "tsprj"
+    "preferredEditor": "blocksprj"
 }
